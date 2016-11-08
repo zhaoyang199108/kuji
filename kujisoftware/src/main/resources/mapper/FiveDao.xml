@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuji.dao.FiveDao">
+   <insert id="insertIntoFive" parameterType="com.kuji.entity.Five">
+           insert into five(five_content,error_number,exercise_id) 
+               values(#{fiveContent},#{errorNumber},#{exerciseId});
+   </insert>
+</mapper>

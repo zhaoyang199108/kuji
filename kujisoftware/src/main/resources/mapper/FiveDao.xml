@@ -3,8 +3,8 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuji.dao.FiveDao">
-   <insert id="insertIntoFive" parameterType="com.kuji.entity.Five">
-           insert into five(five_content,error_number,exercise_id) 
-               values(#{fiveContent},#{errorNumber},#{exerciseId});
-   </insert>
+	<insert id="insertIntoFive" parameterType="com.kuji.entity.Five">
+		insert into five(five_content,error_number,exercise_id,five_category,five_which_day,five_type,five_score)
+		values(#{fiveContent},#{errorNumber},#{exerciseId},#{category},#{whichDay},#{type},#{score});
+	</insert>
 </mapper>

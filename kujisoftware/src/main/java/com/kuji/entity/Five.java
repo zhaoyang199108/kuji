@@ -1,11 +1,48 @@
 package com.kuji.entity;
 
 import java.util.Date;
-
+	/**
+	 * 舒特尔表
+	 */
 public class Five {
+	
+	private  String type;//类型
+	private  String category;//所属类别
+	private String whichDay;//第几天
+	private String errorNumber;//错误次数
+	private String score;//分数
+	private long exerciseId;//题目id
 	private long fiveId;
-	private  String fiveContent;
-	private Date createTime;
+	private  String fiveContent;//内容
+	private Date createTime;//创建时间
+	
+	
+	
+	public String getScore() {
+		return score;
+	}
+	public void setScore(String score) {
+		this.score = score;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	public String getWhichDay() {
+		return whichDay;
+	}
+	public void setWhichDay(String whichDay) {
+		this.whichDay = whichDay;
+	}
 	public long getFiveId() {
 		return fiveId;
 	}
@@ -36,6 +73,5 @@ public class Five {
 	public void setExerciseId(long exerciseId) {
 		this.exerciseId = exerciseId;
 	}
-	private String errorNumber;
-	private long exerciseId;
+
 }

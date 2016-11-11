@@ -2,15 +2,15 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    <mapper namespace="com.kuji.dao.UserDao">
-    <select id="findUserByUserName" resultType="User" parameterType="String">
-    SELECT 
-    t.id,
-    t.user_name,
-    t.create_time,
-    t.password 
-    FROM `user` t
-    where t.user_name=#{userName};
-    </select>
-    
-    </mapper>
+<mapper namespace="com.kuji.dao.UserDao">
+	<select id="findUserByUserName" resultType="User" parameterType="String">
+		SELECT
+		t.id,
+		t.user_name,
+		t.create_time,
+		t.password
+		FROM `user` t
+		where t.user_name=#{userName};
+	</select>
+
+</mapper>

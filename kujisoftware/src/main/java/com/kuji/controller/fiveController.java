@@ -1,5 +1,6 @@
 package com.kuji.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,20 +35,40 @@ public class fiveController {
 	@ResponseBody
 	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response){
 		String  a = request.getParameter("a");
+		String  type = request.getParameter("type");//类型
+		String  category = request.getParameter("category");//所属类别
+		String  whichDay = request.getParameter("whichDay");//第几天
+		String  score = request.getParameter("score");//分数
+		try {
+			category = new String(category.getBytes("iso-8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		try {
+			type = new String(type.getBytes("iso-8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String errorNumber=request.getParameter("errorNumber");//错误次数
 		Five five = new Five();
-		five.setExerciseId(1);
 		five.setFiveContent(a);
-		five.setErrorNumber("5");
-		int count = fiveService.insertIntoFive(five);
+	    five.setType(type);//类型
+	    five.setCategory(category);//所属类别
+	    five.setWhichDay(whichDay);//第几天
+	    five.setErrorNumber(errorNumber);//错误次数
+	    five.setScore(score);//分数
+	    if("1".equals(five.getCategory())){//所属类别
+	    	five.setExerciseId(1000);//21天训练
+	    }else{
+	    	five.setExerciseId(1001);//90天
+	    }
+		int count = fiveService.insertIntoFive(five);//保存数据
 		Map<String,Object> resMap = new HashMap<String, Object>();
 		if(count>0){
 			resMap.put("code", 0);
 		}else{
 			resMap.put("code", 1);
 		}
-		
-		
-		
 		return resMap;
 	}
 }

@@ -37,8 +37,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			id="loginId" placeholder="请输入名称">
 	</div>
 	<div class="form-group">
-		<label for="name">密码</label> <input type="password"
+		<label for="name">密码</label> 
+		<input type="password"
 			class="form-control" id="psw" placeholder="密码">
+		<input hidden type="password"
+			class="form-control" id="upwd" >
 	</div>
 	<button type="submit" class="btn btn-default">提交</button>
 

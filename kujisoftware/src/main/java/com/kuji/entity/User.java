@@ -8,6 +8,8 @@ public class User {
 	private String userName;
 	private Date createTime;
 	private String password;
+    private String upwd;//账号密码
+    
 	public long getId() {
 		return id;
 	}
@@ -32,9 +34,19 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getUpwd() {
+		return upwd;
+	}
+	public void setUpwd(String upwd) {
+		this.upwd = upwd;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return super.toString();
 	}
+	
+	
 }

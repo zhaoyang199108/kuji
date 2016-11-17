@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kuji.entity.User;
 import com.kuji.service.UserService;
@@ -35,30 +36,37 @@ public class userController {
 		return "firstPage";
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(HttpServletRequest request,HttpServletResponse response,Model model) {
+	@ResponseBody
+	public Map<String,Object> login(HttpServletRequest request,HttpServletResponse response,Model model) {
 		HttpSession session = request.getSession();
+		Map<String,Object> resMap = new HashMap<String, Object>();
 		String loginId = request.getParameter("loginId");
 		String psw = request.getParameter("psw");
-		String upwd = request.getParameter("upwd");
+	//	String upwd = request.getParameter("upwd");
 		String newPwdMd5 = MD5Util.getStringMD5(psw);
-		Map<String,Object> map = new HashMap<String, Object>();
+//		Map<String,Object> map = new HashMap<String, Object>();
 		User user = userService.findUserByUserName(loginId);
-		session.setAttribute("user", user);
-		session.setAttribute("upwd", newPwdMd5);
-		System.out.print(newPwdMd5);
-//		if(user == null){
-//			map.put("code", "0");
-//			map.put("message", "没有当前用户");
-//			//model.addAllAttributes("data",map);
-//			return "../index";
-//		}
-		if(MD5Util.getStringMD5(user.getPassword()).equals(newPwdMd5)){
-			map.put("code", "0");
-			map.put("message", "登陆成功");
-			map.put("data", user);
-			return "firstPage";
+		if(user == null){
+			resMap.put("code", 1);
+			resMap.put("message", "登陆用户名不存在");
+			resMap.put("data", null);
+			return resMap;
 		}
-		return "";
+		session.setAttribute("user", user);
+//		session.setAttribute("upwd", newPwdMd5);
+		System.out.println(psw);
+		System.out.print(newPwdMd5);
+		if(user.getPassword().equals(newPwdMd5)){
+			resMap.put("code", "0");
+			resMap.put("message", "登陆成功");
+			resMap.put("data", user);
+			return resMap;
+		}else{
+			resMap.put("code", "1");
+			resMap.put("message", "密码不正确");
+			resMap.put("data", null);
+			return resMap;
+		}
 	}
 	
 	/**

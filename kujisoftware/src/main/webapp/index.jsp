@@ -24,7 +24,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					url:'http://localhost:8080/kujisoftware/user/login?loginId='+loginId+'&psw='+psw,
 					type:'GET',
 					success:function(data){
-						window.location.href = 'user/firstPage';
+						console.log(data)
+						if(data.code==0){
+							alert(data.message);
+							window.location.href = 'user/firstPage';
+						}else{
+							alert(data.message);
+						}
+							
+						
 					}
 				});  
 			  

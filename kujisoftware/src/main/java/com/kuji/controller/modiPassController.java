@@ -77,7 +77,7 @@ public class modiPassController {
 			resMap.put("message", "两次输入密码不一致");
 			return resMap;
 		}
-		System.out.println(user.getUpwd());
+//		System.out.println(user.getUpwd());
 		int count = userService.updatePwd(user, oldPwd, newPwd);
 		if(count>0){		
 			resMap.put("code", "0");

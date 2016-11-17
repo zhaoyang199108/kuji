@@ -8,7 +8,7 @@ public class User {
 	private String userName;
 	private Date createTime;
 	private String password;
-    private String upwd;//账号密码
+    //private String upwd;//账号密码
     
 	public long getId() {
 		return id;
@@ -35,12 +35,12 @@ public class User {
 		this.password = password;
 	}
 	
-	public String getUpwd() {
-		return upwd;
-	}
-	public void setUpwd(String upwd) {
-		this.upwd = upwd;
-	}
+//	public String getUpwd() {
+//		return upwd;
+//	}
+//	public void setUpwd(String upwd) {
+//		this.upwd = upwd;
+//	}
 	
 	@Override
 	public String toString() {

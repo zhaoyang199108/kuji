@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService{
 		User model = new User();
 //		model.setUpwd(newPwdMd5);
 		model.setId(userSession.getId());
-		model.setPassword(newPwd);
+		model.setPassword(newPwdMd5);
 		int count = userDao.updatePwd(model);
 //		System.out.println(count);
 		return count;

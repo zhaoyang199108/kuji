@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
 //		}
 		String newPwdMd5 = MD5Util.getStringMD5(newPwd);
 		User model = new User();
-		model.setUpwd(newPwdMd5);
+//		model.setUpwd(newPwdMd5);
 		model.setId(userSession.getId());
 		model.setPassword(newPwd);
 		int count = userDao.updatePwd(model);

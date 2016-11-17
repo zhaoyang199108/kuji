@@ -31,7 +31,7 @@ session.getAttribute("user");
 				}
 				if(data.code == '0'){
 					alert(data.message);
-					 window.location.href = 'http://localhost:8080/kujisoftware/firstPage';
+					 window.location.href = 'http://localhost:8080/kujisoftware/user/firstPage';
 				}
 				if(data.code == '2'){
 					alert(data.message);

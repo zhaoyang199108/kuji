@@ -15,13 +15,19 @@ public class LearnExplain {
 	private  String category;//所属类别
 	private long learnExplainId;
 	private String whichDay;//第几天
-//	private String imgPath;//图片路径
-	private String imgName;//图片名字
+	private String imgPath;//图片路径
+//	private String imgName;//图片名字
 	private String voicePath;//语音路径
-	private String voiceName;//语音名字
+//	private String voiceName;//语音名字
 	private String  number;//数量
 	private String score;//分数
 	
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
 	public String getScore() {
 		return score;
 	}
@@ -72,29 +78,13 @@ public class LearnExplain {
 	public void setWhichDay(String whichDay) {
 		this.whichDay = whichDay;
 	}
-//	public String getImgPath() {
-//		return imgPath;
-//	}
-//	public void setImgPath(String imgPath) {
-//		this.imgPath = imgPath;
-//	}
-	public String getImgName() {
-		return imgName;
-	}
-	public void setImgName(String imgName) {
-		this.imgName = imgName;
-	}
+
 	public String getVoicePath() {
 		return voicePath;
 	}
 	public void setVoicePath(String voicePath) {
 		this.voicePath = voicePath;
 	}
-	public String getVoiceName() {
-		return voiceName;
-	}
-	public void setVoiceName(String voiceName) {
-		this.voiceName = voiceName;
-	}
+
 	
 }

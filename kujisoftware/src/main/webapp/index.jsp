@@ -60,19 +60,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<button type="submit" class="btn btn-default">提交</button>
 		</div>
 	</div>
-	<script>
+<script>
+ 	
  	function upload(){
  		var upload = $("#ep_file").val();
  		console.log(upload);
- 		$("#form1").submit();
-/*  		$.ajax({
- 			url: "http://localhost:8080/kujisoftware/questionFive/upload",
- 			type:'GET',
- 			data: {upload:upload} ,
- 			success: function(data){
- 				
- 			}
- 		}); */
+ 		$("form").submit(function(e){
+ 			  alert("Submitted");
+ 			});
  	}
  	</script>
 </body>

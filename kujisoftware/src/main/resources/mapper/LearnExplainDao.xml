@@ -5,8 +5,8 @@
 <mapper namespace="com.kuji.dao.LearnExplainDao">
 	<insert id="insertIntoLearnExplain" parameterType="com.kuji.entity.LearnExplain">
 		insert into learnExplain(learnExplain_category,exercise_id,learnExplain_which_day,
-		learnExplain_type,learnExplain_imgName,
-		learnExplain_voiceName,learnExplain_score)
-		values(#{category},#{exerciseId},#{whichDay},#{type},#{imgName},#{voiceName},#{score});
+		learnExplain_type,learnExplain_imgPath,
+		learnExplain_voicePath,learnExplain_score)
+		values(#{category},#{exerciseId},#{whichDay},#{type},#{imgPath},#{voicePath},#{score});
 	</insert>
 </mapper>

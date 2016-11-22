@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+	<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <html>
 <link
 	href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css"
@@ -9,35 +13,37 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script
 	src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<script src="/kujisoftware/js/Path.js"></script>
 <script>
        
 		function loginOnclick(){
-			window.location.href = 'http://localhost:8080/kujisoftware';
+			window.location.href = path+'/kujisoftware';
 		}
 
 		function fiveOnclick(){
-			window.location.href = 'http://localhost:8080/kujisoftware/questionFive/five';
+			console.log(path)
+			window.location.href = path+'/kujisoftware/questionFive/five';
 		}
 		function memoryTrainOnclick(){
-			window.location.href = 'http://localhost:8080/kujisoftware/memoryTrain/memoryTrain';
+			window.location.href = path+'/kujisoftware/memoryTrain/memoryTrain';
 		}
 		function learnExplainOnclick(){
-			window.location.href = 'http://localhost:8080/kujisoftware/learnExplain/learnExplain';
+			window.location.href = path+'/kujisoftware/learnExplain/learnExplain';
 		}
 		function pictureMemoryOnclick(){
-			window.location.href = 'http://localhost:8080/kujisoftware/pictureMemory/pictureMemory';
+			window.location.href = path+'/kujisoftware/pictureMemory/pictureMemory';
 		}
 		function speedOnclick(){
-			window.location.href = 'http://localhost:8080/kujisoftware/speed/speed';
+			window.location.href = path+'/kujisoftware/speed/speed';
 		}
 		function mandaraOnclick(){
-// 			window.location.href = 'http://localhost:8080/kujisoftware/mandara/mandara';
+// 			window.location.href = 'http://192.168.0.103:8080/kujisoftware/mandara/mandara';
 		}
 		function musicUploadOnclick(){
-			window.location.href = 'http://localhost:8080/kujisoftware/musicUpload/musicUpload';
+			window.location.href = path+'/kujisoftware/musicUpload/musicUpload';
 		}
 		function modiPassOnclick(){
-			window.location.href = 'http://localhost:8080/kujisoftware/modiPass/modiPass';
+			window.location.href = path+'/kujisoftware/modiPass/modiPass';
 		}
 	</script>
 <body>

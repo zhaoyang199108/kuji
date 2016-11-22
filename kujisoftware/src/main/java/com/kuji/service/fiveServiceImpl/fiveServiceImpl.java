@@ -12,10 +12,14 @@ public class fiveServiceImpl implements FiveService {
 	public int insertIntoFive(Five five) {
 		int count = fiveDao.insertIntoFive(five);
 		if(count>0){
-			return 0;
-		}else{
 			return 1;
+		}else{
+			return 0;
 		}
+	}
+	public Five findFiveByDayAndTypeAndExerciseId(Five five) {
+		// TODO Auto-generated method stub
+		return fiveDao.findFiveByDayAndTypeAndExerciseId(five);
 	}
 
 }

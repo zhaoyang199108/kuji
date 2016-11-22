@@ -19,11 +19,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 		var whichDay = $('#whichDay').val();
 	 		var category = $('#category').val();
 	 		var errorNumber = $('#errorNumber').val();
-	 		var words = $('#words').val();
+	 		var words = $('#content').val();
 	 		var number = $('#number').val();
 	 		var score = $('#score').val();
 	 		$.ajax({
-	 			url: 'http://localhost:8080/kujisoftware/memoryTrain/saveOrUpdate',
+	 			url: 'http://192.168.0.103:8080/kujisoftware/memoryTrain/saveOrUpdate',
 	 			data:{'score':score,'type':type,'whichDay':whichDay,'category':category,'errorNumber':errorNumber,'words':words,'number':number},
 	 			type:'GET',
 	 			success : function(data){
@@ -31,6 +31,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 			}
 	 		});
 	 	}	
+		function saveToTextarea(){
+			var word = $('#word').val();
+		    var content = 	$('#content').val();
+		    console.log(content);
+			if(content==null||content==""){
+				$('#content').append(word);
+			}else{
+				$('#content').val(content+";"+word);
+			}
+				$('#myModal').modal('hide');
+				$('#word').val("");
+			}
+	function showDialog(){
+		$('#myModal').modal('show');
+	}
 	</script>
 <body>
 	<div id="container" class="container" style="margin-top: 10px;">
@@ -59,22 +74,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon" id="words">词语</span>
-					<div style="margin-bottom: 10px">
-						<table>
-							<tr>
-								<td style="width: 30px; hight: 60px"><input type="text"
-									style="width: 30px"></td>
-							</tr>
-						</table>
-					</div>
-					<div>
-						<table>
-							<tr>
-								<td style="width: 30px; hight: 60px"><input type="text"
-									style="width: 30px"></td>
-							</tr>
-						</table>
-					</div>
+					
+					<textarea 	 rows="3" style="width:200px;" id="content" name="content"></textarea> <span>(格式为1;2;3;4...分号为英文)</span>
+							<!-- 按钮触发模态框 -->
+					
+
 				</div>
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">数量</span> <input type="text"
@@ -97,6 +101,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</form>
 		</div>
+<button class="btn btn-primary btn-md"  onclick="showDialog()" style="display:block;position:relative;top:0px">
+					添加词语
+					</button>	
+						
+						<!-- 模态框（Modal） -->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+										&times;
+									</button>
+									<h4 class="modal-title" id="myModalLabel">
+										添加词语
+									</h4>
+								</div>
+								
+								<div class="modal-body">
+								请输入词语：<input type = "text" id="word">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+									</button>
+									<button type="button" class="btn btn-primary" onclick="saveToTextarea()">
+										提交更改
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal -->
+					</div>
 	</div>
+	
 </body>
 </html>

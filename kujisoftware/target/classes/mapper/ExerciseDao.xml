@@ -9,8 +9,7 @@
 		t.exercise_id,
 		t.create_time,
 		t.exercise_name
-		FROM
-		`exercise_type` t;
+		FROM `exercise_type` t;
 	</select>
 
 </mapper>

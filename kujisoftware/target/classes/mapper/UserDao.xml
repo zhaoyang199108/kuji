@@ -10,8 +10,15 @@
 		t.create_time,
 		t.password
 		FROM `user` t
-		where
-		t.user_name=#{userName};
+		where t.user_name=#{userName};
 	</select>
+	<update id="updatePwd" parameterType="com.kuji.entity.User">
+	UPDATE
+	user t
+	set t.password=#{password}
+	where 
+	t.id=#{id}
+	</update>
+
 
 </mapper>

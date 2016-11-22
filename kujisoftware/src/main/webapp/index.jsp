@@ -1,33 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%
+
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <html>
-<link
-	href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css"
-	rel="stylesheet">
+	<link href="<%=basePath %>/css/bootstrap.min.css" rel="stylesheet">
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="<%=basePath %>/js/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script
-	src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="<%=basePath %>/js/jquery-1.9.1.min.js"></script>
+	<script src="<%=basePath %>/js/Path.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-
+		console.log(path);
 		
 		  $("button").click(function(){
 				var loginId = $("#loginId").val();
 				var psw = $("#psw").val();
 				   $.ajax({
-					url:'http://localhost:8080/kujisoftware/user/login?loginId='+loginId+'&psw='+psw,
+					url:path+'/kujisoftware/user/login?loginId='+loginId+'&psw='+psw,
 					type:'GET',
 					success:function(data){
 						console.log(data)
 						if(data.code==0){
 							alert(data.message);
-							window.location.href = 'user/firstPage';
+							window.location.href = path+'/kujisoftware/user/firstPage';
 						}else{
 							alert(data.message);
 						}
@@ -44,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<!-- background:url(img/beijing.jpg) no-repeat 10px center -->
 	<div id="container" class="container"
-		style="margin-top: 10px; height: 600px; background: url(img/1.png) no-repeat center">
+		style="margin-top: 10px; height: 600px; ">
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">

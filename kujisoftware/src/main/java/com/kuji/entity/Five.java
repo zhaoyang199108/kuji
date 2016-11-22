@@ -7,7 +7,6 @@ import java.util.Date;
 public class Five {
 	
 	private  String type;//类型
-	private  String category;//所属类别
 	private String whichDay;//第几天
 	private String errorNumber;//错误次数
 	private String score;//分数
@@ -29,12 +28,6 @@ public class Five {
 	}
 	public void setType(String type) {
 		this.type = type;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
 	}
 	
 	public String getWhichDay() {

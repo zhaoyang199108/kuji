@@ -13,19 +13,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-   $(document).ready(function() {
-		  $("form").submit(function(e){
-			  console.log(e);
-			  });
-	})
-	</script>
+
+	 
+</script>
 <body>
 			<div id="container" class="container" style="margin-top: 10px;">
 				<%-- <%@ include file="common/nav.jsp"%> --%>
 				<jsp:include page="common/nav.jsp" />
 			<div class="col-md-9">
 			<div class="col-md-8">
-			<form role="form" method="POST"  enctype="multipart/form-data"  id="form"  action="http://localhost:8080/kujisoftware/musicUpload/saveOrUpdate" >
+			<form role="form" method="POST"  enctype="multipart/form-data"  id="form1" action="http://localhost:8080/kujisoftware/musicUpload/saveOrUpdate" >
 				<div class="input-group" >
 				  <span class="input-group-addon">类别</span>
 				  <input type="text" class="form-control" placeholder="背景音乐"  id="type" value="背景音乐"  name="type" readonly="readonly">
@@ -36,10 +33,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="input-group" style="margin-top:10px">
 				 <span class="input-group-addon">音乐</span>
-				 <input type="file" style="width:170px"  name="music_file"  id="music_file" accept="audio/mp3"/>
+				 <input type="file" style="width:170px"  name="music_file"  id="music_file" accept="audio/mp3"/>(*注：请上传6M以下的图片)
 				</div>
 				<div style="margin-top:10px" align="center">
-				<button type="submit"  class="btn  btn-primary" name="submit">提交</button>
+				<button type="submit"   class="btn  btn-primary" name="submit">提交</button>
 				</div>
 			</form>
 		    </div>

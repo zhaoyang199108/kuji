@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%
-request.setCharacterEncoding("UTF-8");
-%>
 <html>
 <link
 	href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css"
@@ -86,6 +83,15 @@ request.setCharacterEncoding("UTF-8");
 	 			}
 	 		});
 	 	}	
+	function test(){
+		$.ajax({
+			url:'http://localhost:8080/kujisoftware/questionFive/test?text='+'啊',
+			type:'POST',
+			success:function(data){
+				console.log(data);
+			}
+		});
+	}
 	</script>
 <body>
 	<div id="container" class="container" style="margin-top: 10px;">
@@ -257,6 +263,10 @@ request.setCharacterEncoding("UTF-8");
 			</div>
 			
 		</div>
+	</div>
+	
+	<div id="text" style="width:100px;height:100px;background:#CCC" onclick="test()">
+	
 	</div>
 </body>
 </html>

@@ -33,7 +33,8 @@ public class fiveController {
 	}
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response){
+	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("UTF-8");
 		String  id = request.getParameter("id");
 		String  a = request.getParameter("a");
 		String  b = request.getParameter("b");
@@ -107,5 +108,24 @@ public class fiveController {
 			resMap.put("message", "保存失败");
 		}
 		return resMap;
+	}
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> test(HttpServletRequest request,HttpServletResponse response){
+		 Map<String,Object>  map = new HashMap<String, Object>();
+		 try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 System.out.println(request.getCharacterEncoding());
+
+		 String text = request.getParameter("text");
+		 System.out.println(text);
+		 map.put("text", text);
+		 return map;
+		
+	
 	}
 }

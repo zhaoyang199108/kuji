@@ -22,7 +22,7 @@
 	<mvc:default-servlet-handler />
 		<!-- 设置multipartResolver才能完成文件上传 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="1024000000"></beans:property>
+		<beans:property name="maxUploadSize" value="2024000000"></beans:property>
 	</beans:bean>
 	
 	<!-- 3：配置jsp 显示ViewResolver -->

@@ -4,7 +4,16 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuji.dao.MusicUploadDao">
 	<insert id="insertIntoMusicUpload" parameterType="com.kuji.entity.MusicUpload">
-		insert into musicUpload(musicUpload_type,musicUpload_playOrder,musicUpload_music)
-		values(#{type},#{playOrder},#{music});
+		insert into musicUpload(musicUpload_type,musicUpload_playOrder,musicUpload_music,musicUpload_name)
+		values(#{musicUploadType},#{musicUploadPlayOrder},#{musicUploadMusic},#{musicUploadName});
 	</insert>
+	<select id="findAllMusic" resultType="com.kuji.entity.MusicUpload">
+		select 
+		t.musicUpload_id,
+		t.musicUpload_type,
+		t.musicUpload_playOrder,
+		t.musicUpload_music,
+		t.musicUpload_name
+		from musicUpload t
+	</select>
 </mapper>

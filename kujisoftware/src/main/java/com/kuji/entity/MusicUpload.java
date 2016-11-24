@@ -6,27 +6,42 @@ package com.kuji.entity;
  *
  */
 public class MusicUpload {
-
-	private  String type;//类型
-	private  String playOrder;//播放顺序
-	private  String music;//音乐
-	public String getType() {
-		return type;
+	private  String musicUploadId;
+	public String getMusicUploadId() {
+		return musicUploadId;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setMusicUploadId(String musicUploadId) {
+		this.musicUploadId = musicUploadId;
 	}
-	public String getPlayOrder() {
-		return playOrder;
+	public String getMusicUploadType() {
+		return musicUploadType;
 	}
-	public void setPlayOrder(String playOrder) {
-		this.playOrder = playOrder;
+	public void setMusicUploadType(String musicUploadType) {
+		this.musicUploadType = musicUploadType;
 	}
-	public String getMusic() {
-		return music;
+	public String getMusicUploadPlayOrder() {
+		return musicUploadPlayOrder;
 	}
-	public void setMusic(String music) {
-		this.music = music;
+	public void setMusicUploadPlayOrder(String musicUploadPlayOrder) {
+		this.musicUploadPlayOrder = musicUploadPlayOrder;
+	}
+	public String getMusicUploadMusic() {
+		return musicUploadMusic;
+	}
+	public void setMusicUploadMusic(String musicUploadMusic) {
+		this.musicUploadMusic = musicUploadMusic;
+	}
+	private  String musicUploadType;//类型
+	private  String musicUploadPlayOrder;//播放顺序
+	private  String musicUploadMusic;//音乐
+	private String musicUploadName;
+	public String getMusicUploadName() {
+		return musicUploadName;
+	}
+	public void setMusicUploadName(String musicUploadName) {
+		this.musicUploadName = musicUploadName;
 	}
 	
+	
+
 }

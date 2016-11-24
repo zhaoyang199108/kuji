@@ -1,5 +1,7 @@
 package com.kuji.service.MusicUploadServiceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,16 @@ public class MusicUploadServiceImpl implements MusicUploadService{
 	public int insertIntoMusicUpload(MusicUpload musicUpload) {
 		int count = musicUploadDao.insertIntoMusicUpload(musicUpload);
 		if(count>0){
-			return 0;
-		}else{
 			return 1;
+		}else{
+			return 0;
 		}
+	}
+
+	public List<MusicUpload> findAllMusic() {
+		// TODO Auto-generated method stub
+		List<MusicUpload> list = musicUploadDao.findAllMusic();
+		return list;
 	}
 	
 }

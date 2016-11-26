@@ -8,4 +8,6 @@ public interface MusicUploadService {
 
 	int   insertIntoMusicUpload(MusicUpload musicUpload);//添加
 	List<MusicUpload> findAllMusic();
+	List<MusicUpload> findMusicByName(String fileName);
+	MusicUpload finMusicById(long id);
 }

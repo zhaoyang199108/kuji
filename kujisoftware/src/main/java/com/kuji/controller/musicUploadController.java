@@ -1,13 +1,18 @@
 package com.kuji.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +60,12 @@ public class musicUploadController {
 		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
         //  获得第1张图片（根据前台的name名称得到上传的文件）   
         MultipartFile imgFile1  =  multipartRequest.getFile("music_file");//音乐
+       String musicName =  imgFile1.getOriginalFilename();
+       try {
+    	   musicName = new String(musicName.getBytes("iso-8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		byte[] b = new byte[1024*1024];
         try {
 			InputStream is = imgFile1.getInputStream();
@@ -64,7 +75,7 @@ public class musicUploadController {
 			  if (!fileDir.exists()) {
 				  fileDir.mkdir();
 			  }
-			FileOutputStream fos = new FileOutputStream(path+imgFile1.getOriginalFilename());
+			FileOutputStream fos = new FileOutputStream(path+musicName);
 
 			while((is.read(b)) != -1){
 			fos.write(b);
@@ -79,7 +90,7 @@ public class musicUploadController {
 		}
 		String  type = request.getParameter("type");//类型
 		String  playOrder = request.getParameter("playOrder");//播放顺序
-		String  musicPath = path+imgFile1.getOriginalFilename();//音乐
+		String  musicPath = path+musicName;//音乐
 		try {
 			type = new String(type.getBytes("iso-8859-1"),"utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -94,7 +105,7 @@ public class musicUploadController {
 		musicUpload.setMusicUploadMusic(musicPath);//音乐路径
 		musicUpload.setMusicUploadPlayOrder(playOrder);//播放顺序
 		musicUpload.setMusicUploadType(type);//类型
-		musicUpload.setMusicUploadName(imgFile1.getOriginalFilename());
+		musicUpload.setMusicUploadName(musicName);
 		int count = musicUploadService.insertIntoMusicUpload(musicUpload);//保存数据
 		Map<String,Object> resMap = new HashMap<String, Object>();
 		if(count>0){
@@ -142,10 +153,35 @@ public class musicUploadController {
 	}
 	
 	@RequestMapping(value = "/downloadMusic", method = RequestMethod.GET)
-	@ResponseBody
-	public String downloadMusic(HttpServletRequest request,HttpServletResponse response){
+	public String  downloadMusic(HttpServletRequest request,HttpServletResponse response){
 		
-		return "";
+		String id = request.getParameter("id");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("multipart/form-data");
+		if(id==null || "".equals(id)){
+			return "";
+		}
+		MusicUpload mu = musicUploadService.finMusicById(Long.parseLong(id));
+		 try {
+			InputStream fis = new BufferedInputStream(new FileInputStream(path+"/"+mu.getMusicUploadName()));
+			byte[] buffer = new byte[fis.available()];
+	        fis.read(buffer);
+	        fis.close();
+			response.reset();
+			response.setHeader("Content-Disposition", "attachment;filename="+mu.getMusicUploadName());
+	        OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+            response.setContentType("application/octet-stream");
+            toClient.write(buffer);
+            toClient.flush();
+            toClient.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

@@ -16,4 +16,27 @@
 		t.musicUpload_name
 		from musicUpload t
 	</select>
+	<select id="findMusicByName" resultType="com.kuji.entity.MusicUpload" parameterType="String">
+	select 
+		t.musicUpload_id,
+		t.musicUpload_type,
+		t.musicUpload_playOrder,
+		t.musicUpload_music,
+		t.musicUpload_name
+		from musicUpload t 
+		where 
+		
+		t.musicUpload_name like CONCAT('%',#{filename},'%')
+	</select>
+	<select id="finMusicById"  resultType="com.kuji.entity.MusicUpload" parameterType="long">
+		select 
+		t.musicUpload_id,
+		t.musicUpload_type,
+		t.musicUpload_playOrder,
+		t.musicUpload_music,
+		t.musicUpload_name
+		from musicUpload t 
+		where 
+		t.musicUpload_id = #{id}
+	</select>
 </mapper>

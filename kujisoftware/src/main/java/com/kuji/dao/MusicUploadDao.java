@@ -8,4 +8,6 @@ public interface MusicUploadDao {
 
 	int insertIntoMusicUpload(MusicUpload musicUpload);
 	List<MusicUpload> findAllMusic();
+	List<MusicUpload> findMusicByName(String filename);
+	MusicUpload finMusicById(long id);
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.kuji.dao.HelpDao">
+	<select id="findHelpByExerciseId" resultType="com.kuji.entity.Help"
+		parameterType="long">
+		SELECT
+		t.help_id,
+		t.help_content,
+		t.create_time,
+		t.exercise_id
+		FROM `help` t
+		where t.exercise_id=#{exerciseId};
+	</select>
+	<insert id="insertIntoHelp"  parameterType="com.kuji.entity.Help" >
+		insert into help(help_content,exercise_id)
+		values(#{helpContent},#{exerciseId});
+
+	</insert>
+	<select id="findAll" resultType="com.kuji.entity.Help">
+		SELECT
+		t.help_id,
+		t.help_content,
+		t.create_time,
+		t.exercise_id
+		FROM `help` t;
+
+	</select>
+	<select id="findHelpById" resultType="com.kuji.entity.Help"
+		parameterType="long">
+		SELECT
+		t.help_id,
+		t.help_content,
+		t.create_time,
+		t.exercise_id
+		FROM `help` t
+		where t.help_id=#{id};
+	</select>
+	<delete id="deleteHelpById" parameterType="long" >
+		Delete
+		FROM 
+	 	`help` 
+	 	where 
+	 	help_id = #{id};
+	</delete>
+	<update id="updateHelp"  parameterType="com.kuji.entity.Help">
+	Update 
+	help t 
+	set 
+	t.help_content=#{helpContent},
+	t.exercise_id = #{exerciseId}
+	where 
+	t.help_id = #{helpId};
+	</update>
+</mapper>

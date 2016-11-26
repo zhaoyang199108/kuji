@@ -45,6 +45,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function modiPassOnclick(){
 			window.location.href = path+'/kujisoftware/modiPass/modiPass';
 		}
+		function helpOnclick(){
+			window.location.href = path+'/kujisoftware/help/help';
+		}
 	</script>
 <body>
 
@@ -144,6 +147,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="btn-group-vertical" style="width: 200px;">
 							<button type="button" class="btn btn-default"
 								style="margin-top: 10px;" onclick="musicUploadOnclick()">音乐上传</button>
+								<button type="button" class="btn btn-default"
+								style="margin-top: 10px;" onclick="helpOnclick()">帮助说明</button>
 						</div>
 					</div>
 				</div>

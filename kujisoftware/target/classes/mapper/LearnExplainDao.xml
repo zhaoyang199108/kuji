@@ -4,9 +4,44 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuji.dao.LearnExplainDao">
 	<insert id="insertIntoLearnExplain" parameterType="com.kuji.entity.LearnExplain">
-		insert into learnExplain(learnExplain_category,exercise_id,learnExplain_which_day,
+		insert into learnExplain(exercise_id,learnExplain_which_day,
 		learnExplain_type,learnExplain_imgPath,
 		learnExplain_voicePath,learnExplain_score)
-		values(#{category},#{exerciseId},#{whichDay},#{type},#{imgPath},#{voicePath},#{score});
+		values(#{exerciseId},#{learnExplainWhichDay},#{learnExplainType},#{learnExplainImgPath},#{learnExplainVoicePath},#{learnExplainScore});
 	</insert>
+	<select id="query" resultType="int">
+        select count(1)  from learnExplain where  exercise_id=#{exerciseId} and learnExplain_type=#{learnExplainType} and learnExplain_which_day=#{learnExplainWhichDay};
+    </select>
+	<select id="findAll" resultType="com.kuji.entity.LearnExplain">
+	select 
+	t.learnExplain_id,
+	t.learnExplain_which_day,
+	t.learnExplain_type,
+	t.learnExplain_score,
+	t.learnExplain_imgPath,
+	t.learnExplain_voicePath,
+	t.create_time,
+	t.exercise_id
+	from learnExplain t;
+	</select>
+	<select id="findHelpById" resultType="com.kuji.entity.LearnExplain" parameterType="long">
+	select 
+	t.learnExplain_id,
+	t.learnExplain_which_day,
+	t.learnExplain_type,
+	t.learnExplain_score,
+	t.learnExplain_imgPath,
+	t.learnExplain_voicePath,
+	t.create_time,
+	t.exercise_id
+	from learnExplain t
+	where t.learnExplain_id=#{id};
+	</select>
+	<delete id="deleteHelpById"  parameterType="long">
+	delete 
+	from 
+	learnExplain
+	where 
+	learnExplain_id=#{id};
+	</delete>
 </mapper>

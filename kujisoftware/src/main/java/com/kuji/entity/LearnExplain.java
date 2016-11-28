@@ -10,36 +10,14 @@ import java.util.Date;
 public class LearnExplain {
 
 	private Date createTime;//创建时间
-	private long exerciseId;//题目id
-	private  String type;//类型
-	private  String category;//所属类别
+	private long exerciseId;//类别
+	private  String learnExplainType;//类型
 	private long learnExplainId;
-	private String whichDay;//第几天
-	private String imgPath;//图片路径
-//	private String imgName;//图片名字
-	private String voicePath;//语音路径
-//	private String voiceName;//语音名字
-	private String  number;//数量
-	private String score;//分数
-	
-	public String getImgPath() {
-		return imgPath;
-	}
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
-	public String getScore() {
-		return score;
-	}
-	public void setScore(String score) {
-		this.score = score;
-	}
-	public String getNumber() {
-		return number;
-	}
-	public void setNumber(String number) {
-		this.number = number;
-	}
+	private String learnExplainWhichDay;//第几天
+	private String learnExplainImgPath;//图片路径
+	private String learnExplainVoicePath;//语音路径
+	private String  learnExplainNumber;//数量
+	private String learnExplainScore;//分数
 	
 	public Date getCreateTime() {
 		return createTime;
@@ -53,17 +31,11 @@ public class LearnExplain {
 	public void setExerciseId(long exerciseId) {
 		this.exerciseId = exerciseId;
 	}
-	public String getType() {
-		return type;
+	public String getLearnExplainType() {
+		return learnExplainType;
 	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setLearnExplainType(String learnExplainType) {
+		this.learnExplainType = learnExplainType;
 	}
 	public long getLearnExplainId() {
 		return learnExplainId;
@@ -71,20 +43,35 @@ public class LearnExplain {
 	public void setLearnExplainId(long learnExplainId) {
 		this.learnExplainId = learnExplainId;
 	}
-	
-	public String getWhichDay() {
-		return whichDay;
+	public String getLearnExplainWhichDay() {
+		return learnExplainWhichDay;
 	}
-	public void setWhichDay(String whichDay) {
-		this.whichDay = whichDay;
+	public void setLearnExplainWhichDay(String learnExplainWhichDay) {
+		this.learnExplainWhichDay = learnExplainWhichDay;
 	}
-
-	public String getVoicePath() {
-		return voicePath;
+	public String getLearnExplainImgPath() {
+		return learnExplainImgPath;
 	}
-	public void setVoicePath(String voicePath) {
-		this.voicePath = voicePath;
+	public void setLearnExplainImgPath(String learnExplainImgPath) {
+		this.learnExplainImgPath = learnExplainImgPath;
 	}
-
+	public String getLearnExplainVoicePath() {
+		return learnExplainVoicePath;
+	}
+	public void setLearnExplainVoicePath(String learnExplainVoicePath) {
+		this.learnExplainVoicePath = learnExplainVoicePath;
+	}
+	public String getLearnExplainNumber() {
+		return learnExplainNumber;
+	}
+	public void setLearnExplainNumber(String learnExplainNumber) {
+		this.learnExplainNumber = learnExplainNumber;
+	}
+	public String getLearnExplainScore() {
+		return learnExplainScore;
+	}
+	public void setLearnExplainScore(String learnExplainScore) {
+		this.learnExplainScore = learnExplainScore;
+	}
 	
 }

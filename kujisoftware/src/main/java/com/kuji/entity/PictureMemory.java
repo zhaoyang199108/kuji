@@ -11,21 +11,14 @@ public class PictureMemory {
 	private Date createTime;//创建时间
 	private long exerciseId;//题目id
 	private long pictureMemoryId;
-	private  String type;//类型
-	private  String category;//所属类别
-	private String errorNumber;//错误次数
-	private String whichDay;//第几天
-	private String imgName;//图片名字
-	private String  number;//数量
-	private String score;//分数
+	private  String pictureMemoryType;//类型
+	private  String pictureMemoryCategory;//所属类别
+	private String pictureMemoryErrorNumber;//错误次数
+	private String pictureMemoryWhichDay;//第几天
+	private String pictureMemoryImgName;//图片名字
+	private String  pictureMemoryNumber;//数量
+	private String pictureMemoryScore;//分数
 	
-	
-	public String getScore() {
-		return score;
-	}
-	public void setScore(String score) {
-		this.score = score;
-	}
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -44,41 +37,47 @@ public class PictureMemory {
 	public void setPictureMemoryId(long pictureMemoryId) {
 		this.pictureMemoryId = pictureMemoryId;
 	}
-	public String getType() {
-		return type;
+	public String getPictureMemoryType() {
+		return pictureMemoryType;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setPictureMemoryType(String pictureMemoryType) {
+		this.pictureMemoryType = pictureMemoryType;
 	}
-	public String getCategory() {
-		return category;
+	public String getPictureMemoryCategory() {
+		return pictureMemoryCategory;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setPictureMemoryCategory(String pictureMemoryCategory) {
+		this.pictureMemoryCategory = pictureMemoryCategory;
 	}
-	public String getErrorNumber() {
-		return errorNumber;
+	public String getPictureMemoryErrorNumber() {
+		return pictureMemoryErrorNumber;
 	}
-	public void setErrorNumber(String errorNumber) {
-		this.errorNumber = errorNumber;
+	public void setPictureMemoryErrorNumber(String pictureMemoryErrorNumber) {
+		this.pictureMemoryErrorNumber = pictureMemoryErrorNumber;
 	}
-	public String getWhichDay() {
-		return whichDay;
+	public String getPictureMemoryWhichDay() {
+		return pictureMemoryWhichDay;
 	}
-	public void setWhichDay(String whichDay) {
-		this.whichDay = whichDay;
+	public void setPictureMemoryWhichDay(String pictureMemoryWhichDay) {
+		this.pictureMemoryWhichDay = pictureMemoryWhichDay;
 	}
-	public String getImgName() {
-		return imgName;
+	public String getPictureMemoryImgName() {
+		return pictureMemoryImgName;
 	}
-	public void setImgName(String imgName) {
-		this.imgName = imgName;
+	public void setPictureMemoryImgName(String pictureMemoryImgName) {
+		this.pictureMemoryImgName = pictureMemoryImgName;
 	}
-	public String getNumber() {
-		return number;
+	public String getPictureMemoryNumber() {
+		return pictureMemoryNumber;
 	}
-	public void setNumber(String number) {
-		this.number = number;
+	public void setPictureMemoryNumber(String pictureMemoryNumber) {
+		this.pictureMemoryNumber = pictureMemoryNumber;
+	}
+	public String getPictureMemoryScore() {
+		return pictureMemoryScore;
+	}
+	public void setPictureMemoryScore(String pictureMemoryScore) {
+		this.pictureMemoryScore = pictureMemoryScore;
 	}
 	
 }

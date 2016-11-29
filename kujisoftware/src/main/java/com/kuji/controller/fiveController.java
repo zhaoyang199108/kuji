@@ -125,7 +125,6 @@ public class fiveController {
 		 System.out.println(text);
 		 map.put("text", text);
 		 return map;
-		
 	
 	}
 }

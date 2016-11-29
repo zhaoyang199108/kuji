@@ -2,6 +2,7 @@ package com.kuji.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kuji.entity.PictureMemory;
 import com.kuji.service.PictureMemoryService;
@@ -40,39 +44,43 @@ public class pictureMemory {
 		String  whichDay = request.getParameter("whichDay");//第几天
 		String errorNumber=request.getParameter("errorNumber");//错误次数
 		String  number = request.getParameter("number");//答题数量
-		String  imgName = request.getParameter("imgName");//图片名称
+//		String  imgName = request.getParameter("imgName");//图片名称
+		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
+		List<MultipartFile> list = multipartRequest.getFiles("images[]");
+		System.out.println(list.size());
+		System.out.println(list);
 		String  score = request.getParameter("score");//分数
-		try {
-			category = new String(category.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		try {
-			type = new String(type.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		PictureMemory pictureMemory = new PictureMemory();
-		pictureMemory.setExerciseId(1);
-		pictureMemory.setType(type);//类型
-		pictureMemory.setWhichDay(whichDay);//第几天
-		pictureMemory.setErrorNumber(errorNumber);//错误次数
-		pictureMemory.setCategory(category);//所属类别
-		pictureMemory.setNumber(number);//答题数量
-		pictureMemory.setImgName(imgName);//图片名字
-		pictureMemory.setScore(score);//分数
-	    if("1".equals(pictureMemory.getCategory())){//所属类别
-	    	pictureMemory.setExerciseId(1000);//21天训练
-	    }else{
-	    	pictureMemory.setExerciseId(1001);//90天
-	    }
-		int count = pictureMemoryService.insertIntoPictureMemory(pictureMemory);//添加
+//		try {
+//			category = new String(category.getBytes("iso-8859-1"),"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		try {
+//			type = new String(type.getBytes("iso-8859-1"),"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		PictureMemory pictureMemory = new PictureMemory();
+//		pictureMemory.setExerciseId(1);
+//		pictureMemory.setType(type);//类型
+//		pictureMemory.setWhichDay(whichDay);//第几天
+//		pictureMemory.setErrorNumber(errorNumber);//错误次数
+//		pictureMemory.setCategory(category);//所属类别
+//		pictureMemory.setNumber(number);//答题数量
+//		//pictureMemory.setImgName(imgName);//图片名字
+//		pictureMemory.setScore(score);//分数
+//	    if("1".equals(pictureMemory.getCategory())){//所属类别
+//	    	pictureMemory.setExerciseId(1000);//21天训练
+//	    }else{
+//	    	pictureMemory.setExerciseId(1001);//90天
+//	    }
+//		int count = pictureMemoryService.insertIntoPictureMemory(pictureMemory);//添加
 		Map<String,Object> resMap = new HashMap<String, Object>();	
-		if(count>0){
-			resMap.put("code", 0);
-		}else{
-			resMap.put("code", 1);
-		}
+//		if(count>0){
+//			resMap.put("code", 0);
+//		}else{
+//			resMap.put("code", 1);
+//		}
 		return resMap;
 	}
 

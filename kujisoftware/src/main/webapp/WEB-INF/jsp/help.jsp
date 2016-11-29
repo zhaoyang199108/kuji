@@ -88,7 +88,6 @@ function deleteHelp(id){
 				</div>
 			</div>
 			<div class="tab-pane fade" id="find" >
-			<!-- style="display:block;position:relative;top:-300px;" -->
 				<table class="table table-hover">
 					<thead>
 						<tr>

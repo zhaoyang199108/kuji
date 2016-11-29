@@ -50,6 +50,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function helpOnclick(){
 			window.location.href = path+'/kujisoftware/help/help';
 		}
+		function typeRulesOnclick(){
+			window.location.href = path+'/kujisoftware/typeRules/typeRules';
+		}
+		function eduCounseOnclick(){
+			window.location.href = path+'/kujisoftware/eduCounse/eduCounse';
+		}
 	</script>
 <body>
 
@@ -136,7 +142,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div> -->
 			</div>
 		</div>
-
+        
+        <div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion"
+							href="#collapseFive"> 教育资讯 </a>
+					</h4>
+				</div>
+				<div id="collapseFour" class="panel-collapse collapse in">
+					<div class="panel-body">
+						<div class="btn-group-vertical" style="width: 200px;">
+							<button type="button" class="btn btn-default"
+								style="margin-top: 10px;" onclick="eduCounseOnclick()">教育资讯</button>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
             <div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
@@ -152,6 +176,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<button type="button" class="btn btn-default"
 								style="margin-top: 10px;" onclick="helpOnclick()">帮助说明</button>
 						</div>
+											
+						<div class="btn-group-vertical" style="width: 200px;">
+							<button type="button" class="btn btn-default"
+								style="margin-top: 10px;" onclick="typeRulesOnclick()">题型规则</button>
+						</div>
+						
 					</div>
 				</div>
 			</div>

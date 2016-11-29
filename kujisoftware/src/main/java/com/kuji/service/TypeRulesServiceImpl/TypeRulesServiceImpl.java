@@ -23,9 +23,9 @@ public class TypeRulesServiceImpl  implements TypeRulesService{
 	public int insertIntoTypeRules(TypeRules typeRules) {
 		int count = typeRulesDao.insertIntoTypeRules(typeRules);
 		if(count>0){
-			return 0;
-		}else{
 			return 1;
+		}else{
+			return 0;
 		}
 	}
 

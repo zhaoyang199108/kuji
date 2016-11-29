@@ -37,15 +37,14 @@ public class LearnExplainServiceImpl  implements LearnExplainService{
 		// TODO Auto-generated method stub
 		return learnExplainDao.findAll();
 	}
-
-	public LearnExplain findHelpById(long id) {
+	public LearnExplain findLearnExplainById(long id) {
 		// TODO Auto-generated method stub
-		return learnExplainDao.findHelpById(id);
+		return learnExplainDao.findLearnExplainById(id);
 	}
 
-	public int deleteHelpById(long id) {
+	public int deleteLearnExplainById(long id) {
 		// TODO Auto-generated method stub
-		int count = learnExplainDao.deleteHelpById(id);
+		int count = learnExplainDao.deleteLearnExplainById(id);
 		if(count>0){
 			return 1;
 		}else{

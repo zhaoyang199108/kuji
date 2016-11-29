@@ -11,6 +11,6 @@ public interface LearnExplainService {
 	int query(String learnExplainType, String exerciseId,
 			String learnExplainWhichDay);
 	List<LearnExplain> findAll();
-	LearnExplain findHelpById(long id);
-	int deleteHelpById(long id);
+	LearnExplain findLearnExplainById(long id);
+	int deleteLearnExplainById(long id);
 }

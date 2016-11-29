@@ -14,6 +14,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script
 	src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 		<script src="/kujisoftware/js/Path.js"></script>
+	<link href="/kujisoftware/js/zyupload/skins/zyupload-1.0.0.min.css" rel="stylesheet" type="text/css" />
+    <script src="/kujisoftware/js/zyupload/zyupload-1.0.0.min.js" ></script>
 <script>
        
 		function loginOnclick(){

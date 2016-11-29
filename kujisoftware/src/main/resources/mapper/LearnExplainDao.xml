@@ -24,7 +24,7 @@
 	t.exercise_id
 	from learnExplain t;
 	</select>
-	<select id="findHelpById" resultType="com.kuji.entity.LearnExplain" parameterType="long">
+	<select id="findLearnExplainById" resultType="com.kuji.entity.LearnExplain" parameterType="long">
 	select 
 	t.learnExplain_id,
 	t.learnExplain_which_day,
@@ -37,7 +37,7 @@
 	from learnExplain t
 	where t.learnExplain_id=#{id};
 	</select>
-	<delete id="deleteHelpById"  parameterType="long">
+	<delete id="deleteLearnExplainById"  parameterType="long">
 	delete 
 	from 
 	learnExplain

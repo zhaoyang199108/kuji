@@ -19,8 +19,8 @@
 		t.exercise_id
 		FROM five t
 		where 
-		t.five_which_day=#{whichDay}
-	    and t.five_type=#{type}
+		t.five_which_day=#{fiveWhichDay}
+	    and t.five_type=#{fiveType}
 		and t.exercise_id=#{exerciseId}
 	</select>
 

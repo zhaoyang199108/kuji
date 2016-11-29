@@ -6,10 +6,10 @@ import java.util.Date;
 	 */
 public class Five {
 	
-	private  String type;//类型
-	private String whichDay;//第几天
+	private  String fiveType;//类型
+	private String fiveWhichDay;//第几天
 	private String errorNumber;//错误次数
-	private String score;//分数
+	private String fiveScore;//分数
 	private long exerciseId;//题目id
 	private long fiveId;
 	private  String fiveContent;//内容
@@ -17,24 +17,24 @@ public class Five {
 	
 	
 	
-	public String getScore() {
-		return score;
-	}
-	public void setScore(String score) {
-		this.score = score;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
 	
-	public String getWhichDay() {
-		return whichDay;
+	public String getFiveType() {
+		return fiveType;
 	}
-	public void setWhichDay(String whichDay) {
-		this.whichDay = whichDay;
+	public void setFiveType(String fiveType) {
+		this.fiveType = fiveType;
+	}
+	public String getFiveWhichDay() {
+		return fiveWhichDay;
+	}
+	public void setFiveWhichDay(String fiveWhichDay) {
+		this.fiveWhichDay = fiveWhichDay;
+	}
+	public String getFiveScore() {
+		return fiveScore;
+	}
+	public void setFiveScore(String fiveScore) {
+		this.fiveScore = fiveScore;
 	}
 	public long getFiveId() {
 		return fiveId;

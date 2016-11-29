@@ -36,6 +36,7 @@
 	 		var v = $('#v').val();
 	 		var w = $('#w').val();
 	 		var x = $('#x').val();
+	 		var y = $('#y').val();
 	 		var score = $('#score').val();
 	 		var type = $('#type').val();
 	 		var whichDay = $('#whichDay').val();
@@ -67,6 +68,7 @@
 	 				'v':v,
 	 				'w':w,
 	 				'x':x,
+	 				'y':y,
 	 				'type':type,
 	 				'whichDay':whichDay,
 	 				'category':category,

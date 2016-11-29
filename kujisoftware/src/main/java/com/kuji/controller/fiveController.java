@@ -34,7 +34,7 @@ public class fiveController {
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
-		request.setCharacterEncoding("UTF-8");
+		//request.setCharacterEncoding("UTF-8");
 		String  id = request.getParameter("id");
 		String  a = request.getParameter("a");
 		String  b = request.getParameter("b");
@@ -60,8 +60,68 @@ public class fiveController {
 		String  v = request.getParameter("v");
 		String  w = request.getParameter("w");
 		String  x = request.getParameter("x");
-		
-		String content=a+";"+b+";"+c+";"+d+";"+e+";"+f+";"+g+";"+h+";"+i+";"+j+";"+k+";"+l+";"+m+";"+n+";"+o+";"+p+";"+q+";"+r+";"+s+";"+t+";"+u+";"+v+";"+w+";"+x;
+		String  y = request.getParameter("y");
+		try {
+			a = new String(a.getBytes("iso-8859-1"),"utf-8");
+			b = new String(b.getBytes("iso-8859-1"),"utf-8");
+			c = new String(c.getBytes("iso-8859-1"),"utf-8");
+			d = new String(d.getBytes("iso-8859-1"),"utf-8");
+			e = new String(e.getBytes("iso-8859-1"),"utf-8");
+			f = new String(f.getBytes("iso-8859-1"),"utf-8");
+			g = new String(g.getBytes("iso-8859-1"),"utf-8");
+			h = new String(h.getBytes("iso-8859-1"),"utf-8");
+			i = new String(i.getBytes("iso-8859-1"),"utf-8");
+			j = new String(j.getBytes("iso-8859-1"),"utf-8");
+			k = new String(k.getBytes("iso-8859-1"),"utf-8");
+			l = new String(l.getBytes("iso-8859-1"),"utf-8");
+			m = new String(m.getBytes("iso-8859-1"),"utf-8");
+			n = new String(n.getBytes("iso-8859-1"),"utf-8");
+			o = new String(o.getBytes("iso-8859-1"),"utf-8");
+			p = new String(p.getBytes("iso-8859-1"),"utf-8");
+			q = new String(q.getBytes("iso-8859-1"),"utf-8");
+			r = new String(r.getBytes("iso-8859-1"),"utf-8");
+			s = new String(s.getBytes("iso-8859-1"),"utf-8");
+			t = new String(t.getBytes("iso-8859-1"),"utf-8");
+			u = new String(u.getBytes("iso-8859-1"),"utf-8");
+			v = new String(v.getBytes("iso-8859-1"),"utf-8");
+			w = new String(w.getBytes("iso-8859-1"),"utf-8");
+			x = new String(x.getBytes("iso-8859-1"),"utf-8");
+			y = new String(y.getBytes("iso-8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		if((a == null || "".equals(a))
+				&&(b == null || "".equals(b))
+				&&(c == null || "".equals(c))
+				&&(d == null || "".equals(d))
+				&&(e == null || "".equals(e))
+				&&(f == null || "".equals(f))
+				&&(g == null || "".equals(g))
+				&&(h == null || "".equals(h))
+				&&(i == null || "".equals(i))
+				&&(j == null || "".equals(j))
+				&&(k == null || "".equals(k))
+				&&(l == null || "".equals(l))
+				&&(m == null || "".equals(m))
+				&&(n == null || "".equals(n))
+				&&(o == null || "".equals(o))
+				&&(p == null || "".equals(p))
+				&&(q == null || "".equals(q))
+				&&(r == null || "".equals(r))
+				&&(s == null || "".equals(s))
+				&&(t == null || "".equals(t))
+				&&(u == null || "".equals(u))
+				&&(v == null || "".equals(v))
+				&&(w == null || "".equals(w))
+				&&(x == null || "".equals(x))
+				&&(y == null || "".equals(y))
+			){
+			 Map<String,Object> map = new HashMap<String, Object>();
+			 map.put("code", "1");
+			 map.put("message", "传入参数有问题");
+			return map;
+		}
+		String content=a+";"+b+";"+c+";"+d+";"+e+";"+f+";"+g+";"+h+";"+i+";"+j+";"+k+";"+l+";"+m+";"+n+";"+o+";"+p+";"+q+";"+r+";"+s+";"+t+";"+u+";"+v+";"+w+";"+x+";"+y;
 		System.out.println(content);
 		String  type = request.getParameter("type");//类型
 		String  category = request.getParameter("category");//所属类别
@@ -80,11 +140,11 @@ public class fiveController {
 		String errorNumber=request.getParameter("errorNumber");//错误次数
 		Five five = new Five();
 		five.setFiveContent(content);
-	    five.setType(type);//类型
+	    five.setFiveType(type);//类型
 	    five.setExerciseId(Long.parseLong(category));//所属类别
-	    five.setWhichDay(whichDay);//第几天
+	    five.setFiveWhichDay(whichDay);//第几天
 	    five.setErrorNumber(errorNumber);//错误次数
-	    five.setScore(score);//分数
+	    five.setFiveScore(score);//分数
 	    Five five_find = fiveService.findFiveByDayAndTypeAndExerciseId(five);
 	    if(five_find != null){
 	    	Map<String,Object> resMap = new HashMap<String, Object>();
@@ -109,21 +169,31 @@ public class fiveController {
 		}
 		return resMap;
 	}
-	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	@RequestMapping(value = "/findFiveByExerciseAndWhichDayAndType", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> test(HttpServletRequest request,HttpServletResponse response){
+	public Map<String,Object> findFiveByExerciseAndWhichDayAndType(HttpServletRequest request,HttpServletResponse response){
 		 Map<String,Object>  map = new HashMap<String, Object>();
+		 String exerciseId = request.getParameter("exerciseId");
+		 String type = request.getParameter("Type");
 		 try {
-			request.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				type = new String(type.getBytes("iso-8859-1"),"utf-8");
+			} catch (UnsupportedEncodingException e2) {
+				e2.printStackTrace();
+			}
+		 String whichDay = request.getParameter("whichDay");
+		 Five five = new Five();
+		    five.setFiveType(type);//类型
+		    five.setExerciseId(Long.parseLong(exerciseId));//所属类别
+		    five.setFiveWhichDay(whichDay);//第几天
+		Five five_find = fiveService.findFiveByDayAndTypeAndExerciseId(five);
+		if(five_find == null ||"".equals(five_find)){
+			map.put("code", "0");
+			map.put("message", "该天没有数据");
+			return map;
 		}
-		 System.out.println(request.getCharacterEncoding());
-
-		 String text = request.getParameter("text");
-		 System.out.println(text);
-		 map.put("text", text);
+		map.put("code", "0");
+		map.put("message", "查询成功");
+		map.put("data", five_find);
 		 return map;
 		
 	

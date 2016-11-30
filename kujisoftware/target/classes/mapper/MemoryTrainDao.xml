@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuji.dao.MemoryTrainDao">
 	<insert id="insertIntoMemoryTrain" parameterType="com.kuji.entity.MemoryTrain">
-		insert into memoryTrain(memoryTrain_words,memoryTrain_category,exercise_id,memoryTrain_which_day,
+		insert into memorytrain(memoryTrain_words,memoryTrain_category,exercise_id,memoryTrain_which_day,
 		memoryTrain_type,memoryTrain_number,memoryTrain_error_number,memoryTrain_score)
 		values(#{words},#{category},#{exerciseId},#{whichDay},#{type},#{number},#{errorNumber},#{score});
 	</insert>

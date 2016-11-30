@@ -4,10 +4,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuji.dao.EduCounseDao">
 	<insert id="insertIntoEduCounse" parameterType="com.kuji.entity.EduCounse">
-		insert into eduCounse(eduCounse_title,eduCounse_content,eduCounse_img,exercise_id) values (#{eduCounseTitle},#{eduCounseContent},#{eduCounseImg},#{exerciseId});
+		insert into educounse(eduCounse_title,eduCounse_content,eduCounse_img,exercise_id) values (#{eduCounseTitle},#{eduCounseContent},#{eduCounseImg},#{exerciseId});
 	</insert>
 	<select id="query" resultType="int">
-        select count(1)  from eduCounse where  eduCounse_title=#{eduCounseTitle};
+        select count(1)  from educounse where  eduCounse_title=#{eduCounseTitle};
     </select>
     
     <select id="findAll" resultType="com.kuji.entity.EduCounse">
@@ -17,7 +17,7 @@
 		t.create_time,
 		t.eduCounse_title,
 		t.eduCounse_img
-		FROM `eduCounse` t;
+		FROM `educounse` t;
 	</select>
 	
 	   <select id="findEduCounseById" resultType="com.kuji.entity.EduCounse"
@@ -28,7 +28,7 @@
 		t.create_time,
 		t.eduCounse_content,
 		t.eduCounse_img
-		FROM `eduCounse` t
+		FROM `educounse` t
 		where t.eduCounse=#{id};
 	</select>
 </mapper>

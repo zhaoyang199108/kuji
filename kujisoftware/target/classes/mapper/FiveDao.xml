@@ -16,7 +16,8 @@
 		t.five_type,
 		t.five_score,
 		t.error_number,
-		t.exercise_id
+		t.exercise_id,
+		t.create_time
 		FROM five t
 		where 
 		t.five_which_day=#{fiveWhichDay}

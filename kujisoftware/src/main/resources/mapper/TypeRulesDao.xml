@@ -4,10 +4,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuji.dao.TypeRulesDao">
 	<insert id="insertIntoTypeRules" parameterType="com.kuji.entity.TypeRules">
-		insert into typeRules(typeRules_name,typeRules_content) values (#{typeRulesName},#{typeRulesContent});
+		insert into typerules(typeRules_name,typeRules_content) values (#{typeRulesName},#{typeRulesContent});
 	</insert>
 	<select id="query" resultType="com.kuji.entity.TypeRules" parameterType="String">
-        select typeRules_name,typeRules_content,typeRules_id,create_time  from typeRules where  typeRules_name=#{typeRulesName};
+        select typeRules_name,typeRules_content,typeRules_id,create_time  from typerules where  typeRules_name=#{typeRulesName};
     </select>
     
     <select id="findTypeRulesById" resultType="com.kuji.entity.TypeRules"
@@ -17,21 +17,21 @@
 		t.typeRules_name,
 		t.create_time,
 		t.typeRules_content
-		FROM `typeRules` t
+		FROM `typerules` t
 		where t.typeRules_id=#{id};
 	</select>
 	
 	<delete id="deleteTypeRulesById" parameterType="long" >
 		Delete
 		FROM 
-	 	`typeRules` 
+	 	`typerules` 
 	 	where 
 	 	typeRules_id = #{typeRulesId};
 	</delete>
 	
 	<update id="updateTypeRules"  parameterType="com.kuji.entity.TypeRules">
 	Update 
-	typeRules t 
+	typerules t 
 	set 
 	t.typeRules_content=#{typeRulesContent},
 	t.typeRules_name = #{typeRulesName}
@@ -45,7 +45,7 @@
 		t.typeRules_content,
 		t.create_time,
 		t.typeRules_name
-		FROM `typeRules` t;
+		FROM `typerules` t;
 
 	</select>
 	

@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuji.dao.PictureMemoryDao">
 	<insert id="insertIntoPictureMemory" parameterType="com.kuji.entity.PictureMemory">
-		insert into pictureMemory(pictureMemory_imgName,pictureMemory_category,exercise_id,pictureMemory_which_day,
+		insert into picturememory(pictureMemory_imgName,pictureMemory_category,exercise_id,pictureMemory_which_day,
 		pictureMemory_type,pictureMemory_number,pictureMemory_error_number,pictureMemory_score)
 		values(#{imgName},#{category},#{exerciseId},#{whichDay},#{type},#{number},#{errorNumber},#{score});
 	</insert>

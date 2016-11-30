@@ -4,10 +4,26 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuji.dao.EduCounseDao">
 	<insert id="insertIntoEduCounse" parameterType="com.kuji.entity.EduCounse">
-		insert into educounse(eduCounse_title,eduCounse_content,eduCounse_img,exercise_id) values (#{eduCounseTitle},#{eduCounseContent},#{eduCounseImg},#{exerciseId});
+		insert into educounse 
+		(eduCounse_title,
+		eduCounse_content,
+		eduCounse_img,
+		exercise_id) 
+		values (#{eduCounseTitle},
+		#{eduCounseContent},
+		#{eduCounseImg},
+		#{exerciseId});
 	</insert>
-	<select id="query" resultType="int">
-        select count(1)  from educounse where  eduCounse_title=#{eduCounseTitle};
+	
+	<select id="query"  parameterType="String"  resultType="com.kuji.entity.EduCounse">
+        select eduCounse_title, 
+        eduCounse_content,
+        eduCounse_img, 
+        exercise_id ,
+        eduCounse_id 
+        from educounse 
+        where  
+        eduCounse_title=#{eduCounseTitle};
     </select>
     
     <select id="findAll" resultType="com.kuji.entity.EduCounse">
@@ -24,11 +40,31 @@
 		parameterType="long">
 		SELECT
 		t.eduCounse_id,
-		t.eduCounse_content,
+		t.eduCounse_title,
 		t.create_time,
 		t.eduCounse_content,
 		t.eduCounse_img
 		FROM `educounse` t
-		where t.eduCounse=#{id};
+		where t.eduCounse_id=#{eduCounseId};
 	</select>
+	
+	<update id="updateEduCounse"  parameterType="com.kuji.entity.EduCounse">
+	Update 
+	educounse t 
+	set 
+	t.eduCounse_content=#{eduCounseContent},
+	t.eduCounse_title=#{eduCounseTitle},
+	t.eduCounse_img = #{eduCounseImg}
+	where 
+	t.eduCounse_id = #{eduCounseId};
+	</update>
+	
+	<delete id="deleteEduCounseById" parameterType="long" >
+		Delete
+		FROM 
+	 	`educounse` 
+	 	where 
+	 	eduCounse_id = #{eduCounseId};
+	</delete>
+	
 </mapper>

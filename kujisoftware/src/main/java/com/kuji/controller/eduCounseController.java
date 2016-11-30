@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kuji.entity.EduCounse;
-import com.kuji.entity.TypeRules;
 import com.kuji.service.EduCounseService;
 
 /**
  * 教育资讯
  * @author wudi
- *
+ * 
  */
 @Controller
 @RequestMapping("/eduCounse")
@@ -45,6 +44,9 @@ public class eduCounseController {
 		String  eduCounseTitle = request.getParameter("eduCounseTitle");
 		String  eduCounseImg = request.getParameter("eduCounseImg");
 		String  eduCounseContent = request.getParameter("eduCounseContent");
+		String eduCounseId = request.getParameter("id");
+//		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
+//		List<MultipartFile> list = multipartRequest.getFiles("images[]");
 		try {
 			eduCounseTitle = new String(eduCounseTitle.getBytes("iso-8859-1"),"utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -55,34 +57,57 @@ public class eduCounseController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		EduCounse  eduCounse = new EduCounse();
-		eduCounse.setEduCounseTitle(eduCounseTitle);
-		eduCounse.setEduCounseImg(eduCounseImg);
-		eduCounse.setEduCounseContent(eduCounseContent);
-		if(eduCounseTitle==null || "".equals(eduCounseTitle)){
-			resMap.put("code", "3");
-			resMap.put("message", "请填写标题!");
-		}
-		if(eduCounseImg==null || "".equals(eduCounseImg)){
-			resMap.put("code", "3");
-			resMap.put("message", "请填加图片");
-		}else{
-			int count1 = eduCounseService.query(eduCounseTitle);
-        	if(count1==0){
-		    	resMap.put("code", "2");
-		    	resMap.put("message", "该规则说明已存在!");
-		    }else{
+		if(eduCounseId==null || "".equals(eduCounseId)){
+			if(eduCounseTitle==null || "".equals(eduCounseTitle)){
+				resMap.put("code", "3");
+				resMap.put("message", "请填写标题!");
+				return resMap;
+			}
+			if(eduCounseImg==null || "".equals(eduCounseImg)){
+				resMap.put("code", "3");
+				resMap.put("message", "请填加图片");
+				return resMap;
+			}
+			EduCounse  eduCounse = new EduCounse();
+			eduCounse.setEduCounseTitle(eduCounseTitle);
+			eduCounse.setEduCounseImg(eduCounseImg);
+			eduCounse.setEduCounseContent(eduCounseContent);
+			EduCounse  eduCou = eduCounseService.query(eduCounseTitle);
+			if(eduCou==null){
 				int count = eduCounseService.insertIntoEduCounse(eduCounse);//添加
 				if(count>0){
-					resMap.put("eduCounse", eduCounse);
-					resMap.put("code", 0);
+					resMap.put("code", "0");
+					resMap.put("message", "增加成功");
+					return resMap;
 				}else{
-					resMap.put("code", 1);
+					resMap.put("code", "1");
+					resMap.put("message", "操作失败");
+					return resMap;
 				}
-		    }
+			}else{
+				resMap.put("code", "1");
+				resMap.put("message", "数据已存在");
+				return resMap;
+			}
+		}else{
+			EduCounse  eduCounse = new EduCounse();
+			eduCounse.setEduCounseTitle(eduCounseTitle);
+			eduCounse.setEduCounseImg(eduCounseImg);
+			eduCounse.setEduCounseContent(eduCounseContent);
+			eduCounse.setEduCounseId(Long.parseLong(eduCounseId));
+			int count = eduCounseService.updateEduCounse(eduCounse);
+			if(count>0){
+				resMap.put("code", "0");
+				resMap.put("message", "修改成功");
+				return resMap;
+			}else{
+				resMap.put("code", "1");
+				resMap.put("message", "操作失败");
+				return resMap;
+			}
 		}
-		return resMap;
 	}
+	
 	
 	@RequestMapping(value = "/findEduCounseById", method = RequestMethod.GET)
 	@ResponseBody
@@ -94,14 +119,14 @@ public class eduCounseController {
 			resMap.put("message","传入参数不正确");
 			return resMap;
 		}
-		TypeRules typeRules = eduCounseService.findEduCounseById(Long.parseLong(id));
-		if(typeRules == null){
+ 		EduCounse  eduCounse = eduCounseService.findEduCounseById(Long.parseLong(id));
+		if(eduCounse == null){
 			resMap.put("code","1");
 			resMap.put("message", "没有id="+id+"的数据");
 		}else{
 			resMap.put("code","0");
 			resMap.put("message", "查詢成功");
-			resMap.put("data", typeRules);
+			resMap.put("data", eduCounse);
 		}
 		return resMap;
 	
@@ -117,4 +142,56 @@ public class eduCounseController {
 			resMap.put("data", list_eduCounse);
 		return resMap;
 	}
+	
+	@RequestMapping(value = "/deleteEduCounse", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> deleteEduCounse(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resMap =new HashMap<String, Object>();
+		String eduCounseId = request.getParameter("id");
+		if(eduCounseId == null || "".equals(eduCounseId)){
+			resMap.put("code", "1");
+			resMap.put("message","传入参数不正确");
+			return resMap;
+		}
+		EduCounse  eduCounse  = eduCounseService.findEduCounseById(Long.parseLong(eduCounseId));
+		if(eduCounse == null){
+			resMap.put("code","1");
+			resMap.put("message", "没有id="+eduCounseId+"的数据");
+		}
+		int count = eduCounseService.deleteEduCounseById(Long.parseLong(eduCounseId));
+		if(count > 0){
+			resMap.put("code","0");
+			resMap.put("message", "删除成功");
+			return resMap;
+		}else{
+			resMap.put("code","0");
+			resMap.put("message", "删除失败");
+			return resMap;
+		}
+	
+	}
+	
+	@RequestMapping(value = "/findEduCounseByTitle", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> findEduCounseBTitle(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resMap = new HashMap<String, Object>();
+		String  eduCounseTitle = request.getParameter("eduCounseTitle");//规则名称
+		if(eduCounseTitle == null || "".equals(eduCounseTitle)){
+			resMap.put("code", "1");
+			resMap.put("message", "参数不能为空");
+			return resMap;
+		}
+		EduCounse  eduCounse = eduCounseService.query(eduCounseTitle);
+		if(eduCounse == null){
+			resMap.put("code", "0");
+			resMap.put("message", "没有此类型的数据");
+			return resMap;
+		}
+		resMap.put("code", "0");
+		resMap.put("message", "查询成功");
+		resMap.put("data", eduCounse);
+		return resMap;
+	}
+	
+	
 }

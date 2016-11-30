@@ -5,17 +5,20 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.kuji.entity.EduCounse;
-import com.kuji.entity.TypeRules;
 
 public interface EduCounseDao {
 
 	
-	int query(@Param("eduCounseTitle")  String eduCounseTitle);
+	EduCounse query( @Param("eduCounseTitle") String eduCounseTitle);
 
 	int insertIntoEduCounse(EduCounse  eduCounse);
 
 	List<EduCounse> findAll();
 
-	TypeRules findEduCounseById(long id);
+	EduCounse findEduCounseById(long id);
+
+	int updateEduCounse(EduCounse eduCounse);
+
+	int deleteEduCounseById(long id);
 	
 }

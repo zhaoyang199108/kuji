@@ -51,7 +51,7 @@
 	 					console.log(data);
 	 					if(data.code == 0){
 	 						 $('#myTab a:first').tab('show'); 
-	 						  $("#typeRulesId  option[value='"+data.data.typeRulesName+"'] ").attr("selected",true)
+	 						  $("#typeRulesName  option[value='"+data.data.typeRulesName+"'] ").attr("selected",true)
 	 						  $('#id').val(data.data.typeRulesId);
 	 						 $('#typeRulesContent').val(data.data.typeRulesContent);
 	 					}

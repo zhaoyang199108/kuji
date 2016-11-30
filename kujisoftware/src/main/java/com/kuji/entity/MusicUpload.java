@@ -6,11 +6,12 @@ package com.kuji.entity;
  *
  */
 public class MusicUpload {
-	private  String musicUploadId;
-	public String getMusicUploadId() {
+	private  long musicUploadId;
+
+	public long getMusicUploadId() {
 		return musicUploadId;
 	}
-	public void setMusicUploadId(String musicUploadId) {
+	public void setMusicUploadId(long musicUploadId) {
 		this.musicUploadId = musicUploadId;
 	}
 	public String getMusicUploadType() {

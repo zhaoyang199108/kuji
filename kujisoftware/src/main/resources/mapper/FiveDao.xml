@@ -5,7 +5,7 @@
 <mapper namespace="com.kuji.dao.FiveDao">
 	<insert id="insertIntoFive"  parameterType="com.kuji.entity.Five" >
 		insert into five(five_content,error_number,exercise_id,five_which_day,five_type,five_score)
-		values(#{fiveContent},#{errorNumber},#{exerciseId},#{whichDay},#{type},#{score});
+		values(#{fiveContent},#{errorNumber},#{exerciseId},#{fiveWhichDay},#{fiveType},#{fiveScore});
 
 	</insert>
 	<select id="findFiveByDayAndTypeAndExerciseId" parameterType="com.kuji.entity.Five" resultType="Five"> 

@@ -10,7 +10,7 @@ public interface EduCounseService {
 
 	int insertIntoEduCounse(EduCounse  eduCounse);//添加
 
-	List<EduCounse> findAll();
+	List<EduCounse> findAll(int currentPage, int pageSize);
 
 	EduCounse findEduCounseById(long id);
 

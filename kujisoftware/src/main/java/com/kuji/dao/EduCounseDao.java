@@ -13,7 +13,7 @@ public interface EduCounseDao {
 
 	int insertIntoEduCounse(EduCounse  eduCounse);
 
-	List<EduCounse> findAll();
+	List<EduCounse> findAll(@Param("currentPage") int currentPage,@Param("pageSize")int pageSize);
 
 	EduCounse findEduCounseById(long id);
 

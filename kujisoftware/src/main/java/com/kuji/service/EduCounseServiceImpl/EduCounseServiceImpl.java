@@ -24,8 +24,8 @@ public class EduCounseServiceImpl  implements EduCounseService{
 		return eduCounseDao.insertIntoEduCounse(eduCounse);
 	}
 
-	public List<EduCounse> findAll() {
-		return eduCounseDao.findAll();
+	public List<EduCounse> findAll(int currentPage,int pageSize) {
+		return eduCounseDao.findAll(currentPage,pageSize);
 	}
 
 	public EduCounse findEduCounseById(long id) {

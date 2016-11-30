@@ -32,7 +32,15 @@ public class eduCounseController {
 	
 	@RequestMapping(value = "/eduCounse", method = RequestMethod.GET)
 	public String eduCounse(Model model){
-		List<EduCounse> list_eduCounse = eduCounseService.findAll();
+		String pageSize="";
+		String currentPage="";
+		if(currentPage == null||"".equals(currentPage)){
+			currentPage = "1";
+		}
+		if(pageSize == null||"".equals(pageSize)){
+			pageSize = "1";
+		}
+		List<EduCounse> list_eduCounse = eduCounseService.findAll(Integer.parseInt(currentPage),Integer.parseInt(pageSize));
 		model.addAttribute("eduCounse", list_eduCounse);
 		return "eduCounse";
 	}
@@ -136,7 +144,15 @@ public class eduCounseController {
 	@ResponseBody
 	public Map<String,Object> findEduCounseAll(HttpServletRequest request,HttpServletResponse response){
 		Map<String,Object> resMap =new HashMap<String, Object>();
-		List<EduCounse> list_eduCounse = eduCounseService.findAll();
+		String currentPage = request.getParameter("currentPage");
+		String pageSize = request.getParameter("pageSize");
+		if(currentPage == null||"".equals(currentPage)){
+			currentPage = "1";
+		}
+		if(pageSize == null||"".equals(pageSize)){
+			pageSize = "20";
+		}
+		List<EduCounse> list_eduCounse = eduCounseService.findAll(Integer.parseInt(currentPage),Integer.parseInt(pageSize));
 			resMap.put("code","0");
 			resMap.put("message", "查詢成功");
 			resMap.put("data", list_eduCounse);

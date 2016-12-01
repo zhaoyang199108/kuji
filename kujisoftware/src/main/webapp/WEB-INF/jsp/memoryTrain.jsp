@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 		var number = $('#number').val();
 	 		var score = $('#score').val();
 	 		$.ajax({
-	 			url: 'http://192.168.0.103:8080/kujisoftware/memoryTrain/saveOrUpdate',
+	 			url: path+'/kujisoftware/memoryTrain/saveOrUpdate',
 	 			data:{'score':score,'type':type,'whichDay':whichDay,'category':category,'errorNumber':errorNumber,'words':words,'number':number},
 	 			type:'GET',
 	 			success : function(data){
@@ -56,21 +56,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<form role="form">
 				<div class="input-group">
 					<span class="input-group-addon">题型</span>
-							  <input type="text" class="form-control" placeholder="type" value="记忆训练" id="type">
+					<select class="form-control" id="type" disabled>
+						  <option value="2">记忆训练</option>
+			        </select>
 				</div>
 
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">所属类别</span>
 					<!-- 		  <input type="text" class="form-control" placeholder="category"> -->
-				<select class="form-control" id="category">
-						<option value="21天训练">21天训练</option>
-						<option value="90天养成好习惯">90天养成好习惯</option>
+				<select class="form-control" id="exerciseId">
+						<option value="1000">21天训练</option>
+						<option value="1001">90天养成好习惯</option>
 					</select>
 				</div>
 
 				<div class="input-group" style="margin-top: 10px">
-					<span class="input-group-addon">第几天</span> <input type="text"
-						class="form-control" placeholder="whichDay" id="whichDay">
+					<span class="input-group-addon">第几天</span> 
+							<select class="form-control" id="whichDay">
+								<option value="1">第一天</option>
+								<option value="2">第二天</option>
+								<option value="3">第三天</option>
+								<option value="4">第四天</option>
+								<option value="5">第五天</option>
+								<option value="6">第六天</option>
+								<option value="7">第七天</option>
+								<option value="8">第八天</option>
+								<option value="9">第九天</option>
+								<option value="10">第十天</option>
+								<option value="11">第十一天</option>
+								<option value="12">第十二天</option>
+								<option value="13">第十三天</option>
+								<option value="14">第十四天</option>
+								<option value="15">第十五天</option>
+								<option value="16">第十六天</option>
+								<option value="17">第十七天</option>
+								<option value="18">第十八天</option>
+								<option value="19">第十九天</option>
+								<option value="20">第二十天</option>
+								<option value="21">第二十一天</option>
+							</select>
 				</div>
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon" id="words">词语</span>

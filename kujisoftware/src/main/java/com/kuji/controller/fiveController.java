@@ -1,7 +1,9 @@
 package com.kuji.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kuji.dto.FiveContentView;
+import com.kuji.dto.FiveView;
 import com.kuji.entity.Five;
 import com.kuji.service.FiveService;
 
@@ -191,10 +195,23 @@ public class fiveController {
 			map.put("message", "该天没有数据");
 			return map;
 		}
+		List<FiveContentView> listContentView = new ArrayList<FiveContentView>();
+		
+		String fiveContent = five_find.getFiveContent();
+		String[] rightContent = fiveContent.split(";");
+		for(int i = 0; i < rightContent.length; i++){
+			FiveContentView fcv = new FiveContentView();
+			fcv.key = (i+1)+"";
+			fcv.value = rightContent[i];
+			listContentView.add(fcv);
+		}
+		FiveView fv = new FiveView();
+		fv.five = five_find;
+		fv.fiveContentView = listContentView;
 		map.put("code", "0");
 		map.put("message", "查询成功");
-		map.put("data", five_find);
+		map.put("data", fv);
 		 return map;
-	
 	}
+	
 }

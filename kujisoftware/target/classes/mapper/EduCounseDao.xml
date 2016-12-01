@@ -26,14 +26,15 @@
         eduCounse_title=#{eduCounseTitle};
     </select>
     
-    <select id="findAll" resultType="com.kuji.entity.EduCounse">
+    <select id="findAll" resultType="com.kuji.entity.EduCounse" parameterType="int">
 		SELECT
 		t.eduCounse_id,
 		t.eduCounse_content,
 		t.create_time,
 		t.eduCounse_title,
 		t.eduCounse_img
-		FROM `educounse` t;
+		FROM `educounse` t
+		LIMIT #{currentPage}, #{pageSize};
 	</select>
 	
 	   <select id="findEduCounseById" resultType="com.kuji.entity.EduCounse"

@@ -8,23 +8,16 @@ public class MemoryTrain {
 
 	private Date createTime;//创建时间
 	private long exerciseId;//题目id
-	private  String type;//类型
-	private  String category;//所属类别
+	private  String memoryTrainType;//类型
+	private  String memoryTrainCategory;//所属类别
 	private long memoryTrainId;
-	private String errorNumber;//错误次数
-	private String whichDay;//第几天
-	private String  words;//词语
-//	private String  anwserTime;//答题时间
-	private String  number;//数量
-	private String score;//分数
+	private String memoryTrainErrorNumber;//错误次数
+	private String memoryTrainWhichDay;//第几天
+	private String  memoryTrainWords;//词语
+	private String   memoryTrainNumber;//数量
+	private String  memoryTrainScore;//分数
 	
 	
-	public String getScore() {
-		return score;
-	}
-	public void setScore(String score) {
-		this.score = score;
-	}
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -37,17 +30,17 @@ public class MemoryTrain {
 	public void setExerciseId(long exerciseId) {
 		this.exerciseId = exerciseId;
 	}
-	public String getType() {
-		return type;
+	public String getMemoryTrainType() {
+		return memoryTrainType;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setMemoryTrainType(String memoryTrainType) {
+		this.memoryTrainType = memoryTrainType;
 	}
-	public String getCategory() {
-		return category;
+	public String getMemoryTrainCategory() {
+		return memoryTrainCategory;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setMemoryTrainCategory(String memoryTrainCategory) {
+		this.memoryTrainCategory = memoryTrainCategory;
 	}
 	public long getMemoryTrainId() {
 		return memoryTrainId;
@@ -55,35 +48,36 @@ public class MemoryTrain {
 	public void setMemoryTrainId(long memoryTrainId) {
 		this.memoryTrainId = memoryTrainId;
 	}
-	public String getErrorNumber() {
-		return errorNumber;
+	
+	public String getMemoryTrainErrorNumber() {
+		return memoryTrainErrorNumber;
 	}
-	public void setErrorNumber(String errorNumber) {
-		this.errorNumber = errorNumber;
+	public void setMemoryTrainErrorNumber(String memoryTrainErrorNumber) {
+		this.memoryTrainErrorNumber = memoryTrainErrorNumber;
 	}
-	public String getWhichDay() {
-		return whichDay;
+	public String getMemoryTrainWhichDay() {
+		return memoryTrainWhichDay;
 	}
-	public void setWhichDay(String whichDay) {
-		this.whichDay = whichDay;
+	public void setMemoryTrainWhichDay(String memoryTrainWhichDay) {
+		this.memoryTrainWhichDay = memoryTrainWhichDay;
 	}
-	public String getWords() {
-		return words;
+	public String getMemoryTrainWords() {
+		return memoryTrainWords;
 	}
-	public void setWords(String words) {
-		this.words = words;
+	public void setMemoryTrainWords(String memoryTrainWords) {
+		this.memoryTrainWords = memoryTrainWords;
 	}
-//	public String getAnwserTime() {
-//		return anwserTime;
-//	}
-//	public void setAnwserTime(String anwserTime) {
-//		this.anwserTime = anwserTime;
-//	}
-	public String getNumber() {
-		return number;
+	public String getMemoryTrainNumber() {
+		return memoryTrainNumber;
 	}
-	public void setNumber(String number) {
-		this.number = number;
+	public void setMemoryTrainNumber(String memoryTrainNumber) {
+		this.memoryTrainNumber = memoryTrainNumber;
+	}
+	public String getMemoryTrainScore() {
+		return memoryTrainScore;
+	}
+	public void setMemoryTrainScore(String memoryTrainScore) {
+		this.memoryTrainScore = memoryTrainScore;
 	}
 	
 }

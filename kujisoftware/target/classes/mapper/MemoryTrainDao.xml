@@ -4,8 +4,26 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuji.dao.MemoryTrainDao">
 	<insert id="insertIntoMemoryTrain" parameterType="com.kuji.entity.MemoryTrain">
-		insert into memorytrain(memoryTrain_words,memoryTrain_category,exercise_id,memoryTrain_which_day,
+		insert into memorytrain (memoryTrain_words,exercise_id,memoryTrain_which_day,
 		memoryTrain_type,memoryTrain_number,memoryTrain_error_number,memoryTrain_score)
-		values(#{words},#{category},#{exerciseId},#{whichDay},#{type},#{number},#{errorNumber},#{score});
+		values(#{memoryTrainWords},#{exerciseId},#{memoryTrainWhichDay},#{memoryTrainType},
+		#{memoryTrainNumber},#{memoryTrainErrorNumber},#{ngmemoryTrainScore});
 	</insert>
+	<select id="findMemoryTrainByExerciseAndWhichDayAndType" parameterType="com.kuji.entity.MemoryTrain" resultType="MemoryTrain"> 
+		SELECT
+		t.memoryTrain_id,
+		t.memoryTrain_words,
+		t.memoryTrain_which_day,
+		t.memoryTrain_type,
+		t.memoryTrain_score,
+		t.memoryTrain_number,
+		memoryTrain_error_number,
+		t.exercise_id,
+		t.create_time
+		FROM memorytrain t
+		where 
+		t.memoryTrain_which_day=#{memoryTrainWhichDay}
+	    and t.memoryTrain_type=#{memoryTrainType}
+		and t.exercise_id=#{exerciseId}
+	</select>
 </mapper>

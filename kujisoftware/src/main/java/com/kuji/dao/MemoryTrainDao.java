@@ -5,4 +5,6 @@ import com.kuji.entity.MemoryTrain;
 public interface MemoryTrainDao {
 
 	int insertIntoMemoryTrain(MemoryTrain memoryTrain);
+
+	MemoryTrain findMemoryTrainByExerciseAndWhichDayAndType(MemoryTrain memoryTrain);
 }

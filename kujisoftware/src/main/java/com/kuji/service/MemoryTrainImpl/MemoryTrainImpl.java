@@ -21,4 +21,9 @@ public class MemoryTrainImpl  implements MemoryTrainService{
 		}
 	}
 
+	public MemoryTrain findMemoryTrainByExerciseAndWhichDayAndType(
+			MemoryTrain memoryTrain) {
+		return memoryTrainDao.findMemoryTrainByExerciseAndWhichDayAndType(memoryTrain);
+	}
+
 }

@@ -44,8 +44,9 @@ import com.sun.org.apache.bcel.internal.generic.AALOAD;
 @RequestMapping("/musicUpload")
 public class musicUploadController {
 	
-	private final String path = "E:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\";
-	
+//	private final String path = "E:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\";
+	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload";
+//	/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload
 	@Autowired
 	private  MusicUploadService musicUploadService;
 	
@@ -143,7 +144,8 @@ public class musicUploadController {
 		for(MusicUpload i : list){
 			MusicView mv = new MusicView();
 			mv.name = i.getMusicUploadName();
-			mv.url = "http://localhost:8080/kujisoftware/upload/"+i.getMusicUploadName();
+			mv.url = "http://123.56.190.160:8999/kujisoftware/musicUpload/downloadMusic?id="+i.getMusicUploadId();
+			mv.id =i.getMusicUploadId();
 			listRes.add(mv);
 		}
 		resMap.put("code", code);

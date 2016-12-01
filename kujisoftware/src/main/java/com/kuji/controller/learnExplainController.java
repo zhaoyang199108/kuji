@@ -38,8 +38,8 @@ import com.kuji.service.LearnExplainService;
 @RequestMapping("/learnExplain")
 public class learnExplainController {
 
-	private final String path = "E:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\explain\\";
-	
+	//private final String path = "E:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\explain\\";
+	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload/explain";
 	@Autowired
 	private  LearnExplainService learnExplainService;
 	@RequestMapping(value = "/learnExplain", method = RequestMethod.GET)
@@ -158,6 +158,22 @@ public class learnExplainController {
 			return resMap;
 		}
 	}
+	@RequestMapping(value = "/findAllLearnExplain", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> findAllLearnExplain(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resMap = new HashMap<String, Object>();
+		List<LearnExplain> list_help = learnExplainService.findAll();
+		if(list_help.size() == 0){
+			resMap.put("code", "0");
+			resMap.put("message", "无数据");
+			return resMap;
+		}
+		resMap.put("code", "0");
+		resMap.put("message", "查询成功");
+		resMap.put("data", list_help);
+		return resMap;
+		
+	}
 	@RequestMapping(value = "/findLearnExplainById", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> findLearnExplainById(HttpServletRequest request,HttpServletResponse response){
@@ -192,7 +208,7 @@ public class learnExplainController {
 		LearnExplain learnExplain = learnExplainService.findLearnExplainById(Long.parseLong(id));
 		System.out.println(learnExplain.getLearnExplainVoicePath().substring(55));
 		 try {
-			InputStream fis = new BufferedInputStream(new FileInputStream(learnExplain.getLearnExplainVoicePath()));
+			InputStream fis = new BufferedInputStream(new FileInputStream(path+"/"+learnExplain.getLearnExplainVoicePath().substring(63)));
 			byte[] buffer = new byte[fis.available()];
 	        fis.read(buffer);
 	        fis.close();
@@ -224,7 +240,7 @@ public class learnExplainController {
 		LearnExplain learnExplain = learnExplainService.findLearnExplainById(Long.parseLong(id));
 		System.out.println(learnExplain.getLearnExplainImgPath().substring(55));
 		 try {
-			InputStream fis = new BufferedInputStream(new FileInputStream(learnExplain.getLearnExplainImgPath()));
+			InputStream fis = new BufferedInputStream(new FileInputStream(path+"/"+learnExplain.getLearnExplainVoicePath().substring(63)));
 			byte[] buffer = new byte[fis.available()];
 	        fis.read(buffer);
 	        fis.close();

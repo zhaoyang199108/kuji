@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="container" class="container" style="margin-top: 10px;">
 		<jsp:include page="common/nav.jsp" />
 		<div class="col-md-9">
-			<form method="get" enctype="multipart/form-data" action="/kujisoftware/pictureMemory/saveOrUpdate">
+			<form method="post" enctype="multipart/form-data" action="/kujisoftware/pictureMemory/saveOrUpdate">
 				<div class="input-group">
 					<span class="input-group-addon">题型</span>
 					<input id="type" type="text" class="form-control" placeholder="type" value="图片记忆训练"	disabled> 
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div id="imgshow">
 					
 					</div> -->
-					<input id="file_upload" type="file"  name="images[]" multiple="true" />
+					<input id="file_upload" type="file"  name="files" multiple="true" />
 					<div class="image_container">
 					<img id="preview" width="60" height="60">
 					</div>

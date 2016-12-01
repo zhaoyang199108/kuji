@@ -1,5 +1,7 @@
 package com.kuji.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
@@ -36,20 +38,35 @@ public class pictureMemory {
 		return "pictureMemory";
 	}
 	
-	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.GET)
+	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response){
+	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response,@RequestParam("files") MultipartFile[] files){
 		String  type = request.getParameter("type");//类型
 		String  category = request.getParameter("category");//所属类别
 		String  whichDay = request.getParameter("whichDay");//第几天
 		String errorNumber=request.getParameter("errorNumber");//错误次数
 		String  number = request.getParameter("number");//答题数量
 //		String  imgName = request.getParameter("imgName");//图片名称
-		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
-		List<MultipartFile> list = multipartRequest.getFiles("images[]");
-		System.out.println(list.size());
-		System.out.println(list);
+//		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
+//		List<MultipartFile> list = multipartRequest.getFiles("images[]");
+//		System.out.println(list.size());
+//		System.out.println(list);
 		String  score = request.getParameter("score");//分数
+		if(files!=null && files.length>0){  
+			 for(int i = 0;i<files.length;i++){  
+	                MultipartFile file = files[i];  
+
+	                try {
+	                    //获取存取路径
+	                    String filePath = request.getSession().getServletContext().getRealPath("/") + "upload/" + file.getOriginalFilename();
+	                    System.out.println(filePath);
+	                    // 转存文件  
+	                    file.transferTo(new File(filePath)); 
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }  
+	            }
+		}
 //		try {
 //			category = new String(category.getBytes("iso-8859-1"),"utf-8");
 //		} catch (UnsupportedEncodingException e) {

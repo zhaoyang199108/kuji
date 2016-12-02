@@ -13,7 +13,8 @@
 		t.musicUpload_type,
 		t.musicUpload_playOrder,
 		t.musicUpload_music,
-		t.musicUpload_name
+		t.musicUpload_name,
+		t.version
 		from musicupload t
 	</select>
 	<select id="findMusicByName" resultType="com.kuji.entity.MusicUpload" parameterType="String">
@@ -34,7 +35,8 @@
 		t.musicUpload_type,
 		t.musicUpload_playOrder,
 		t.musicUpload_music,
-		t.musicUpload_name
+		t.musicUpload_name,
+		t.version
 		from musicupload t 
 		where 
 		t.musicUpload_id = #{id}

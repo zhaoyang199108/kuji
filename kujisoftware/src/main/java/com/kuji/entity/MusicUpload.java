@@ -36,6 +36,14 @@ public class MusicUpload {
 	private  String musicUploadPlayOrder;//播放顺序
 	private  String musicUploadMusic;//音乐
 	private String musicUploadName;
+	private long version;
+
+	public long getVersion() {
+		return version;
+	}
+	public void setVersion(long version) {
+		this.version = version;
+	}
 	public String getMusicUploadName() {
 		return musicUploadName;
 	}

@@ -45,7 +45,7 @@ import com.sun.org.apache.bcel.internal.generic.AALOAD;
 public class musicUploadController {
 	
 //	private final String path = "E:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\";
-	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload";
+//	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload";
 //	/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload
 	@Autowired
 	private  MusicUploadService musicUploadService;
@@ -71,12 +71,12 @@ public class musicUploadController {
         try {
 			InputStream is = imgFile1.getInputStream();
 //			byteContent = readStream(is);
-			 File fileDir = new File(path);
+			 File fileDir = new File(request.getSession().getServletContext().getRealPath("\\") + "upload\\" + imgFile1.getOriginalFilename());
 			  //判断文件夹是否存在,如果不存在则创建文件夹
 			  if (!fileDir.exists()) {
 				  fileDir.mkdir();
 			  }
-			FileOutputStream fos = new FileOutputStream(path+musicName);
+			FileOutputStream fos = new FileOutputStream(request.getSession().getServletContext().getRealPath("\\") + "upload\\" + imgFile1.getOriginalFilename());
 
 			while((is.read(b)) != -1){
 			fos.write(b);
@@ -91,7 +91,7 @@ public class musicUploadController {
 		}
 		String  type = request.getParameter("type");//类型
 		String  playOrder = request.getParameter("playOrder");//播放顺序
-		String  musicPath = path+musicName;//音乐
+		String  musicPath = request.getSession().getServletContext().getRealPath("\\") + "upload\\" + imgFile1.getOriginalFilename();//音乐
 		try {
 			type = new String(type.getBytes("iso-8859-1"),"utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -107,6 +107,7 @@ public class musicUploadController {
 		musicUpload.setMusicUploadPlayOrder(playOrder);//播放顺序
 		musicUpload.setMusicUploadType(type);//类型
 		musicUpload.setMusicUploadName(musicName);
+		musicUpload.setVersion(1);
 		int count = musicUploadService.insertIntoMusicUpload(musicUpload);//保存数据
 		Map<String,Object> resMap = new HashMap<String, Object>();
 		if(count>0){
@@ -133,8 +134,6 @@ public class musicUploadController {
 	public Map<String,Object> findMusic(HttpServletRequest request,HttpServletResponse response){
 		Map<String,Object> resMap = new HashMap<String, Object>();
 		List<MusicUpload> list = musicUploadService.findAllMusic();
-		System.out.println(request.getContextPath());
-		System.out.println();
 		String code = null;
 		String message = null;
 		code = list == null ?  "0":"0";
@@ -146,7 +145,10 @@ public class musicUploadController {
 			mv.name = i.getMusicUploadName();
 			mv.url = "http://123.56.190.160:8999/kujisoftware/musicUpload/downloadMusic?id="+i.getMusicUploadId();
 			mv.id =i.getMusicUploadId();
-			listRes.add(mv);
+			File f= new File(request.getSession().getServletContext().getRealPath("/") + "upload/" + i.getMusicUploadName());  
+			mv.fileLength = f.length();
+			mv.version = i.getVersion();
+			 listRes.add(mv);
 		}
 		resMap.put("code", code);
 		resMap.put("message", message);
@@ -165,7 +167,7 @@ public class musicUploadController {
 		}
 		MusicUpload mu = musicUploadService.finMusicById(Long.parseLong(id));
 		 try {
-			InputStream fis = new BufferedInputStream(new FileInputStream(path+"/"+mu.getMusicUploadName()));
+			InputStream fis = new BufferedInputStream(new FileInputStream(request.getSession().getServletContext().getRealPath("/") + "upload//"+mu.getMusicUploadName()));
 			byte[] buffer = new byte[fis.available()];
 	        fis.read(buffer);
 	        fis.close();

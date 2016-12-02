@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+	<%@include file="common/tag.jsp" %>	
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <link
 	href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css"
@@ -12,22 +10,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>记忆训练</title>
+</head>
    <script>
 	    function submitForm(){
 // 	 		var a = $('#a').val();
+            var id = $('#id').val();
 	 		var type = $('#type').val();
 	 		var whichDay = $('#whichDay').val();
-	 		var category = $('#category').val();
+	 		var exerciseId = $('#exerciseId').val();
 	 		var errorNumber = $('#errorNumber').val();
 	 		var words = $('#content').val();
 	 		var number = $('#number').val();
 	 		var score = $('#score').val();
 	 		$.ajax({
 	 			url: path+'/kujisoftware/memoryTrain/saveOrUpdate',
-	 			data:{'score':score,'type':type,'whichDay':whichDay,'category':category,'errorNumber':errorNumber,'words':words,'number':number},
+	 			data:{'id':id,'score':score,'type':type,'whichDay':whichDay,'exerciseId':exerciseId,'errorNumber':errorNumber,'words':words,'number':number},
 	 			type:'GET',
 	 			success : function(data){
-	 				console.log("ss");
+	 				alert(data.message);
+					if(data.code == 0){
+						window.location.href=path+'/kujisoftware/memoryTrain/memoryTrain';
+					}
 	 			}
 	 		});
 	 	}	
@@ -46,15 +52,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function showDialog(){
 		$('#myModal').modal('show');
 	}
+	
+	function updatamemoryTrain(id){
+			$.ajax({
+				url:path+'/kujisoftware/memoryTrain/findMemoryTrainById',
+				type:'GET',
+				data:{'id':id},
+				success : function(data){
+					console.log(data);
+					if(data.code == 0){
+						 $('#myTab a:first').tab('show'); 
+						  $("#type  option[value='"+data.data.type+"'] ").attr("selected",true)
+						  $('#exerciseId').val(data.data.exerciseId);
+// 						  $("#exerciseId  option[value='"+data.data.exerciseId+"'] ").attr("selected",true)
+						   $('#whichDay').val(data.data.memoryTrainWhichDay);
+// 						   $("#whichDay  option[value='"+data.data.whichDay+"'] ").attr("selected",true)
+						  $('#id').val(data.data.memoryTrainId);
+						 $('#content').val(data.data.memoryTrainWords);
+						 $('#number').val(data.data.memoryTrainNumber);
+						 $('#errorNumber').val(data.data.memoryTrainErrorNumber);
+						 $('#score').val(data.data.memoryTrainScore);
+					}
+				}
+			}); 
+
+		}
+	
+	function deleteMemoryTrain(id){
+			console.log(id);
+			$.ajax({
+				url:path+'/kujisoftware/memoryTrain/deleteMemoryTrain',
+				type:'GET',
+				data:{'id':id},
+				success : function(data){
+					alert(data.message);
+					if(data.code == 0){
+						window.location.href=path+'/kujisoftware/memoryTrain/memoryTrain';
+					}
+				}
+			}); 
+		}
 	</script>
 <body>
 	<div id="container" class="container" style="margin-top: 10px;">
-		<%-- <%@ include file="common/nav.jsp"%> --%>
-		<jsp:include page="common/nav.jsp" />
-
+		<%@ include file="common/nav.jsp"%>
 		<div class="col-md-9">
-			<form role="form">
-				<div class="input-group">
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active">
+					<a href="#add" data-toggle="tab">
+						增加
+					</a>
+				</li>
+				<li><a href="#find" data-toggle="tab" >查询</a></li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade in active" id="add">
+				   <div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">题型</span>
 					<select class="form-control" id="type" disabled>
 						  <option value="2">记忆训练</option>
@@ -101,17 +154,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					<textarea 	 rows="3" style="width:200px;" id="content" name="content"></textarea> <span>(格式为1;2;3;4...分号为英文)</span>
 							<!-- 按钮触发模态框 -->
-					
-
 				</div>
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">数量</span> <input type="text"
 						class="form-control" placeholder="number" id="number">
 				</div>
-<!-- 				<div class="input-group" style="margin-top: 10px"> -->
-<!-- 					<span class="input-group-addon">答题时间</span> <input type="text" -->
-<!-- 						class="form-control" placeholder="anwserTime" id="anwserTime"> -->
-<!-- 				</div> -->
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">错误次数</span> <input type="text"
 						class="form-control" placeholder="errorNumber" id="errorNumber">
@@ -119,13 +166,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">分值</span> <input type="text"
 						class="form-control" placeholder="score" id="score">
+					<input type="hidden" name="id" id="id"> 
 				</div>
 				<div style="margin-top: 10px" align="center" align="center">
-					<button type="button" class="btn  btn-primary" onclick="submitForm()">提交</button>
+					<button type="button" class="btn  btn-primary" onclick="submitForm()">保存</button>
 				</div>
-			</form>
-		</div>
-<button class="btn btn-primary btn-md"  onclick="showDialog()" style="display:block;position:relative;top:0px">
+				 <button class="btn btn-primary btn-md"  onclick="showDialog()" style="display:block;position:relative;top:0px">
 					添加词语
 					</button>	
 						
@@ -155,7 +201,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div><!-- /.modal-content -->
 						</div><!-- /.modal -->
 					</div>
+				</div>
+			<div class="tab-pane fade" id="find" >
+			<!-- style="display:block;position:relative;top:-300px;" -->
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>题型</th>
+							<th>所属类别</th>
+							<th>第几天</th>
+							<th>词语</th>
+							<th>数量</th>
+							<th>错误次数</th>
+							<th>分值</th>
+							<th>创建时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var = "sk" items="${memoryTrain }">
+							<tr>
+								<td>${sk.memoryTrainId }</td>
+								<td>${sk.memoryTrainType }</td>
+								<td>${sk.exerciseId }</td>
+								<td>${sk.memoryTrainWhichDay }</td>
+								<td>${sk.memoryTrainWords }</td>
+								<td>${sk.memoryTrainNumber }</td>
+								<td>${sk.memoryTrainErrorNumber }</td>
+								<td>${sk.memoryTrainScore }</td>
+								<td>
+									<fmt:formatDate value="${sk.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
+								</td>
+								<td>
+									<a class="btn btn-info" target="_blank"   onclick="updatamemoryTrain(${sk.memoryTrainId })" >修改</a>
+									<a class="btn btn-info"  onclick="deleteMemoryTrain(${sk.memoryTrainId })" target="_blank" >删除</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>	
+				</table>
+			</div>
+		</div>
 	</div>
-	
-</body>
+	</div>
+  </body>
 </html>

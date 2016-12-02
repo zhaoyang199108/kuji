@@ -19,15 +19,15 @@ $(document).ready(function() {
 				   alert(document.getElementById("ep_file").value);   
 				  if(document.getElementById("ep_file").value==null || document.getElementById("ep_file").value==""){
 					  alert("请上传图片!");
-					  window.location.href = 'http://localhost:8080/kujisoftware/learnExplain/learnExplain';
+					  window.location.href = path+'/kujisoftware/learnExplain/learnExplain';
 				  }
 				  if(document.getElementById("vo_file").value==null || document.getElementById("vo_file").value==""){
 					  alert("请上传语音!");
-					  window.location.href = 'http://localhost:8080/kujisoftware/learnExplain/learnExplain';
+					  window.location.href = path+'/kujisoftware/learnExplain/learnExplain';
 				  }
 				  if(document.getElementById("learnExplainScore").value==null || document.getElementById("learnExplainScore").value==""){
 					  alert("请输入分值!");
-					  window.location.href = 'http://localhost:8080/kujisoftware/learnExplain/learnExplain';
+					  window.location.href = path+'/kujisoftware/learnExplain/learnExplain';
 				  }
 				  console.log(data);
 // 				  alert(data.message);
@@ -70,7 +70,7 @@ function deleteLearnExplain(id){
 			</ul>
 			<div id="myTabContent" class="tab-content">
 			<div class="tab-pane fade in active" id="add">
-			<form  id = "form" method="POST" enctype="multipart/form-data"  action="http://localhost:8080/kujisoftware/learnExplain/saveOrUpdate">
+			<form  id = "form" method="POST" enctype="multipart/form-data"  action="<%=basePath %>learnExplain/saveOrUpdate">
 				<div class="input-group">
 					<span class="input-group-addon">题型</span>
 							  <input type="text" class="form-control" placeholder="learnExplainType"  id="learnExplainType"  name="learnExplainType"  value="学习讲解"  readonly="readonly">

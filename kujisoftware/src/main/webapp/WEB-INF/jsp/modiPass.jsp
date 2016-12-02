@@ -20,22 +20,22 @@ session.getAttribute("user");
 		var newPassword = $('#newPassword').val();
 		var re = $('#re').val();
 		$.ajax({
-			url :'http://localhost:8080/kujisoftware/modiPass/mofifyPassword',
+			url :path+'/kujisoftware/modiPass/mofifyPassword',
 			data:{'oldPassword':oldPassword,'newPassword':newPassword,'re':re},
 			type:'GET',
 			success : function(data){
 				console.log(data);
 				if(data.code == '1'){
 					alert(data.message);
-					 window.location.href = 'http://localhost:8080/kujisoftware/modiPass/mofifyPassword';
+					 window.location.href = path+'/kujisoftware/modiPass/mofifyPassword';
 				}
 				if(data.code == '0'){
 					alert(data.message);
-					 window.location.href = 'http://localhost:8080/kujisoftware/user/firstPage';
+					 window.location.href = path+'/kujisoftware/user/firstPage';
 				}
 				if(data.code == '2'){
 					alert(data.message);
-				  window.location.href = 'http://localhost:8080/kujisoftware';
+				  window.location.href = path+'/kujisoftware';
 				}
 				console.log("ss");
 			}

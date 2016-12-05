@@ -43,7 +43,7 @@
 	 		var category = $('#category').val();
 	 		var errorNumber = $('#errorNumber').val();
 	 		$.ajax({
-	 			url: 'http://localhost:8080/kujisoftware/questionFive/saveOrUpdate',
+	 			url: path+'/kujisoftware/questionFive/saveOrUpdate',
 	 			data:{'a':a,
 	 				'b':b,
 	 				'c':c,
@@ -87,7 +87,7 @@
 	 	}	
 	function test(){
 		$.ajax({
-			url:'http://localhost:8080/kujisoftware/questionFive/test?text='+'啊',
+			url:path+'/kujisoftware/questionFive/test?text='+'啊',
 			type:'POST',
 			success:function(data){
 				console.log(data);

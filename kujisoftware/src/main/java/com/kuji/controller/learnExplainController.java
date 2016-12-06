@@ -180,6 +180,7 @@ public class learnExplainController {
 			LearnExplainView lev = new LearnExplainView();
 			lev.id = i.getLearnExplainId();
 			lev.url = "http://123.56.190.160:8999/kujisoftware/learnExplain/downloadLearnExplainVoice?id="+i.getLearnExplainId();
+			lev.imgUrl = "http://123.56.190.160:8999/kujisoftware/upload/explain/"+i.getLearnExplainImgPath().substring(78);
 			lev.name = i.getLearnExplainVoiceName();
 			//File f= new File(request.getSession().getServletContext().getRealPath("/") + "upload/" + i.getLearnExplainVoicePath().substring(63));  
 			File f = new File(path+i.getLearnExplainVoiceName());

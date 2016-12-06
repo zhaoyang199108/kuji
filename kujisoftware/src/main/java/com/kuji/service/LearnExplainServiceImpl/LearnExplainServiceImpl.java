@@ -34,17 +34,23 @@ public class LearnExplainServiceImpl  implements LearnExplainService{
 	}
 
 	public List<LearnExplain> findAll() {
-		// TODO Auto-generated method stub
 		return learnExplainDao.findAll();
 	}
 	public LearnExplain findLearnExplainById(long id) {
-		// TODO Auto-generated method stub
 		return learnExplainDao.findLearnExplainById(id);
 	}
 
 	public int deleteLearnExplainById(long id) {
-		// TODO Auto-generated method stub
 		int count = learnExplainDao.deleteLearnExplainById(id);
+		if(count>0){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+
+	public int updateLearnExplain(LearnExplain learnExplain) {
+		int count = learnExplainDao.updateLearnExplain(learnExplain);
 		if(count>0){
 			return 1;
 		}else{

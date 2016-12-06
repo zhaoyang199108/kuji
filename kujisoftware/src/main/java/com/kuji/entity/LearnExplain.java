@@ -16,7 +16,6 @@ public class LearnExplain {
 	private String learnExplainWhichDay;//第几天
 	private String learnExplainImgPath;//图片路径
 	private String learnExplainVoicePath;//语音路径
-	private String  learnExplainNumber;//数量
 	private String learnExplainScore;//分数
 	private String learnExplainVoiceName;
 	public String getLearnExplainVoiceName() {
@@ -67,12 +66,7 @@ public class LearnExplain {
 	public void setLearnExplainVoicePath(String learnExplainVoicePath) {
 		this.learnExplainVoicePath = learnExplainVoicePath;
 	}
-	public String getLearnExplainNumber() {
-		return learnExplainNumber;
-	}
-	public void setLearnExplainNumber(String learnExplainNumber) {
-		this.learnExplainNumber = learnExplainNumber;
-	}
+	
 	public String getLearnExplainScore() {
 		return learnExplainScore;
 	}

@@ -95,6 +95,7 @@ public class memoryTrainController {
 				}else{
 					resMap.put("code", "1");
 					resMap.put("message", "添加失败!");
+					return resMap;
 				}
 			}
 		}else{
@@ -107,18 +108,26 @@ public class memoryTrainController {
 			memoryTrain.setMemoryTrainScore(memoryTrainScore);//分数
 			memoryTrain.setExerciseId(Long.parseLong(exerciseId));//所属类别
 			memoryTrain.setMemoryTrainId(Long.parseLong(id));
-			int count = memoryTrainService.updateMemoryTrain(memoryTrain);//修改
-			if(count>0){
-				resMap.put("memoryTrain", memoryTrain);
-				resMap.put("code", "0");
-				resMap.put("message", "修改成功!");
-			}else{
-				resMap.put("memoryTrain", memoryTrain);
+			int  count_find = memoryTrainService.query(memoryTrainType, memoryTrainWhichDay, exerciseId);//校验此题型是否重复
+			if(count_find==0){
 				resMap.put("code", "1");
-				resMap.put("message", "操作失败!");
-			}
+				resMap.put("message", "该题型已存在!");
+				return resMap;
+			}else{
+				int count = memoryTrainService.updateMemoryTrain(memoryTrain);//修改
+				if(count>0){
+					resMap.put("memoryTrain", memoryTrain);
+					resMap.put("code", "0");
+					resMap.put("message", "修改成功!");
+					return resMap;
+				}else{
+					resMap.put("memoryTrain", memoryTrain);
+					resMap.put("code", "1");
+					resMap.put("message", "操作失败!");
+					return resMap;
+				}
+		   }
 		}
-		return resMap;
 	}
 	
 	@RequestMapping(value = "/findMemoryTrainByExerciseAndWhichDayAndType", method = RequestMethod.GET)

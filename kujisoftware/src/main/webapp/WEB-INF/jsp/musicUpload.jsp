@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<jsp:include page="common/nav.jsp" />
 			<div class="col-md-9">
 			<div class="col-md-8">
-			<form role="form" method="POST"  enctype="multipart/form-data"  id="form1" action="http://localhost:8080/kujisoftware/musicUpload/saveOrUpdate" >
+			<form role="form" method="POST"  enctype="multipart/form-data"  id="form1" action="<%=basePath %>musicUpload/saveOrUpdate" >
 				<div class="input-group" >
 				  <span class="input-group-addon">类别</span>
 				  <input type="text" class="form-control" placeholder="背景音乐"  id="type" value="背景音乐"  name="type" readonly="readonly">

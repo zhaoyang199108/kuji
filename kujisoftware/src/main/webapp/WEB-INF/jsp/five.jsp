@@ -130,10 +130,16 @@ function getRowValue(element){
 	
 	function updataFive(id){
 		$.ajax({
+<<<<<<< HEAD
 			url:path+'/kujisoftware/questionFive/findFiveById',
 			type:'GET',
 			data:{'id':id},
 			success : function(data){
+=======
+			url:path+'/kujisoftware/questionFive/test?text='+'啊',
+			type:'POST',
+			success:function(data){
+>>>>>>> branch 'master' of git@222.222.176.146:bitnami/YZK_JAVA.git
 				console.log(data);
 				if(data.code == 0){
 					  $('#myTab a:first').tab('show'); 

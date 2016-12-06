@@ -18,7 +18,13 @@ public class LearnExplain {
 	private String learnExplainVoicePath;//语音路径
 	private String  learnExplainNumber;//数量
 	private String learnExplainScore;//分数
-	
+	private String learnExplainVoiceName;
+	public String getLearnExplainVoiceName() {
+		return learnExplainVoiceName;
+	}
+	public void setLearnExplainVoiceName(String learnExplainVoiceName) {
+		this.learnExplainVoiceName = learnExplainVoiceName;
+	}
 	public Date getCreateTime() {
 		return createTime;
 	}

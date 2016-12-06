@@ -27,7 +27,6 @@ function saveHelp(){
 	});
 }
 function updataHelp(id){
-	alert(path);
 	$.ajax({
 		url:path+'/kujisoftware/help/findHelpById',
 		type:'GET',

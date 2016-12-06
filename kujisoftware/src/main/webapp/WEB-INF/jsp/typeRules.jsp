@@ -20,7 +20,7 @@
 	 		var typeRulesContent = $('#typeRulesContent').val();
 	 		var id = $('#id').val();
 	 		$.ajax({
-	 			url: 'http://localhost:8080/kujisoftware/typeRules/saveOrUpdate',
+	 			url: path+'/kujisoftware/typeRules/saveOrUpdate',
 	 			data:{'typeRulesName':typeRulesName,'typeRulesContent':typeRulesContent,'id':id},
 	 			type:'GET',
 	 			success : function(data){

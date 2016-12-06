@@ -19,15 +19,15 @@ $(document).ready(function() {
 				   alert(document.getElementById("ep_file").value);   
 				  if(document.getElementById("ep_file").value==null || document.getElementById("ep_file").value==""){
 					  alert("请上传图片!");
-					  window.location.href = 'http://localhost:8080/kujisoftware/learnExplain/learnExplain';
+					  window.location.href = path+'/kujisoftware/learnExplain/learnExplain';
 				  }
 				  if(document.getElementById("vo_file").value==null || document.getElementById("vo_file").value==""){
 					  alert("请上传语音!");
-					  window.location.href = 'http://localhost:8080/kujisoftware/learnExplain/learnExplain';
+					  window.location.href = path+'/kujisoftware/learnExplain/learnExplain';
 				  }
 				  if(document.getElementById("learnExplainScore").value==null || document.getElementById("learnExplainScore").value==""){
 					  alert("请输入分值!");
-					  window.location.href = 'http://localhost:8080/kujisoftware/learnExplain/learnExplain';
+					  window.location.href = path+'/kujisoftware/learnExplain/learnExplain';
 				  }
 				  console.log(data);
 // 				  alert(data.message);
@@ -53,6 +53,24 @@ function deleteLearnExplain(id){
 		}
 	}); 
 }
+function updataLearnExplain(id){
+	
+	$.ajax({
+		url:path+'/kujisoftware/learnExplain/findLearnExplainById',
+		type:'GET',
+		data:{'id':id},
+		success : function(data){
+			console.log(data);
+			//alert(data.message);
+			if(data.code == 0){
+				$('#myTab a:first').tab('show'); 
+				/*   $("#whichExercise  option[value='"+data.data.exerciseId+"'] ").attr("selected",true)
+				  $('#id').val(data.data.helpId);
+				 $('#content').val(data.data.helpContent); */
+			}
+		}
+	}); 
+}
 </script>
 <body>
 	<div id="container" class="container" style="margin-top: 10px;">
@@ -70,10 +88,13 @@ function deleteLearnExplain(id){
 			</ul>
 			<div id="myTabContent" class="tab-content">
 			<div class="tab-pane fade in active" id="add">
-			<form  id = "form" method="POST" enctype="multipart/form-data"  action="http://localhost:8080/kujisoftware/learnExplain/saveOrUpdate">
+			<form  id = "form" method="POST" enctype="multipart/form-data"  action="<%=basePath %>learnExplain/saveOrUpdate">
 				<div class="input-group">
 					<span class="input-group-addon">题型</span>
-							  <input type="text" class="form-control" placeholder="learnExplainType"  id="learnExplainType"  name="learnExplainType"  value="学习讲解"  readonly="readonly">
+				  <!--   <input type="text" class="form-control" placeholder="learnExplainType"  id="learnExplainType"  name="learnExplainType"  value="学习讲解"  readonly="readonly"> -->
+					<select class="form-control" id="learnExplainType" name="learnExplainType" readonly="readonly">
+						  <option value="3">学习讲解</option>
+			        </select>
 				</div>
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">所属类别</span>
@@ -150,7 +171,7 @@ function deleteLearnExplain(id){
 									<fmt:formatDate value="${sk.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
 								</td>
 								<td>
-									<a class="btn btn-info" target="_blank"   onclick="updataHelp(${sk.learnExplainId })" >修改</a>
+									<a class="btn btn-info" target="_blank"   onclick="updataLearnExplain(${sk.learnExplainId })" >修改</a>
 									<a class="btn btn-info"  onclick="deleteLearnExplain(${sk.learnExplainId })" target="_blank" >删除</a>
 								</td>
 							</tr>

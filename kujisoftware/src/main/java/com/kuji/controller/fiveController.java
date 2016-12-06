@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,19 +27,23 @@ public class fiveController {
 	
 	private @Autowired FiveService fiveService;
 	@RequestMapping(value = "/five", method = RequestMethod.GET)
-	public String five(){
+	public String five(Model model){
+		List<Five> list_five = fiveService.findAll();
+		model.addAttribute("five", list_five);
 		return "five";
 	}
+	
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public String five(HttpServletRequest request){
 		String upload = request.getParameter("ep_file");
 		System.out.println(upload);
 		return "five";
 	}
+	
+	
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
-		//request.setCharacterEncoding("UTF-8");
 		String  id = request.getParameter("id");
 		String  a = request.getParameter("a");
 		String  b = request.getParameter("b");
@@ -95,83 +100,105 @@ public class fiveController {
 			e1.printStackTrace();
 		}
 		if((a == null || "".equals(a))
-				&&(b == null || "".equals(b))
-				&&(c == null || "".equals(c))
-				&&(d == null || "".equals(d))
-				&&(e == null || "".equals(e))
-				&&(f == null || "".equals(f))
-				&&(g == null || "".equals(g))
-				&&(h == null || "".equals(h))
-				&&(i == null || "".equals(i))
-				&&(j == null || "".equals(j))
-				&&(k == null || "".equals(k))
-				&&(l == null || "".equals(l))
-				&&(m == null || "".equals(m))
-				&&(n == null || "".equals(n))
-				&&(o == null || "".equals(o))
-				&&(p == null || "".equals(p))
-				&&(q == null || "".equals(q))
-				&&(r == null || "".equals(r))
-				&&(s == null || "".equals(s))
-				&&(t == null || "".equals(t))
-				&&(u == null || "".equals(u))
-				&&(v == null || "".equals(v))
-				&&(w == null || "".equals(w))
-				&&(x == null || "".equals(x))
-				&&(y == null || "".equals(y))
+				||(b == null || "".equals(b))
+				||(c == null || "".equals(c))
+				||(d == null || "".equals(d))
+				||(e == null || "".equals(e))
+				||(f == null || "".equals(f))
+				||(g == null || "".equals(g))
+				||(h == null || "".equals(h))
+				||(i == null || "".equals(i))
+				||(j == null || "".equals(j))
+				||(k == null || "".equals(k))
+				||(l == null || "".equals(l))
+				||(m == null || "".equals(m))
+				||(n == null || "".equals(n))
+				||(o == null || "".equals(o))
+				||(p == null || "".equals(p))
+				||(q == null || "".equals(q))
+				||(r == null || "".equals(r))
+				||(s == null || "".equals(s))
+				||(t == null || "".equals(t))
+				||(u == null || "".equals(u))
+				||(v == null || "".equals(v))
+				||(w == null || "".equals(w))
+				||(x == null || "".equals(x))
+				||(y == null || "".equals(y))
 			){
 			 Map<String,Object> map = new HashMap<String, Object>();
 			 map.put("code", "1");
-			 map.put("message", "传入参数有问题");
+			 map.put("message", "内容存在空值！");
 			return map;
 		}
 		String content=a+";"+b+";"+c+";"+d+";"+e+";"+f+";"+g+";"+h+";"+i+";"+j+";"+k+";"+l+";"+m+";"+n+";"+o+";"+p+";"+q+";"+r+";"+s+";"+t+";"+u+";"+v+";"+w+";"+x+";"+y;
 		System.out.println(content);
 		String  type = request.getParameter("type");//类型
-		String  category = request.getParameter("category");//所属类别
+		String  exerciseId = request.getParameter("exerciseId");//所属类别
 		String  whichDay = request.getParameter("whichDay");//第几天
 		String  score = request.getParameter("score");//分数
-		try {
-			category = new String(category.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
 		try {
 			type = new String(type.getBytes("iso-8859-1"),"utf-8");
 		} catch (UnsupportedEncodingException e2) {
 			e2.printStackTrace();
 		}
 		String errorNumber=request.getParameter("errorNumber");//错误次数
-		Five five = new Five();
-		five.setFiveContent(content);
-	    five.setFiveType(type);//类型
-	    five.setExerciseId(Long.parseLong(category));//所属类别
-	    five.setFiveWhichDay(whichDay);//第几天
-	    five.setErrorNumber(errorNumber);//错误次数
-	    five.setFiveScore(score);//分数
-	    Five five_find = fiveService.findFiveByDayAndTypeAndExerciseId(five);
-	    if(five_find != null){
-	    	Map<String,Object> resMap = new HashMap<String, Object>();
-	    	resMap.put("code",1);
-	    	resMap.put("message", "已存在该记录");
-	    	return resMap;
-	    }
-	    int	 count = 0;
-	    if(id == null){
-	    	 count = fiveService.insertIntoFive(five);//保存数据	
-	    }else{
-//	    	update
-	    }
-		
 		Map<String,Object> resMap = new HashMap<String, Object>();
-		if(count>0){
-			resMap.put("code", 0);
-			resMap.put("message", "保存成功");
-		}else{
-			resMap.put("code", 1);
-			resMap.put("message", "保存失败");
+		
+		if(content == null || "".equals(content)){
+			resMap.put("code", "1");
+			resMap.put("message", "请填写内容!");
+			return resMap;
 		}
-		return resMap;
+		if(errorNumber == null || "".equals(errorNumber)){
+			resMap.put("code", "1");
+			resMap.put("message", "请填写错误次数");
+			return resMap;
+		}
+		if(id==null || "".equals(id)){
+			Five five = new Five();
+			five.setFiveContent(content);
+		    five.setFiveType(type);//类型
+		    five.setExerciseId(Long.parseLong(exerciseId));//所属类别
+		    five.setFiveWhichDay(whichDay);//第几天
+		    five.setErrorNumber(errorNumber);//错误次数
+		    five.setFiveScore(score);//分数
+		    Five five_find = fiveService.findFiveByDayAndTypeAndExerciseId(five);
+		    if(five_find != null){
+		    	resMap.put("code",1);
+		    	resMap.put("message", "已存在该记录");
+		    	return resMap;
+		    }else{
+		    	int count = fiveService.insertIntoFive(five);//保存数据	
+		    	if(count>0){
+					resMap.put("code", "0");
+					resMap.put("message", "增加成功");
+					return resMap;
+				}else{
+					resMap.put("code", "1");
+					resMap.put("message", "操作失败");
+					return resMap;
+				}
+		    }
+		}else{
+			Five five = new Five();
+			five.setFiveContent(content);
+		    five.setFiveType(type);//类型
+		    five.setExerciseId(Long.parseLong(exerciseId));//所属类别
+		    five.setFiveWhichDay(whichDay);//第几天
+		    five.setErrorNumber(errorNumber);//错误次数
+		    five.setFiveScore(score);//分数
+			five.setFiveId(Long.parseLong(id));
+			int count = fiveService.updateFive(five);
+			if(count>0){
+				resMap.put("code", "0");
+				resMap.put("message", "修改成功");
+				return resMap;
+			}else{
+				resMap.put("code", "1");
+				resMap.put("message", "操作失败");
+				return resMap;
+			}
+		}
 	}
 	@RequestMapping(value = "/findFiveByExerciseAndWhichDayAndType", method = RequestMethod.GET)
 	@ResponseBody
@@ -214,4 +241,53 @@ public class fiveController {
 		 return map;
 	}
 	
+	@RequestMapping(value = "/deleteFive", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> deleteFive(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resMap =new HashMap<String, Object>();
+		String id = request.getParameter("id");
+		if(id == null || "".equals(id)){
+			resMap.put("code", "1");
+			resMap.put("message","传入参数不正确");
+			return resMap;
+		}
+		Five five = fiveService.findFiveById(Long.parseLong(id));
+			if(five == null){
+				resMap.put("code","1");
+				resMap.put("message", "没有id="+id+"的数据");
+			}
+			int count = fiveService.deleteFiveById(Long.parseLong(id));
+			if(count > 0){
+				resMap.put("code","0");
+				resMap.put("message", "删除成功");
+				return resMap; 
+			}else{
+				resMap.put("code","0");
+				resMap.put("message", "删除失败");
+				return resMap;
+			}
+	 }
+	
+	@RequestMapping(value = "/findFiveById", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> findFiveById(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resMap =new HashMap<String, Object>();
+		String id = request.getParameter("id");
+		if(id == null || "".equals(id)){
+			resMap.put("code", "1");
+			resMap.put("message","传入参数不正确");
+			return resMap;
+		}
+		Five five = fiveService.findFiveById(Long.parseLong(id));
+		if(five == null){
+			resMap.put("code","1");
+			resMap.put("message", "没有id="+id+"的数据");
+		}else{
+			resMap.put("code","0");
+			resMap.put("message", "查詢成功");
+			resMap.put("data", five);
+		}
+		return resMap;
+	
+	}
 }

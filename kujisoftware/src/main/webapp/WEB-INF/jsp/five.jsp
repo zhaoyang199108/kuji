@@ -15,38 +15,6 @@
 <title>舒尔特表训练</title>
 </head>
 <script>
-/* function closeDiv(){
-	//设置div关闭
-	document.getElementById("divId").style.display="none";
-}
-function getRowValue(element){
-   
-	//设置div显示
-	 document.getElementById("divId").style.display="";
-	//this做为参数传过来是方法中的element,parentNode就是获取父节点，获取了连个父节点，就相当于获取了tr
-	var node = element.parentNode.parentNode;
-	//给每一个input框赋值，node.children[0].innerHTML,node就是tr，tr的子类有多个【0】根据下标取值
-	 document.getElementById("a").value=node.children[0].innerHTML;
-	 document.getElementById("b").value=node.children[1].innerHTML;
-	 document.getElementById("c").value=node.children[2].innerHTML
-	 document.getElementById("d").value=node.children[3].innerHTML;
-	
-	
-}
- */
-//  var objInput = document.getElementById("tableList").getElementsByTagName("input");
-//  for (i = 0; i < objInput.length; i++) 
-// 	    alert(objInput[i].value);
- 
-//     window.onload=function(){
-// 	   var input=document.getElementById("tableList").getElementByTagName("input");
-// 	    for(var i=0;i<input.length;i++)
-// 	    {  
-// 	     if(input[i].type=='text')
-// 	     {alert(input[i].value);}//一个一个警告过去显示input类型的值!
-// 	     }
-// 	   }
- 
 	function submitForm(){
 		  var id = $('#id').val();
 	 		var a = $('#a').val();
@@ -119,9 +87,7 @@ function getRowValue(element){
 	 					alert(data.message);
 	 				}
 	 				if(data.code == 0){
-	 					
 	 					alert(data.message);
-	 					alert(data);
 	 					window.location.href=path+'/kujisoftware/questionFive/five';
 	 				}
 	 			}
@@ -130,16 +96,10 @@ function getRowValue(element){
 	
 	function updataFive(id){
 		$.ajax({
-<<<<<<< HEAD
 			url:path+'/kujisoftware/questionFive/findFiveById',
 			type:'GET',
 			data:{'id':id},
 			success : function(data){
-=======
-			url:path+'/kujisoftware/questionFive/test?text='+'啊',
-			type:'POST',
-			success:function(data){
->>>>>>> branch 'master' of git@222.222.176.146:bitnami/YZK_JAVA.git
 				console.log(data);
 				if(data.code == 0){
 					  $('#myTab a:first').tab('show'); 
@@ -354,7 +314,7 @@ function getRowValue(element){
 					<tbody>
 						<c:forEach var = "sk" items="${five }">
 							<tr>
-<%-- 								<td>${sk.fiveId }</td> --%>
+								<td>${sk.fiveId }</td>
 								<td>${sk.fiveType }</td>
 								<td>${sk.exerciseId }</td>
 								<td>${sk.fiveWhichDay }</td>

@@ -67,16 +67,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="container" class="container" style="margin-top: 10px;">
 		<jsp:include page="common/nav.jsp" />
 		<div class="col-md-9">
-			<form method="post" enctype="multipart/form-data" action="/kujisoftware/pictureMemory/saveOrUpdate">
+			<form method="post" enctype="multipart/form-data" action="<%=basePath %>pictureMemory/saveOrUpdate">
 				<div class="input-group">
 					<span class="input-group-addon">题型</span>
-					<input id="type" type="text" class="form-control" placeholder="type" value="图片记忆训练"	disabled> 
+					<!-- <input id="type" type="text" class="form-control" placeholder="type" value="图片记忆训练"	disabled>  -->
+					<select class="form-control" id="type" name="type" readonly="readonly">
+						  <option value="3">学习讲解</option>
+			        </select>
 				</div>
 
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">所属类别</span>
 					<!-- 		  <input type="text" class="form-control" placeholder="category"> -->
-					<select class="form-control" id="category">
+					<select class="form-control" id="category" name = "category">
 						<option value="1000">21天训练</option>
 						<option value="1001">90天养成好习惯</option>
 					</select>
@@ -84,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">第几天</span> <input type="text"
-						class="form-control" placeholder="whichDay" id="whichDay">
+						class="form-control" placeholder="whichDay" id="whichDay" name ="whichDay" >
 				</div>
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">图片</span> 
@@ -95,9 +98,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					</div> -->
 					<input id="file_upload" type="file"  name="files" multiple="true" />
-					<div class="image_container">
+<!-- 					<div class="image_container">
 					<img id="preview" width="60" height="60">
-					</div>
+					</div> -->
 				</div>
 <!-- 				<div class="input-group" style="margin-top: 10px"> -->
 <!-- 					<span class="input-group-addon">上传附件</span> <input type="file" -->
@@ -105,15 +108,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 				</div> -->
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">数量</span> <input type="text"
-						class="form-control" placeholder="number" id="number">
+						class="form-control" placeholder="number" id="number" name = "number">
 				</div>
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">错误次数</span> <input type="text"
-						class="form-control" placeholder="errorNumber" id="errorNumber">
+						class="form-control" placeholder="errorNumber" id="errorNumber" name = "errorNumber">
 				</div>
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">分值</span> <input type="text"
-						class="form-control" placeholder="score" id="score">
+						class="form-control" placeholder="score" id="score" name = "score">
 				</div>
 				<div style="margin-top: 10px" align="center">
 					<button type="submit" class="btn  btn-primary" >提交</button>

@@ -6,6 +6,38 @@
 	<insert id="insertIntoPictureMemory" parameterType="com.kuji.entity.PictureMemory">
 		insert into picturememory(pictureMemory_imgName,pictureMemory_category,exercise_id,pictureMemory_which_day,
 		pictureMemory_type,pictureMemory_number,pictureMemory_error_number,pictureMemory_score)
-		values(#{imgName},#{category},#{exerciseId},#{whichDay},#{type},#{number},#{errorNumber},#{score});
+		values(#{pictureMemoryImgName},#{pictureMemoryCategory},#{exerciseId},#{pictureMemoryWhichDay},#{pictureMemoryType},#{pictureMemoryNumber},#{pictureMemoryErrorNumber},#{pictureMemoryScore});
 	</insert>
+	<select id="findAll" resultType="com.kuji.entity.PictureMemory">
+	select 
+	t.pictureMemory_id,
+	t.pictureMemory_imgName,
+	t.pictureMemory_category,
+	t.pictureMemory_which_day,
+	t.pictureMemory_score,
+	t.pictureMemory_type,
+	t.pictureMemory_number,
+	t.create_time,
+	t.pictureMemory_error_number,
+	t.exercise_id
+	from picturememory t;
+	</select>
+	<select id="findPictureMemoryByExerciseAndWhichDayAndType" resultType="com.kuji.entity.PictureMemory">
+	select 
+	t.pictureMemory_id,
+	t.pictureMemory_imgName,
+	t.pictureMemory_category,
+	t.pictureMemory_which_day,
+	t.pictureMemory_score,
+	t.pictureMemory_type,
+	t.pictureMemory_number,
+	t.create_time,
+	t.pictureMemory_error_number,
+	t.exercise_id
+	from picturememory t
+	where
+	t.pictureMemory_which_day = #{pictureMemoryWhichDay}
+	and t.pictureMemory_type = #{pictureMemoryType}
+	and t.exercise_id = #{exerciseId}
+	</select>
 </mapper>

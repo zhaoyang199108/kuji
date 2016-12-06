@@ -1,17 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+	<%@include file="common/tag.jsp" %>	
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <link
 	href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
-
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script
-	src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>舒尔特表训练</title>
+</head>
 <script>
 	function submitForm(){
+		  var id = $('#id').val();
 	 		var a = $('#a').val();
 	 		var b = $('#b').val();
 	 		var c = $('#c').val();
@@ -40,11 +45,13 @@
 	 		var score = $('#score').val();
 	 		var type = $('#type').val();
 	 		var whichDay = $('#whichDay').val();
-	 		var category = $('#category').val();
+	 		var exerciseId = $('#exerciseId').val();
 	 		var errorNumber = $('#errorNumber').val();
 	 		$.ajax({
 	 			url: path+'/kujisoftware/questionFive/saveOrUpdate',
-	 			data:{'a':a,
+	 			data:{
+	 				'id':id,
+	 				'a':a,
 	 				'b':b,
 	 				'c':c,
 	 				'd':d,
@@ -71,7 +78,7 @@
 	 				'y':y,
 	 				'type':type,
 	 				'whichDay':whichDay,
-	 				'category':category,
+	 				'exerciseId':exerciseId,
 	 				'errorNumber':errorNumber,
 	 				'score':score},
 	 			type:'GET',
@@ -81,19 +88,78 @@
 	 				}
 	 				if(data.code == 0){
 	 					alert(data.message);
+	 					window.location.href=path+'/kujisoftware/questionFive/five';
 	 				}
 	 			}
 	 		});
 	 	}	
-	function test(){
+	
+	function updataFive(id){
 		$.ajax({
-			url:path+'/kujisoftware/questionFive/test?text='+'啊',
-			type:'POST',
-			success:function(data){
+			url:path+'/kujisoftware/questionFive/findFiveById',
+			type:'GET',
+			data:{'id':id},
+			success : function(data){
 				console.log(data);
+				if(data.code == 0){
+					  $('#myTab a:first').tab('show'); 
+					  $("#type  option[value='"+data.data.type+"'] ").attr("selected",true)
+					  $('#exerciseId').val(data.data.exerciseId);
+					  $('#whichDay').val(data.data.fiveWhichDay);
+					  $('#id').val(data.data.fiveId);
+					  var tableList=[];
+						tableList = data.data.fiveContent.split(";");
+						for(var i=0;i<tableList.length;i++){
+							 var list =tableList[i];
+						     $('#a').val(tableList[0]);
+						     $('#b').val(tableList[1]);
+							 $('#c').val(tableList[2]);
+							 $('#d').val(tableList[3]);
+							 $('#e').val(tableList[4]);
+							 $('#f').val(tableList[5]);
+							 $('#g').val(tableList[6]);
+							 $('#h').val(tableList[7]);
+							 $('#i').val(tableList[8]);
+							 $('#j').val(tableList[9]);
+							 $('#k').val(tableList[10]);
+							 $('#l').val(tableList[11]);
+							 $('#m').val(tableList[12]);
+							 $('#n').val(tableList[13]);
+							 $('#o').val(tableList[14]);
+							 $('#p').val(tableList[15]);
+							 $('#q').val(tableList[16]);
+							 $('#r').val(tableList[17]);
+							 $('#s').val(tableList[18]);
+							 $('#t').val(tableList[19]);
+							 $('#u').val(tableList[20]);
+							 $('#v').val(tableList[21]);
+							 $('#w').val(tableList[22]);
+							 $('#x').val(tableList[23]);
+							 $('#y').val(tableList[24]);
+						}
+					 $('#errorNumber').val(data.data.errorNumber);
+					 $('#score').val(data.data.fiveScore);
+				}
 			}
-		});
+		}); 
+
 	}
+	
+	function deleteFive(id){
+		console.log(id);
+		$.ajax({
+			url:path+'/kujisoftware/questionFive/deleteFive',
+			type:'GET',
+			data:{'id':id},
+			success : function(data){
+				alert(data.message);
+				if(data.code == 0){
+					window.location.href=path+'/kujisoftware/questionFive/five';
+				}
+			}
+		}); 
+	}
+	
 	</script>
 <body>
 	<div id="container" class="container" style="margin-top: 10px;">
@@ -113,12 +179,14 @@
 					<form id="fiveForm" method="get" enctype="multipart/form-data">
 						<div class="input-group">
 							<span class="input-group-addon">题型</span> 
-							<input id="type"	type="text" class="form-control" value="舒尔特表训练" disabled>
+							<select class="form-control" id="type" disabled>
+						          <option value="1">舒尔特表训练</option>
+			                </select>
 						</div>
 		
 						<div class="input-group" style="margin-top: 10px">
 							<span class="input-group-addon">所属类别</span> 
-							<select class="form-control" id="category">
+							<select class="form-control" id="exerciseId">
 								<option value="1000">21天训练</option>
 								<option value="1001">90天养成好习惯</option>
 							</select>
@@ -150,9 +218,9 @@
 								<option value="21">第二十一天</option>
 							</select>
 						</div>
-						<div class="input-group" style="margin-top: 10px">
+						<div class="input-group" style="margin-top: 10px" id="divId">
 							<span class="input-group-addon">内容</span>
-							<table class="">
+							<table class=""  id="tableList">
 								<tr>
 									<td style="width: 155px;"><input type="text"
 										style="width: 155px;" id="a"></td>
@@ -222,6 +290,7 @@
 						<div class="input-group" style="margin-top: 10px">
 							<span class="input-group-addon">分值</span> <input type="text"
 								class="form-control" placeholder="score" id="score">
+								<input type="hidden" name="id" id="id"> 
 						</div>
 						<div style="margin-top: 10px" align="center">
 							<button type="button" class="btn  btn-primary" onclick="submitForm()" >提交</button>
@@ -232,43 +301,40 @@
 					<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>id</th>
-							<th>内容</th>
+<!-- 							<th>id</th> -->
+							<th>题型</th>
 							<th>所属类别</th>
 							<th>第几天</th>
-							<th>得分</th>
+							<th>内容</th>
 							<th>错误次数</th>
+							<th>分值</th>
+							<th>创建时间</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var = "sk" items="${list }">
+						<c:forEach var = "sk" items="${five }">
 							<tr>
-								<td>${sk.seckillName }</td>
-								<td>${sk.number }</td>
-								<td>
-									<fmt:formatDate value="${sk.startTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
-								</td>
-								<td>
-									<fmt:formatDate value="${sk.endTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
-								</td>
+								<td>${sk.fiveId }</td>
+								<td>${sk.fiveType }</td>
+								<td>${sk.exerciseId }</td>
+								<td>${sk.fiveWhichDay }</td>
+								<td >${sk.fiveContent }</td>
+								<td>${sk.errorNumber }</td>
+								<td>${sk.fiveScore }</td>
 								<td>
 									<fmt:formatDate value="${sk.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
 								</td>
 								<td>
-									<a class="btn btn-info" href="/seckilll/seckilll/${sk.seckillId }/detail" target="_blank">Link</a>
+									<a class="btn btn-info" target="_blank"   onclick="updataFive(${sk.fiveId })" >修改</a>
+									<a class="btn btn-info"  onclick="deleteFive(${sk.fiveId })" target="_blank" >删除</a>
 								</td>
 							</tr>
 						</c:forEach>
-					</tbody>
+					</tbody>	
 				</table>
-				</div>
 			</div>
-			
 		</div>
 	</div>
-	
-	<div id="text" style="width:100px;height:100px;background:#CCC" onclick="test()">
-	
 	</div>
-</body>
+  </body>
 </html>

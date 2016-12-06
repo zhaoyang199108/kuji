@@ -7,7 +7,7 @@
 		insert into memorytrain (memoryTrain_words,exercise_id,memoryTrain_which_day,
 		memoryTrain_type,memoryTrain_number,memoryTrain_error_number,memoryTrain_score)
 		values(#{memoryTrainWords},#{exerciseId},#{memoryTrainWhichDay},#{memoryTrainType},
-		#{memoryTrainNumber},#{memoryTrainErrorNumber},#{ngmemoryTrainScore});
+		#{memoryTrainNumber},#{memoryTrainErrorNumber},#{memoryTrainScore});
 	</insert>
 	<select id="findMemoryTrainByExerciseAndWhichDayAndType" parameterType="com.kuji.entity.MemoryTrain" resultType="MemoryTrain"> 
 		SELECT
@@ -26,4 +26,66 @@
 	    and t.memoryTrain_type=#{memoryTrainType}
 		and t.exercise_id=#{exerciseId}
 	</select>
+	
+	<select id="findAll" resultType="com.kuji.entity.MemoryTrain">
+		SELECT
+		t.memoryTrain_id,
+		t.memoryTrain_words,
+		t.memoryTrain_which_day,
+		t.memoryTrain_type,
+		t.memoryTrain_score,
+		t.memoryTrain_number,
+		t.memoryTrain_error_number,
+		t.create_time,
+		t.exercise_id
+		FROM `memorytrain` t;
+	</select>
+	
+	<select id="findMemoryTrainById" resultType="com.kuji.entity.MemoryTrain" parameterType="long">
+		SELECT
+		t.memoryTrain_id,
+		t.memoryTrain_words,
+		t.memoryTrain_which_day,
+		t.memoryTrain_type,
+		t.memoryTrain_score,
+		t.memoryTrain_number,
+		t.memoryTrain_error_number,
+		t.create_time,
+		t.exercise_id
+		FROM `memorytrain` t
+		where t.memoryTrain_id=#{id};
+	</select>
+	
+	<delete id="deleteMemoryTrainById" parameterType="long" >
+		Delete
+		FROM 
+	 	`memorytrain` 
+	 	where 
+	 	memoryTrain_id = #{memoryTrainId};
+	</delete>
+	
+	<select id="query" resultType="int">
+        select count(1)  
+        from 
+        memorytrain 
+        where  
+        exercise_id=#{exerciseId} and
+        memoryTrain_type=#{memoryTrainType} and 
+        memoryTrain_which_day=#{memoryTrainWhichDay};
+    </select>
+    
+    <update id="updateMemoryTrain"  parameterType="com.kuji.entity.MemoryTrain">
+	Update 
+	memorytrain t 
+	set 
+	t.memoryTrain_type=#{memoryTrainType},
+	t.memoryTrain_which_day = #{memoryTrainWhichDay},
+	t.exercise_id=#{exerciseId},
+	t.memoryTrain_words=#{memoryTrainWords},
+	t.memoryTrain_score = #{memoryTrainScore},
+	t.memoryTrain_number=#{memoryTrainNumber},
+	t.memoryTrain_error_number = #{memoryTrainErrorNumber}
+	where 
+	t.memoryTrain_id = #{memoryTrainId};
+	</update>
 </mapper>

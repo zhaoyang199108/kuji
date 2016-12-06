@@ -16,4 +16,6 @@ public interface LearnExplainDao {
 	
 	LearnExplain findLearnExplainById(@Param("id") long id);
 	int deleteLearnExplainById(@Param("id") long id);
+
+	int updateLearnExplain(LearnExplain learnExplain);
 }

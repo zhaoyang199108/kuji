@@ -13,4 +13,6 @@ public interface LearnExplainService {
 	List<LearnExplain> findAll();
 	LearnExplain findLearnExplainById(long id);
 	int deleteLearnExplainById(long id);
+
+	int updateLearnExplain(LearnExplain learnExplain);
 }

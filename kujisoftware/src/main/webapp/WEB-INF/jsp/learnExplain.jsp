@@ -16,7 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 $(document).ready(function() {
 			  $("form").submit(function(data){
-				   alert(document.getElementById("ep_file").value);   
 				  if(document.getElementById("ep_file").value==null || document.getElementById("ep_file").value==""){
 					  alert("请上传图片!");
 					  window.location.href = path+'/kujisoftware/learnExplain/learnExplain';
@@ -47,26 +46,29 @@ function deleteLearnExplain(id){
 		success : function(data){
 			alert(data.message);
 			if(data.code == 0){
-				 
 				window.location.href=path+'/kujisoftware/learnExplain/learnExplain';
 			}
 		}
 	}); 
 }
 function updataLearnExplain(id){
-	
 	$.ajax({
 		url:path+'/kujisoftware/learnExplain/findLearnExplainById',
 		type:'GET',
 		data:{'id':id},
 		success : function(data){
 			console.log(data);
-			//alert(data.message);
+			if(data.code == 3||data.code==2){
+			   alert(data.message);
+			   window.location.href=path+'/kujisoftware/learnExplain/learnExplain';
+			}
 			if(data.code == 0){
-				$('#myTab a:first').tab('show'); 
-				/*   $("#whichExercise  option[value='"+data.data.exerciseId+"'] ").attr("selected",true)
-				  $('#id').val(data.data.helpId);
-				 $('#content').val(data.data.helpContent); */
+				 $('#myTab a:first').tab('show'); 
+				  $("#learnExplainType  option[value='"+data.data.learnExplainType+"'] ").attr("selected",true)
+				  $('#exerciseId').val(data.data.exerciseId);
+				  $('#learnExplainWhichDay').val(data.data.learnExplainWhichDay);
+				  $('#id').val(data.data.learnExplainId);
+				  $('#learnExplainScore').val(data.data.learnExplainScore); 
 			}
 		}
 	}); 
@@ -141,6 +143,7 @@ function updataLearnExplain(id){
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">分值</span> 
 					<input type="text"  class="form-control"  placeholder="learnExplainScore"  id="learnExplainScore" name="learnExplainScore">
+				    <input type="hidden" name="id" id="id"> 
 				</div>
 				<div style="margin-top: 10px" align="center">
 					<button type="submit" class="btn  btn-primary"  name="submit">提交</button>

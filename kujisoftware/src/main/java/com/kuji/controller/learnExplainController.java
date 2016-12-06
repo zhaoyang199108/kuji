@@ -29,9 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kuji.dto.LearnExplainView;
-import com.kuji.dto.MusicView;
 import com.kuji.entity.LearnExplain;
-import com.kuji.entity.MusicUpload;
 import com.kuji.service.LearnExplainService;
 
 /**
@@ -43,7 +41,7 @@ import com.kuji.service.LearnExplainService;
 @RequestMapping("/learnExplain")
 public class learnExplainController {
 
-	//private final String path = "E:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\explain\\";
+//	private final String path = "E:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\explain\\";
 	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload/explain/";
 	@Autowired
 	private  LearnExplainService learnExplainService;
@@ -56,7 +54,7 @@ public class learnExplainController {
 	
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public String saveOrUpdate(HttpServletRequest request,HttpServletResponse response,MultipartFile file){
+	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response,MultipartFile file){
 		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
 		Map<String,Object> resMap = new HashMap<String, Object>();	
         //  获得第1张图片（根据前台的name名称得到上传的文件）   
@@ -88,6 +86,7 @@ public class learnExplainController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	String  id = request.getParameter("id");
 		String  learnExplainType = request.getParameter("learnExplainType");//类型
 		String  exerciseId = request.getParameter("exerciseId");//所属类别
 		String  learnExplainWhichDay = request.getParameter("learnExplainWhichDay");//第几天
@@ -109,35 +108,76 @@ public class learnExplainController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		LearnExplain learnExplain = new LearnExplain();
-		learnExplain.setLearnExplainType(learnExplainType);//类型
-		learnExplain.setLearnExplainWhichDay(learnExplainWhichDay);//第几天
-		learnExplain.setExerciseId(Long.parseLong(exerciseId));//所属类别
-		learnExplain.setLearnExplainVoicePath(learnExplainVoicePath);//语音路径
-		learnExplain.setLearnExplainImgPath(learnExplainImgPath);//图片路径
-		learnExplain.setLearnExplainScore(learnExplainScore);//分数
-		learnExplain.setLearnExplainVoiceName(imgFile2.getOriginalFilename());
-		  if(imgFile1.getOriginalFilename()==null || "".equals(imgFile1.getOriginalFilename())||
-			  imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
-	        	resMap.put("code", "3");
-	        	resMap.put("message", "请上传图片或语音！");
-	        }else{
-	        	int count1 = learnExplainService.query(learnExplainType,exerciseId,learnExplainWhichDay);
-	        	if(count1==0){
-			    	resMap.put("code", "2");
-			    	resMap.put("message", "该题型已存在");
-			    }else{
+		if(id==null||"".equals(id)){
+			LearnExplain learnExplain = new LearnExplain();
+			learnExplain.setLearnExplainType(learnExplainType);//类型
+			learnExplain.setLearnExplainWhichDay(learnExplainWhichDay);//第几天
+			learnExplain.setExerciseId(Long.parseLong(exerciseId));//所属类别
+			learnExplain.setLearnExplainVoicePath(learnExplainVoicePath);//语音路径
+			learnExplain.setLearnExplainImgPath(learnExplainImgPath);//图片路径
+			learnExplain.setLearnExplainScore(learnExplainScore);//分数
+			learnExplain.setLearnExplainVoiceName(imgFile2.getOriginalFilename());
+			if(imgFile1.getOriginalFilename()==null || "".equals(imgFile1.getOriginalFilename())||
+					imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
+				resMap.put("code", "3");
+				resMap.put("message", "请上传图片或语音！");
+				return resMap;
+			}else{
+				int count1 = learnExplainService.query(learnExplainType,exerciseId,learnExplainWhichDay);
+				if(count1==0){ 
+					resMap.put("code", "2");
+					resMap.put("message", "该题型已存在");
+					return resMap;
+				}else{
 					int count = learnExplainService.insertIntoLearnExplain(learnExplain);//添加
 					if(count>0){
 						resMap.put("learnExplain", learnExplain);
-						resMap.put("code", 0);
+						resMap.put("code", "0");
+						resMap.put("message", "添加成功!");
+						return resMap;
 					}else{
-						resMap.put("code", 1);
+						resMap.put("code", "1");
+						resMap.put("message", "操作失败!");
+						return resMap;
 					}
-			    }
-	        }
-		return "learnExplain";
-	}
+				}
+			}
+		}else{
+			LearnExplain learnExplain = new LearnExplain();
+			learnExplain.setLearnExplainType(learnExplainType);//类型
+			learnExplain.setLearnExplainWhichDay(learnExplainWhichDay);//第几天
+			learnExplain.setExerciseId(Long.parseLong(exerciseId));//所属类别
+			learnExplain.setLearnExplainVoicePath(learnExplainVoicePath);//语音路径
+			learnExplain.setLearnExplainImgPath(learnExplainImgPath);//图片路径
+			learnExplain.setLearnExplainScore(learnExplainScore);//分数
+			learnExplain.setLearnExplainVoiceName(imgFile2.getOriginalFilename());
+			learnExplain.setLearnExplainId(Long.parseLong(id));
+			if(imgFile1.getOriginalFilename()==null || "".equals(imgFile1.getOriginalFilename())||
+					imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
+				resMap.put("code", "3");
+				resMap.put("message", "请上传图片或语音！");
+				return resMap;
+			}else{
+			int count1 = learnExplainService.query(learnExplainType,exerciseId,learnExplainWhichDay);
+			if(count1==0){ 
+				resMap.put("code", "2");
+				resMap.put("message", "该题型已存在");
+				return resMap;
+			}else{
+				int count = learnExplainService.updateLearnExplain(learnExplain);
+				if(count>0){
+					resMap.put("code", "0");
+					resMap.put("message", "修改成功!");
+					return resMap;
+				}else{
+					resMap.put("code", "1");
+					resMap.put("message", "操作失败!");
+					return resMap;
+				}
+		    }
+		}
+  	}
+}
 	
 	@RequestMapping(value = "/deleteLearnExplain", method = RequestMethod.GET)
 	@ResponseBody

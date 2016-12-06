@@ -6,8 +6,8 @@
 	<insert id="insertIntoLearnExplain" parameterType="com.kuji.entity.LearnExplain">
 		insert into learnexplain(exercise_id,learnExplain_which_day,
 		learnExplain_type,learnExplain_imgPath,
-		learnExplain_voicePath,learnExplain_score)
-		values(#{exerciseId},#{learnExplainWhichDay},#{learnExplainType},#{learnExplainImgPath},#{learnExplainVoicePath},#{learnExplainScore});
+		learnExplain_voicePath,learnExplain_score,learnExplain_voiceName)
+		values(#{exerciseId},#{learnExplainWhichDay},#{learnExplainType},#{learnExplainImgPath},#{learnExplainVoicePath},#{learnExplainScore},#{learnExplainVoiceName});
 	</insert>
 	<select id="query" resultType="int">
         select count(1)  from learnexplain where  exercise_id=#{exerciseId} and learnExplain_type=#{learnExplainType} and learnExplain_which_day=#{learnExplainWhichDay};
@@ -32,6 +32,7 @@
 	t.learnExplain_score,
 	t.learnExplain_imgPath,
 	t.learnExplain_voicePath,
+	t.learnExplain_voiceName,
 	t.create_time,
 	t.exercise_id
 	from learnexplain t

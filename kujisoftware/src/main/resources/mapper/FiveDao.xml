@@ -6,7 +6,6 @@
 	<insert id="insertIntoFive"  parameterType="com.kuji.entity.Five" >
 		insert into five(five_content,error_number,exercise_id,five_which_day,five_type,five_score)
 		values(#{fiveContent},#{errorNumber},#{exerciseId},#{fiveWhichDay},#{fiveType},#{fiveScore});
-
 	</insert>
 	<select id="findFiveByDayAndTypeAndExerciseId" parameterType="com.kuji.entity.Five" resultType="Five"> 
 		SELECT
@@ -24,5 +23,50 @@
 	    and t.five_type=#{fiveType}
 		and t.exercise_id=#{exerciseId}
 	</select>
-
+     <select id="findAll" resultType="com.kuji.entity.Five">
+		SELECT
+		t.five_id,
+		t.five_content,
+		t.five_which_day,
+		t.five_type,
+		t.five_score,
+		t.error_number,
+		t.exercise_id,
+		t.create_time
+		FROM `five` t;
+	</select>
+  <select id="findFiveById"  resultType="com.kuji.entity.Five"  
+     parameterType="long">
+		SELECT
+		t.five_id,
+		t.five_content,
+		t.five_which_day,
+		t.five_type,
+		t.five_score,
+		t.error_number,
+		t.exercise_id,
+		t.create_time
+		FROM `five` t
+		where t.five_id=#{id};
+	</select>
+	<delete id="deleteFiveById" parameterType="long" >
+		Delete
+		FROM 
+	 	`five` 
+	 	where 
+	 	five_id = #{id};
+	</delete>
+	<update id="updateFive"  parameterType="com.kuji.entity.Five">
+	Update 
+	five t 
+	set 
+	t.five_content=#{fiveContent},
+    t.five_which_day=#{fiveWhichDay},
+	t.five_type=#{fiveType},
+	t.five_score=#{fiveScore},
+	t.error_number=#{errorNumber},
+	t.exercise_id = #{exerciseId}
+	where 
+	t.five_id = #{fiveId};
+	</update>
 </mapper>

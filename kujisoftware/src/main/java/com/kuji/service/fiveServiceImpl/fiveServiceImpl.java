@@ -1,5 +1,7 @@
 package com.kuji.service.fiveServiceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,33 @@ public class fiveServiceImpl implements FiveService {
 		}
 	}
 	public Five findFiveByDayAndTypeAndExerciseId(Five five) {
-		// TODO Auto-generated method stub
 		return fiveDao.findFiveByDayAndTypeAndExerciseId(five);
+	}
+	
+	public List<Five> findAll() {
+		return fiveDao.findAll();
+	}
+	
+	
+	public int deleteFiveById(long id) {
+			int count = fiveDao.deleteFiveById(id);
+			if(count>0){
+				return 1;
+			}else{
+				return 0;
+			}
+	}
+	
+	public Five findFiveById(long id) {
+		return fiveDao.findFiveById(id);
+	}
+	public int updateFive(Five five) {
+		int count = fiveDao.updateFive(five);
+		if(count>0){
+			return 1;
+		}else{
+			return 0;
+		}
 	}
 
 }

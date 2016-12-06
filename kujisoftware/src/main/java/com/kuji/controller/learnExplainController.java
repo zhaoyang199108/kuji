@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.kuji.dto.LearnExplainView;
+import com.kuji.dto.MusicView;
 import com.kuji.entity.LearnExplain;
+import com.kuji.entity.MusicUpload;
 import com.kuji.service.LearnExplainService;
 
 /**
@@ -39,7 +44,7 @@ import com.kuji.service.LearnExplainService;
 public class learnExplainController {
 
 	//private final String path = "E:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\explain\\";
-	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload/explain";
+	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload/explain/";
 	@Autowired
 	private  LearnExplainService learnExplainService;
 	@RequestMapping(value = "/learnExplain", method = RequestMethod.GET)
@@ -51,7 +56,7 @@ public class learnExplainController {
 	
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response,MultipartFile file){
+	public String saveOrUpdate(HttpServletRequest request,HttpServletResponse response,MultipartFile file){
 		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
 		Map<String,Object> resMap = new HashMap<String, Object>();	
         //  获得第1张图片（根据前台的name名称得到上传的文件）   
@@ -65,9 +70,10 @@ public class learnExplainController {
 			  if (!fileDir.exists()) {
 				  fileDir.mkdir();
 			  }
-
-			FileOutputStream fos = new FileOutputStream(path+"\\"+imgFile1.getOriginalFilename());
-			FileOutputStream fos1 = new FileOutputStream(path+"\\"+imgFile2.getOriginalFilename());
+//			FileOutputStream fos = new FileOutputStream(request.getSession().getServletContext().getRealPath("\\") + "upload\\explain\\"+imgFile1.getOriginalFilename());
+//			FileOutputStream fos1 = new FileOutputStream(request.getSession().getServletContext().getRealPath("\\") + "upload\\explain\\"+imgFile2.getOriginalFilename());
+			FileOutputStream fos = new FileOutputStream(path+URLDecoder.decode(imgFile1.getOriginalFilename(), "UTF-8"));
+			FileOutputStream fos1 = new FileOutputStream(path+URLDecoder.decode(imgFile2.getOriginalFilename(), "UTF-8")); 
 			byte[] b = new byte[1024*1024];
 			while((is.read(b)) != -1){
 			fos.write(b);
@@ -85,8 +91,8 @@ public class learnExplainController {
 		String  learnExplainType = request.getParameter("learnExplainType");//类型
 		String  exerciseId = request.getParameter("exerciseId");//所属类别
 		String  learnExplainWhichDay = request.getParameter("learnExplainWhichDay");//第几天
-		String  learnExplainImgPath = path+imgFile1.getOriginalFilename();//图片路径
-		String  learnExplainVoicePath = path+imgFile2.getOriginalFilename();//语音路径
+		String  learnExplainImgPath = request.getSession().getServletContext().getRealPath("/") + "upload/explain/"+imgFile1.getOriginalFilename();//图片路径
+		String  learnExplainVoicePath = request.getSession().getServletContext().getRealPath("/") + "upload/explain/"+imgFile2.getOriginalFilename();//语音路径
 		String  learnExplainScore = request.getParameter("learnExplainScore");//分数
 		try {
 			learnExplainType = new String(learnExplainType.getBytes("iso-8859-1"),"utf-8");
@@ -110,6 +116,7 @@ public class learnExplainController {
 		learnExplain.setLearnExplainVoicePath(learnExplainVoicePath);//语音路径
 		learnExplain.setLearnExplainImgPath(learnExplainImgPath);//图片路径
 		learnExplain.setLearnExplainScore(learnExplainScore);//分数
+		learnExplain.setLearnExplainVoiceName(imgFile2.getOriginalFilename());
 		  if(imgFile1.getOriginalFilename()==null || "".equals(imgFile1.getOriginalFilename())||
 			  imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
 	        	resMap.put("code", "3");
@@ -129,7 +136,7 @@ public class learnExplainController {
 					}
 			    }
 	        }
-		return resMap;
+		return "learnExplain";
 	}
 	
 	@RequestMapping(value = "/deleteLearnExplain", method = RequestMethod.GET)
@@ -162,15 +169,27 @@ public class learnExplainController {
 	@ResponseBody
 	public Map<String,Object> findAllLearnExplain(HttpServletRequest request,HttpServletResponse response){
 		Map<String,Object> resMap = new HashMap<String, Object>();
-		List<LearnExplain> list_help = learnExplainService.findAll();
-		if(list_help.size() == 0){
+		List<LearnExplain> list_explain = learnExplainService.findAll();
+		if(list_explain.size() == 0){
 			resMap.put("code", "0");
 			resMap.put("message", "无数据");
 			return resMap;
 		}
+		List<LearnExplainView> listRes = new ArrayList<LearnExplainView>();
+		for(LearnExplain i : list_explain){
+			LearnExplainView lev = new LearnExplainView();
+			lev.id = i.getLearnExplainId();
+			lev.url = "http://123.56.190.160:8999/kujisoftware/learnExplain/downloadLearnExplainVoice?id="+i.getLearnExplainId();
+			lev.name = i.getLearnExplainVoiceName();
+			//File f= new File(request.getSession().getServletContext().getRealPath("/") + "upload/" + i.getLearnExplainVoicePath().substring(63));  
+			File f = new File(path+i.getLearnExplainVoiceName());
+			lev.fileLength = f.length();
+			//lev.version = i.getExerciseId();
+			listRes.add(lev);
+		}
 		resMap.put("code", "0");
 		resMap.put("message", "查询成功");
-		resMap.put("data", list_help);
+		resMap.put("data", listRes);
 		return resMap;
 		
 	}
@@ -206,14 +225,14 @@ public class learnExplainController {
 			return "";
 		}
 		LearnExplain learnExplain = learnExplainService.findLearnExplainById(Long.parseLong(id));
-		System.out.println(learnExplain.getLearnExplainVoicePath().substring(55));
+		//System.out.println(learnExplain.getLearnExplainVoicePath().split("\\")[0]);
 		 try {
-			InputStream fis = new BufferedInputStream(new FileInputStream(path+"/"+learnExplain.getLearnExplainVoicePath().substring(63)));
+			InputStream fis = new BufferedInputStream(new FileInputStream(path+learnExplain.getLearnExplainVoiceName()));
 			byte[] buffer = new byte[fis.available()];
 	        fis.read(buffer);
 	        fis.close();
 			response.reset();
-			response.setHeader("Content-Disposition", "attachment;filename="+learnExplain.getLearnExplainVoicePath().substring(63));
+			response.setHeader("Content-Disposition", "attachment;filename="+learnExplain.getLearnExplainVoiceName());
 	        OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
             response.setContentType("application/octet-stream");
             toClient.write(buffer);
@@ -240,7 +259,7 @@ public class learnExplainController {
 		LearnExplain learnExplain = learnExplainService.findLearnExplainById(Long.parseLong(id));
 		System.out.println(learnExplain.getLearnExplainImgPath().substring(55));
 		 try {
-			InputStream fis = new BufferedInputStream(new FileInputStream(path+"/"+learnExplain.getLearnExplainVoicePath().substring(63)));
+			InputStream fis = new BufferedInputStream(new FileInputStream(request.getSession().getServletContext().getRealPath("\\") + "upload\\explain\\"+"/"+learnExplain.getLearnExplainVoicePath().substring(63)));
 			byte[] buffer = new byte[fis.available()];
 	        fis.read(buffer);
 	        fis.close();

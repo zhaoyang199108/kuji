@@ -314,7 +314,7 @@
 					<tbody>
 						<c:forEach var = "sk" items="${five }">
 							<tr>
-								<td>${sk.fiveId }</td>
+<%-- 								<td>${sk.fiveId }</td> --%>
 								<td>${sk.fiveType }</td>
 								<td>${sk.exerciseId }</td>
 								<td>${sk.fiveWhichDay }</td>

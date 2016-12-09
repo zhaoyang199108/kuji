@@ -6,4 +6,5 @@ public class LearnExplainView {
 	public String imgUrl;
 	public long id;
 	public long fileLength;
+	public long version;
 }

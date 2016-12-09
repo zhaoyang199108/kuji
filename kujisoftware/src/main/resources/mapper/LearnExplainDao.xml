@@ -38,6 +38,7 @@
 	t.learnExplain_voicePath,
 	t.learnExplain_voiceName,
 	t.create_time,
+	t.version,
 	t.exercise_id
 	from learnexplain t;
 	</select>

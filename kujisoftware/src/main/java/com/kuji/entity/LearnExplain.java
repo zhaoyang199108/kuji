@@ -18,6 +18,13 @@ public class LearnExplain {
 	private String learnExplainVoicePath;//语音路径
 	private String learnExplainScore;//分数
 	private String learnExplainVoiceName;
+	private long version;
+	public long getVersion() {
+		return version;
+	}
+	public void setVersion(long version) {
+		this.version = version;
+	}
 	public String getLearnExplainVoiceName() {
 		return learnExplainVoiceName;
 	}

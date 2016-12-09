@@ -225,7 +225,7 @@ public class learnExplainController {
 			//File f= new File(request.getSession().getServletContext().getRealPath("/") + "upload/" + i.getLearnExplainVoicePath().substring(63));  
 			File f = new File(path+i.getLearnExplainVoiceName());
 			lev.fileLength = f.length();
-			//lev.version = i.getExerciseId();
+			lev.version = i.getVersion();
 			listRes.add(lev);
 		}
 		resMap.put("code", "0");

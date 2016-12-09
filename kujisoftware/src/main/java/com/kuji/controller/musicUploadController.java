@@ -55,8 +55,7 @@ public class musicUploadController {
 	}
 	
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response){
+	public String saveOrUpdate(HttpServletRequest request,HttpServletResponse response){
 		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
 		Map<String,Object> resMap = new HashMap<String, Object>();
 		//  获得第1张图片（根据前台的name名称得到上传的文件）   
@@ -106,13 +105,13 @@ public class musicUploadController {
 			if(playOrder == null || "".equals(playOrder)){
 				resMap.put("code", "1");
 				resMap.put("message", "请填写播放顺序");
-				return resMap;
+				return "redirect:musicUpload";
 			}
 			
 			if(musicName == null || "".equals(musicName)){
 				resMap.put("code", "1");
 				resMap.put("message", "请上传音乐");
-				return resMap;
+				return "redirect:musicUpload";
 			}
 			MusicUpload musicUpload = new MusicUpload();
 			musicUpload.setMusicUploadMusic(musicPath);//音乐路径
@@ -124,11 +123,11 @@ public class musicUploadController {
 			if(count>0){
 				resMap.put("code", "1");
 				resMap.put("message", "增加成功");
-				return resMap;
+				return "redirect:musicUpload";
 			}else{
 				resMap.put("code", "2");
 				resMap.put("message", "操作失败");
-				return resMap;
+				return "redirect:musicUpload";
 			}
 		}else{
 			MusicUpload musicUpload = new MusicUpload();
@@ -143,22 +142,22 @@ public class musicUploadController {
 			if(playOrder == null || "".equals(playOrder)){
 				resMap.put("code", "1");
 				resMap.put("message", "请填写播放顺序!");
-				return resMap;
+				return "redirect:musicUpload";
 			}
 			if(musicName == null || "".equals(musicName)){
 				resMap.put("code", "1");
 				resMap.put("message", "请上传音乐");
-				return resMap;
+				return "redirect:musicUpload";
 			}else{
 				int count = musicUploadService.updateMusicUpload(musicUpload);
 				if(count>0){
 					resMap.put("code", "0");
 					resMap.put("message", "修改成功");
-					return resMap;
+					return "redirect:musicUpload";
 				}else{
 					resMap.put("code", "1");
 					resMap.put("message", "操作失败");
-					return resMap;
+					return "redirect:musicUpload";
 				}
 			}
 		}

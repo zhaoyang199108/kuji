@@ -48,8 +48,8 @@ public class pictureMemory {
 	}
 	
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response,@RequestParam("files") MultipartFile[] files){
+//	@ResponseBody
+	public String saveOrUpdate(HttpServletRequest request,HttpServletResponse response,@RequestParam("files") MultipartFile[] files){
 		String  type = request.getParameter("type");//类型
 		String  exerciseId = request.getParameter("exerciseId");//所属类别
 		String  whichDay = request.getParameter("whichDay");//第几天
@@ -108,22 +108,22 @@ public class pictureMemory {
 		if(sb.toString() == null || "".equals(sb.toString())){
 			resMap.put("code", "1");
 			resMap.put("message", "请上传图片!");
-			return resMap;
+			return "redirect:pictureMemory";
 		}
 		if(number == null || "".equals(number)){
 			resMap.put("code", "1");
 			resMap.put("message", "请填写数量!");
-			return resMap;
+			return "redirect:pictureMemory";
 		}
 		if(errorNumber == null || "".equals(errorNumber)){
 			resMap.put("code", "1");
 			resMap.put("message", "请填写错误数量!");
-			return resMap;
+			return "redirect:pictureMemory";
 		}
 		if(score == null || "".equals(score)){
 			resMap.put("code", "1");
 			resMap.put("message", "请填写分值!");
-			return resMap;
+			return "redirect:pictureMemory";
 		}
 		PictureMemory picMemory =  pictureMemoryService.findPictureMemoryByExerciseAndWhichDayAndType(pictureMemory);
 		if(picMemory==null){
@@ -131,16 +131,16 @@ public class pictureMemory {
 			if(count>0){
 				resMap.put("code", "0");
 				resMap.put("message", "增加成功");
-		    	return resMap;
+				return "redirect:pictureMemory";
 			}else{
 				resMap.put("code", "1");
 				resMap.put("message", "操作失败");
-		    	return resMap;
+				return "redirect:pictureMemory";
 			}
 		}else{
 			resMap.put("code","1");
 	    	resMap.put("message", "已存在该记录");
-	    	return resMap;
+	    	return "redirect:pictureMemory";
 		}
 	}
 	

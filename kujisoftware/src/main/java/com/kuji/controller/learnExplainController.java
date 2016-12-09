@@ -30,7 +30,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kuji.dto.LearnExplainView;
 import com.kuji.entity.LearnExplain;
-import com.kuji.entity.MusicUpload;
 import com.kuji.service.LearnExplainService;
 
 /**
@@ -54,8 +53,7 @@ public class learnExplainController {
 	}
 	
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response,MultipartFile file){
+	public String saveOrUpdate(HttpServletRequest request,HttpServletResponse response,MultipartFile file){
 		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
 		Map<String,Object> resMap = new HashMap<String, Object>();	
         //  获得第1张图片（根据前台的name名称得到上传的文件）   
@@ -123,24 +121,24 @@ public class learnExplainController {
 					imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
 				resMap.put("code", "3");
 				resMap.put("message", "请上传图片或语音！");
-				return resMap;
+				return "redirect:learnExplain";
 			}else{
 				int count1 = learnExplainService.query(learnExplainType,exerciseId,learnExplainWhichDay);
 				if(count1==0){ 
 					resMap.put("code", "2");
 					resMap.put("message", "该题型已存在");
-					return resMap;
+					return "redirect:learnExplain";
 				}else{
 					int count = learnExplainService.insertIntoLearnExplain(learnExplain);//添加
 					if(count>0){
 						resMap.put("learnExplain", learnExplain);
 						resMap.put("code", "0");
 						resMap.put("message", "添加成功!");
-						return resMap;
+						return "redirect:learnExplain";
 					}else{
 						resMap.put("code", "1");
 						resMap.put("message", "操作失败!");
-						return resMap;
+						return "redirect:learnExplain";
 					}
 				}
 			}
@@ -161,7 +159,7 @@ public class learnExplainController {
 					imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
 				resMap.put("code", "3");
 				resMap.put("message", "请上传图片或语音！");
-				return resMap;
+				return "redirect:learnExplain";
 			}else{
 //			int count1 = learnExplainService.query(learnExplainType,exerciseId,learnExplainWhichDay);
 //			if(count1==0){ 
@@ -173,11 +171,11 @@ public class learnExplainController {
 				if(count>0){
 					resMap.put("code", "0");
 					resMap.put("message", "修改成功!");
-					return resMap;
+					return "redirect:learnExplain";
 				}else{
 					resMap.put("code", "1");
 					resMap.put("message", "操作失败!");
-					return resMap;
+					return "redirect:learnExplain";
 				}
 		    }
 		}

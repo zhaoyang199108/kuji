@@ -11,14 +11,16 @@
 		learnExplain_imgPath,
 		learnExplain_voicePath,
 		learnExplain_score,
-		learnExplain_voiceName)
+		learnExplain_voiceName,
+		version)
 		values(#{exerciseId},
 		#{learnExplainWhichDay},
 		#{learnExplainType},
 		#{learnExplainImgPath},
 		#{learnExplainVoicePath},
 		#{learnExplainScore},
-		#{learnExplainVoiceName});
+		#{learnExplainVoiceName},
+		#{version});
 	</insert>
 	<select id="query" resultType="int">
         select count(1)  
@@ -52,6 +54,7 @@
 	t.learnExplain_voicePath,
 	t.learnExplain_voiceName,
 	t.create_time,
+	t.version,
 	t.exercise_id
 	from learnexplain t
 	where t.learnExplain_id=#{id};
@@ -74,6 +77,7 @@
 	t.learnExplain_imgPath= #{learnExplainImgPath},
 	t.learnExplain_voicePath= #{learnExplainVoicePath},
 	t.learnExplain_voiceName= #{learnExplainVoiceName},
+	t.version= #{version},
 	t.exercise_id = #{exerciseId}
 	where 
 	t.learnExplain_id = #{learnExplainId};

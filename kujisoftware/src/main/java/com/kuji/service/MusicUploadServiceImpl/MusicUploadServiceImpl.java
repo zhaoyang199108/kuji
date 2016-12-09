@@ -25,19 +25,25 @@ public class MusicUploadServiceImpl implements MusicUploadService{
 	}
 
 	public List<MusicUpload> findAllMusic() {
-		// TODO Auto-generated method stub
 		List<MusicUpload> list = musicUploadDao.findAllMusic();
 		return list;
 	}
 
 	public List<MusicUpload> findMusicByName(String fileName) {
-		// TODO Auto-generated method stub
 		return musicUploadDao.findMusicByName(fileName);
 	}
 
 	public MusicUpload finMusicById(long id) {
-		// TODO Auto-generated method stub
 		return musicUploadDao.finMusicById(id);
+	}
+
+	public int updateMusicUpload(MusicUpload musicUpload) {
+		int count = musicUploadDao.updateMusicUpload(musicUpload);
+		if(count>0){
+			return 1;
+		}else{
+			return 0;
+		}
 	}
 	
 }

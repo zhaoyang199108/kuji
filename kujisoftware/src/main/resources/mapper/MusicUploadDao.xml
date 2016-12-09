@@ -41,4 +41,18 @@
 		where 
 		t.musicUpload_id = #{id}
 	</select>
+	
+   <update id="updateMusicUpload"  parameterType="com.kuji.entity.MusicUpload">
+	Update 
+	musicupload t 
+	set 
+	t.musicUpload_type=#{musicUploadType},
+	t.musicUpload_playOrder = #{musicUploadPlayOrder},
+	t.musicUpload_music=#{musicUploadMusic},
+	t.musicUpload_name=#{musicUploadName},
+	t.version = #{version}
+	where 
+	t.musicUpload_id = #{musicUploadId};
+	</update>
+	
 </mapper>

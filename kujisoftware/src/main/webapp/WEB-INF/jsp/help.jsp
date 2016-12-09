@@ -75,14 +75,25 @@ function deleteHelp(id){
 			</ul>
 			<div id="myTabContent" class="tab-content">
 			<div class="tab-pane fade in active" id="add">
-			       题型名称：<select class="form-control"  id="whichExercise"  name="whichExercise">
-							<option value="1000">21天训练</option>
-							<option value="1001">90天养成好习惯</option>
-						</select>
-				<span style="display:block;position:relative;top:0px;">帮助说明文本：</span>
-				<textarea id="content" style="width:400px;height:200px;"></textarea>
+			 <div class="input-group" style="margin-top: 10px">
+		      <span class="input-group-addon">题型名称</span>
+		      <select class="form-control"  id="whichExercise"  name="whichExercise">
+					<option value="1000">21天训练</option>
+					<option value="1001">90天养成好习惯</option>
+				</select>
+			</div>
+			<div class="input-group" style="margin-top: 10px">
+					<span class="input-group-addon">帮助说明文本</span> 
+					<textarea  class="form-control"  style="overflow-y:auto;" rows="10" cols="30" id="helpContent" ></textarea>
 				<input type="hidden" name="id" id="id"> 
-				<div>
+				</div>
+				
+<!-- 				<div class="input-group" style="margin-top: 10px"> -->
+<!-- 				<span style="display:block;position:relative;top:0px;">帮助说明文本：</span> -->
+<!-- 				<textarea id="content" style="width:400px;height:200px;"></textarea> -->
+<!-- 				<input type="hidden" name="id" id="id">  -->
+<!-- 				</div> -->
+				<div align="center">
 				<button class="btn btn-primary" onclick="saveHelp()">保存</button>
 				</div>
 			</div>

@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kuji.dto.LearnExplainView;
 import com.kuji.entity.LearnExplain;
+import com.kuji.entity.MusicUpload;
 import com.kuji.service.LearnExplainService;
 
 /**
@@ -116,6 +117,7 @@ public class learnExplainController {
 			learnExplain.setLearnExplainVoicePath(learnExplainVoicePath);//语音路径
 			learnExplain.setLearnExplainImgPath(learnExplainImgPath);//图片路径
 			learnExplain.setLearnExplainScore(learnExplainScore);//分数
+			learnExplain.setVersion(1);
 			learnExplain.setLearnExplainVoiceName(imgFile2.getOriginalFilename());
 			if(imgFile1.getOriginalFilename()==null || "".equals(imgFile1.getOriginalFilename())||
 					imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
@@ -152,6 +154,9 @@ public class learnExplainController {
 			learnExplain.setLearnExplainScore(learnExplainScore);//分数
 			learnExplain.setLearnExplainVoiceName(imgFile2.getOriginalFilename());
 			learnExplain.setLearnExplainId(Long.parseLong(id));
+			LearnExplain learnExp = learnExplainService.findLearnExplainById(Long.parseLong(id));
+			long version=learnExp.getVersion()+1;//获取原来版本+1
+			learnExplain.setVersion(version);
 			if(imgFile1.getOriginalFilename()==null || "".equals(imgFile1.getOriginalFilename())||
 					imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
 				resMap.put("code", "3");

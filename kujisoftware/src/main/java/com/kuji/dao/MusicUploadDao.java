@@ -10,4 +10,5 @@ public interface MusicUploadDao {
 	List<MusicUpload> findAllMusic();
 	List<MusicUpload> findMusicByName(String filename);
 	MusicUpload finMusicById(long id);
+	int updateMusicUpload(MusicUpload musicUpload);
 }

@@ -2,8 +2,6 @@ package com.kuji.controller;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -24,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,7 +31,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.kuji.dto.MusicView;
 import com.kuji.entity.MusicUpload;
 import com.kuji.service.MusicUploadService;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 
 /**
  * 音乐上传
@@ -44,14 +41,16 @@ import com.sun.org.apache.bcel.internal.generic.AALOAD;
 @RequestMapping("/musicUpload")
 public class musicUploadController {
 	
-//	private final String path = "E:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\";
+//	private final String path = "D:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\";
 //	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload";
 //	/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload
 	@Autowired
 	private  MusicUploadService musicUploadService;
 	
 	@RequestMapping(value = "/musicUpload", method = RequestMethod.GET)
-	public String musicUpload(){
+	public String musicUpload(Model model){
+		List<MusicUpload> mus_list =musicUploadService.findAllMusic();
+		model.addAttribute("musicUpload", mus_list);
 		return "musicUpload";
 	}
 	
@@ -59,9 +58,11 @@ public class musicUploadController {
 	@ResponseBody
 	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response){
 		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
-        //  获得第1张图片（根据前台的name名称得到上传的文件）   
+		Map<String,Object> resMap = new HashMap<String, Object>();
+		//  获得第1张图片（根据前台的name名称得到上传的文件）   
         MultipartFile imgFile1  =  multipartRequest.getFile("music_file");//音乐
        String musicName =  imgFile1.getOriginalFilename();
+       String  id = request.getParameter("id");
        try {
     	   musicName = new String(musicName.getBytes("iso-8859-1"),"utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -86,7 +87,6 @@ public class musicUploadController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String  type = request.getParameter("type");//类型
@@ -102,20 +102,66 @@ public class musicUploadController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		MusicUpload musicUpload = new MusicUpload();
-		musicUpload.setMusicUploadMusic(musicPath);//音乐路径
-		musicUpload.setMusicUploadPlayOrder(playOrder);//播放顺序
-		musicUpload.setMusicUploadType(type);//类型
-		musicUpload.setMusicUploadName(musicName);
-		musicUpload.setVersion(1);
-		int count = musicUploadService.insertIntoMusicUpload(musicUpload);//保存数据
-		Map<String,Object> resMap = new HashMap<String, Object>();
-		if(count>0){
-			resMap.put("code", 0);
+		if(id==null || "".equals(id)){
+			if(playOrder == null || "".equals(playOrder)){
+				resMap.put("code", "1");
+				resMap.put("message", "请填写播放顺序");
+				return resMap;
+			}
+			
+			if(musicName == null || "".equals(musicName)){
+				resMap.put("code", "1");
+				resMap.put("message", "请上传音乐");
+				return resMap;
+			}
+			MusicUpload musicUpload = new MusicUpload();
+			musicUpload.setMusicUploadMusic(musicPath);//音乐路径
+			musicUpload.setMusicUploadPlayOrder(playOrder);//播放顺序
+			musicUpload.setMusicUploadType(type);//类型
+			musicUpload.setMusicUploadName(musicName);
+			musicUpload.setVersion(1);
+			int count = musicUploadService.insertIntoMusicUpload(musicUpload);//保存数据
+			if(count>0){
+				resMap.put("code", "1");
+				resMap.put("message", "增加成功");
+				return resMap;
+			}else{
+				resMap.put("code", "2");
+				resMap.put("message", "操作失败");
+				return resMap;
+			}
 		}else{
-			resMap.put("code", 1);
+			MusicUpload musicUpload = new MusicUpload();
+			musicUpload.setMusicUploadId(Long.parseLong(id));
+			musicUpload.setMusicUploadMusic(musicPath);//音乐路径
+			musicUpload.setMusicUploadPlayOrder(playOrder);//播放顺序
+			musicUpload.setMusicUploadType(type);//类型
+			musicUpload.setMusicUploadName(musicName);//音乐名字
+			MusicUpload mu = musicUploadService.finMusicById(Long.parseLong(id));
+			long version=mu.getVersion()+1;//获取原来版本+1
+			musicUpload.setVersion(version);
+			if(playOrder == null || "".equals(playOrder)){
+				resMap.put("code", "1");
+				resMap.put("message", "请填写播放顺序!");
+				return resMap;
+			}
+			if(musicName == null || "".equals(musicName)){
+				resMap.put("code", "1");
+				resMap.put("message", "请上传音乐");
+				return resMap;
+			}else{
+				int count = musicUploadService.updateMusicUpload(musicUpload);
+				if(count>0){
+					resMap.put("code", "0");
+					resMap.put("message", "修改成功");
+					return resMap;
+				}else{
+					resMap.put("code", "1");
+					resMap.put("message", "操作失败");
+					return resMap;
+				}
+			}
 		}
-		return resMap;
 	}
 	
     public  byte[] readStream(InputStream inStream) throws Exception{
@@ -179,13 +225,33 @@ public class musicUploadController {
             toClient.flush();
             toClient.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
+	@RequestMapping(value = "/findMusicUploadById", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> findMusicUploadById(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resMap =new HashMap<String, Object>();
+		String id = request.getParameter("id");
+		if(id == null || "".equals(id)){
+			resMap.put("code", "1");
+			resMap.put("message","传入参数不正确");
+			return resMap;
+		}
+		MusicUpload mu = musicUploadService.finMusicById(Long.parseLong(id));
+		if(mu == null){
+			resMap.put("code","1");
+			resMap.put("message", "没有id="+id+"的数据");
+		}else{
+			resMap.put("code","0");
+			resMap.put("message", "查詢成功");
+			resMap.put("data", mu);
+		}
+		return resMap;
+	
+	}
 }

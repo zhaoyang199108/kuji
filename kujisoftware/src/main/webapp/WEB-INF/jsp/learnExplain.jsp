@@ -175,7 +175,7 @@ function updataLearnExplain(id){
 								</td>
 								<td>
 									<a class="btn btn-info" target="_blank"   onclick="updataLearnExplain(${sk.learnExplainId })" >修改</a>
-									<a class="btn btn-info"  onclick="deleteLearnExplain(${sk.learnExplainId })" target="_blank" >删除</a>
+<%-- 									<a class="btn btn-info"  onclick="deleteLearnExplain(${sk.learnExplainId })" target="_blank" >删除</a> --%>
 								</td>
 							</tr>
 						</c:forEach>

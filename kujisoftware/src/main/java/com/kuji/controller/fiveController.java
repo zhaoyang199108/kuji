@@ -188,12 +188,12 @@ public class fiveController {
 		    five.setErrorNumber(errorNumber);//错误次数
 		    five.setFiveScore(score);//分数
 			five.setFiveId(Long.parseLong(id));
-		    Five five_find = fiveService.findFiveByDayAndTypeAndExerciseId(five);
-		    if(five_find != null){
-		    	resMap.put("code",1);
-		    	resMap.put("message", "已存在该记录");
-		    	return resMap;
-		    }else{
+//		    Five five_find = fiveService.findFiveByDayAndTypeAndExerciseId(five);
+//		    if(five_find != null){
+//		    	resMap.put("code",1);
+//		    	resMap.put("message", "已存在该记录");
+//		    	return resMap;
+//		    }else{
 			int count = fiveService.updateFive(five);
 			if(count>0){
 				resMap.put("code", "0");
@@ -205,7 +205,7 @@ public class fiveController {
 				return resMap;
 			}
 		}
-	 }
+//	 }
 	}
 	@RequestMapping(value = "/findFiveByExerciseAndWhichDayAndType", method = RequestMethod.GET)
 	@ResponseBody

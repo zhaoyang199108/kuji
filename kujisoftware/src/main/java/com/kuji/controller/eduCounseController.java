@@ -154,8 +154,8 @@ public class eduCounseController {
 				eduCounse.setEduCounseImg(sb.toString());
 				eduCounse.setEduCounseContent(eduCounseContent);
 				eduCounse.setEduCounseId(Long.parseLong(eduCounseId));
-				EduCounse  eduCou = eduCounseService.query(eduCounseTitle);
-			if(eduCou==null){
+//				EduCounse  eduCou = eduCounseService.query(eduCounseTitle);
+//			if(eduCou==null){
 				int count = eduCounseService.updateEduCounse(eduCounse);
 				if(count>0){
 					resMap.put("code", "0");
@@ -166,11 +166,11 @@ public class eduCounseController {
 					resMap.put("message", "操作失败");
 					return resMap;
 				}
-			}else{
-				resMap.put("code", "1");
-				resMap.put("message", "数据已存在");
-				return resMap;
-			}
+//			}else{
+//				resMap.put("code", "1");
+//				resMap.put("message", "数据已存在");
+//				return resMap;
+//			}
 		  }
 		}
 	}

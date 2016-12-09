@@ -158,12 +158,12 @@ public class learnExplainController {
 				resMap.put("message", "请上传图片或语音！");
 				return resMap;
 			}else{
-			int count1 = learnExplainService.query(learnExplainType,exerciseId,learnExplainWhichDay);
-			if(count1==0){ 
-				resMap.put("code", "2");
-				resMap.put("message", "该题型已存在");
-				return resMap;
-			}else{
+//			int count1 = learnExplainService.query(learnExplainType,exerciseId,learnExplainWhichDay);
+//			if(count1==0){ 
+//				resMap.put("code", "2");
+//				resMap.put("message", "该题型已存在");
+//				return resMap;
+//			}else{
 				int count = learnExplainService.updateLearnExplain(learnExplain);
 				if(count>0){
 					resMap.put("code", "0");
@@ -176,7 +176,7 @@ public class learnExplainController {
 				}
 		    }
 		}
-  	}
+//  	}
 }
 	
 	@RequestMapping(value = "/deleteLearnExplain", method = RequestMethod.GET)

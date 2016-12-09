@@ -12,7 +12,6 @@ public class PictureMemory {
 	private long exerciseId;//题目id
 	private long pictureMemoryId;
 	private  String pictureMemoryType;//类型
-	private  String pictureMemoryCategory;//所属类别
 	private String pictureMemoryErrorNumber;//错误次数
 	private String pictureMemoryWhichDay;//第几天
 	private String pictureMemoryImgName;//图片名字
@@ -43,12 +42,7 @@ public class PictureMemory {
 	public void setPictureMemoryType(String pictureMemoryType) {
 		this.pictureMemoryType = pictureMemoryType;
 	}
-	public String getPictureMemoryCategory() {
-		return pictureMemoryCategory;
-	}
-	public void setPictureMemoryCategory(String pictureMemoryCategory) {
-		this.pictureMemoryCategory = pictureMemoryCategory;
-	}
+	
 	public String getPictureMemoryErrorNumber() {
 		return pictureMemoryErrorNumber;
 	}

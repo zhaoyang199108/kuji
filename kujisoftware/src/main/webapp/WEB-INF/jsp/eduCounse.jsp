@@ -16,23 +16,23 @@
 
 <script >
 		  function submitForm(){
-	 		var eduCounseTitle = $('#eduCounseTitle').val();
-	 		var eduCounseContent = $('#eduCounseContent').val();
-	 		var eduCounseImg = $('#eduCounseImg').val();
-	 		var id = $('#id').val();
-	 		$.ajax({
-	 			url: path+'/kujisoftware/eduCounse/saveOrUpdate',
-	 			data:{'eduCounseImg':eduCounseImg,'eduCounseTitle':eduCounseTitle,'eduCounseContent':eduCounseContent,'id':id},
-	 			type:'GET',
-	 			success : function(data){
-	 				alert(data.message);
-	 				if(data.code == 0){
-	 					 $('#id').val('');
-	 					window.location.href=path+'/kujisoftware/eduCounse/eduCounse';
-	 				}
-	 			}
-	 		});
-	 		
+			  if(document.getElementById("file_upload").value==null || document.getElementById("file_upload").value==""){
+				  alert("请上传图片!");
+				  window.location.href=path+'/kujisoftware/eduCounse/eduCounse';
+			  }
+// 			  console.log(data);
+// 	 		var eduCounseTitle = $('#eduCounseTitle').val();
+// 	 		var eduCounseContent = $('#eduCounseContent').val();
+// 	 		var eduCounseImg = $('#eduCounseImg').val();
+// 	 		var id = $('#id').val();
+// 	 		$.ajax({
+// 	 			url: path+'/kujisoftware/eduCounse/saveOrUpdate',
+// 	 			data:{'eduCounseImg':eduCounseImg,'eduCounseTitle':eduCounseTitle,'eduCounseContent':eduCounseContent,'id':id},
+// 	 			type:'POST',
+// 	 			success : function(data){
+// 	 				alert(data.message);
+// 	 			}
+// 	 		});
 	 	}	
 	 		
 	 		function updataEduCounse(id){
@@ -69,11 +69,36 @@
 	 				}
 	 			}); 
 	 		}
+	 		
+	 		$(function() {
+	 		   $("#file_upload").change(function() {
+	 		   var $file = $(this);
+	 		   var fileObj = $file[0];
+	 		   var windowURL = window.URL || window.webkitURL;
+	 		   var dataURL;
+	 		   var $img = $("#preview");
+	 		    
+	 		   if(fileObj && fileObj.files && fileObj.files[0]){
+	 		   dataURL = windowURL.createObjectURL(fileObj.files[0]);
+	 		   $img.attr('src',dataURL);
+	 		   }else{
+	 		   dataURL = $file.val();
+	 		   var imgObj = document.getElementById("preview");
+	 		   // 两个坑:
+	 		   // 1、在设置filter属性时，元素必须已经存在在DOM树中，动态创建的Node，也需要在设置属性前加入到DOM中，先设置属性在加入，无效；
+	 		   // 2、src属性需要像下面的方式添加，上面的两种方式添加，无效；
+	 		   imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+	 		   imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+	 		    
+	 		   }
+	 		   });
+	 		   });
 </script>
 <body>
 	<div id="container" class="container" style="margin-top: 10px;">
 		<%@ include file="common/nav.jsp"%>
 		<div class="col-md-9">
+	
 			<ul id="myTab" class="nav nav-tabs">
 				<li class="active">
 					<a href="#add" data-toggle="tab">
@@ -84,22 +109,25 @@
 			</ul>
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane fade in active" id="add">
-				   <div class="input-group" style="margin-top: 10px">
+				<form method="post" enctype="multipart/form-data" action="<%=basePath %>eduCounse/saveOrUpdate">
+				 <div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">标题</span>
 							  <input type="text" class="form-control"  id="eduCounseTitle"  name="eduCounseTitle" >
 				</div>
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">内容图片</span>
-					<input type="text" class="form-control"  id="eduCounseImg"  name="eduCounseImg" >
+					<input id="file_upload" type="file"  name="files" multiple="true" />
+<!-- 					<input type="text" class="form-control"  id="eduCounseImg"  name="eduCounseImg" > -->
 				</div>
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">内容文本</span> 
-				<textarea  class="form-control"  style="overflow-y:auto;" rows="2" cols="30" id="eduCounseContent" ></textarea>
+				<textarea  class="form-control"  style="overflow-y:auto;" rows="2" cols="30" id="eduCounseContent" name="eduCounseContent"></textarea>
 				<input type="hidden" name="id" id="id"> 
 				</div>
 				<div style="margin-top: 10px" align="center">
-				      <button type="button" class="btn  btn-primary" onclick="submitForm()">保存</button>
+				      <button type="submit" class="btn  btn-primary"  name="submit">保存</button>
 				</div>
+				</form>
 				</div>
 			<div class="tab-pane fade" id="find" >
 			<!-- style="display:block;position:relative;top:-300px;" -->
@@ -125,7 +153,7 @@
 									<fmt:formatDate value="${sk.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
 								</td>
 								<td>
-									<a class="btn btn-info" target="_blank"   onclick="updataEduCounse(${sk.eduCounseId })" >修改</a>
+<%-- 									<a class="btn btn-info" target="_blank"   onclick="updataEduCounse(${sk.eduCounseId })" >修改</a> --%>
 									<a class="btn btn-info"  onclick="deleteEduCounse(${sk.eduCounseId })" target="_blank" >删除</a>
 								</td>
 							</tr>

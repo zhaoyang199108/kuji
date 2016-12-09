@@ -25,13 +25,19 @@ public class PictureMemoryServiceImpl implements PictureMemoryService {
 	}
 
 	public List<PictureMemory> findAll() {
-		// TODO Auto-generated method stub
 		return pictureMemoryDao.findAll();
 	}
 
 	public PictureMemory findPictureMemoryByExerciseAndWhichDayAndType(
 			PictureMemory pictureMemory) {
-		// TODO Auto-generated method stub
 		return pictureMemoryDao.findPictureMemoryByExerciseAndWhichDayAndType(pictureMemory);
+	}
+
+	public PictureMemory findPictureMemoryById(long id) {
+		return pictureMemoryDao.findPictureMemoryById(id);
+	}
+
+	public int deletePictureMemoryById(long id) {
+		return pictureMemoryDao.deletePictureMemoryById(id);
 	}
 }

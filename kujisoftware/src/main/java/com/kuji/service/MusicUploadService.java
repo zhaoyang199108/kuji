@@ -10,4 +10,5 @@ public interface MusicUploadService {
 	List<MusicUpload> findAllMusic();
 	List<MusicUpload> findMusicByName(String fileName);
 	MusicUpload finMusicById(long id);
+	int updateMusicUpload(MusicUpload musicUpload);
 }

@@ -15,4 +15,6 @@ public interface LearnExplainService {
 	int deleteLearnExplainById(long id);
 
 	int updateLearnExplain(LearnExplain learnExplain);
+	LearnExplain findLearnExplainBy(String learnExplainType, String exerciseId,
+			String learnExplainWhichDay);
 }

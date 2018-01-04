@@ -18,4 +18,6 @@ public interface LearnExplainDao {
 	int deleteLearnExplainById(@Param("id") long id);
 
 	int updateLearnExplain(LearnExplain learnExplain);
+	LearnExplain findLearnExplainBy(@Param("learnExplainType") String learnExplainType, @Param("exerciseId") String exerciseId,@Param("learnExplainWhichDay") String learnExplainWhichDay);
+	
 }

@@ -45,11 +45,11 @@ public class helpController {
 			resMap.put("message", "参数不能为空");
 			return resMap;
 		}
-		try {
-			content = new String(content.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			content = new String(content.getBytes("iso-8859-1"),"utf-8");
+//		} catch (UnsupportedEncodingException e1) {
+//			e1.printStackTrace();
+//		}
 		if(id==null || "".equals(id)){
 		
 		

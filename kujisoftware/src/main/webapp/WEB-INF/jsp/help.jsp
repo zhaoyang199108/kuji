@@ -84,7 +84,7 @@ function deleteHelp(id){
 			</div>
 			<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">帮助说明文本</span> 
-					<textarea  class="form-control"  style="overflow-y:auto;" rows="10" cols="30" id="helpContent" ></textarea>
+					<textarea  class="form-control"  style="overflow-y:auto;" rows="10" cols="30" id="content" ></textarea>
 				<input type="hidden" name="id" id="id"> 
 				</div>
 				

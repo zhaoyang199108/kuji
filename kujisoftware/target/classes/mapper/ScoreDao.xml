@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuji.dao.ScoreDao">
+	<insert id="insertIntoScore"  parameterType="com.kuji.entity.Score" >
+		insert
+		into 
+		score(device,type,which_day,exercise_id,score)
+		values(#{device},#{type},#{whichDay},#{exerciseId},#{score});
+	</insert>
+	<select id="findScoreById" resultType="com.kuji.entity.Score" parameterType="String">
+		select 
+		t.id,
+		t.device,
+		t.which_day,
+		t.exercise_id,
+		t.type,
+		t.score,
+		t.create_time
+		from 
+		score t 
+		where t.device=#{device};
+	</select>
+	<select id="findScoreByWhichDayAndTypeAndExerciseIdAndDevice" resultType="com.kuji.entity.Score" parameterType="com.kuji.entity.Score">
+		select 
+		t.id,
+		t.device,
+		t.which_day,
+		t.exercise_id,
+		t.type,
+		t.score,
+		t.create_time
+		from 
+		score t 
+		where t.which_day = #{whichDay}
+		and t.type = #{type}
+		and t.exercise_id = #{exerciseId}
+		and t.device = #{device};
+	</select>
+</mapper>

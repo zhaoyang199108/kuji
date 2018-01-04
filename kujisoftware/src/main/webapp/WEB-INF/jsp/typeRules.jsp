@@ -10,11 +10,14 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>规则说明</title>
 </head>
    <script>
+   var temp;
 	    function submitForm(){
 	 		var typeRulesName = $('#typeRulesName').val();
 	 		var typeRulesContent = $('#typeRulesContent').val();
@@ -61,9 +64,9 @@
 	 		}
 	 		
 	 		function deleteTypeRules(id){
-//	 			console.log($(this))
+	 			console.log($(this))
 	 			console.log(id);
-	 			$.ajax({
+	 			 $.ajax({
 	 				url:path+'/kujisoftware/typeRules/deleteTypeRules',
 	 				type:'GET',
 	 				data:{'id':id},
@@ -73,7 +76,12 @@
 	 						window.location.href=path+'/kujisoftware/typeRules/typeRules';
 	 					}
 	 				}
-	 			}); 
+	 			});  
+	 		}
+	 		
+	 	   function showDialog(id){
+	 			$('#myModal').modal('show');
+	 			temp = id;
 	 		}
 	</script>
 <body>
@@ -132,7 +140,10 @@
 								</td>
 								<td>
 									<a class="btn btn-info" target="_blank"   onclick="updataTypeRules(${sk.typeRulesId })" >修改</a>
-									<a class="btn btn-info"  onclick="deleteTypeRules(${sk.typeRulesId })" target="_blank" >删除</a>
+									<button class="btn btn-info"  onclick="showDialog(${sk.typeRulesId })" style="display:block;position:relative;top:0px">
+									删除	
+									</button>
+
 								</td>
 							</tr>
 						</c:forEach>
@@ -142,5 +153,28 @@
 			</div>
 	</div>
 	</div>
+	
+	<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+			</div>
+			<div class="modal-body">
+				确定要删除数据吗?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary" onclick="deleteTypeRules(temp)">
+				    确定
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
 </body>
 </html>

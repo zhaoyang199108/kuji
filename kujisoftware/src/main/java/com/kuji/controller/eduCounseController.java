@@ -34,8 +34,8 @@ import com.kuji.service.EduCounseService;
 @RequestMapping("/eduCounse")
 public class eduCounseController {
 	
-	private final String path = "D:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\edu\\";
-//	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload/picture/";
+	//private final String path = "D:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\edu\\";
+	private final String path = "/usr/software/apache-tomcat-7.0.65/webapps/kujisoftware/upload/edu/";
 	
 	@Autowired
 	private EduCounseService eduCounseService;
@@ -45,7 +45,7 @@ public class eduCounseController {
 		String pageSize="";
 		String currentPage="";
 		if(currentPage == null||"".equals(currentPage)){
-			currentPage = "1";
+			currentPage = "0";
 		}
 		if(pageSize == null||"".equals(pageSize)){
 			pageSize = "20";
@@ -56,8 +56,7 @@ public class eduCounseController {
 	}
 
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String,Object> saveOrUpdate(HttpServletRequest request,HttpServletResponse response,
+	public String  saveOrUpdate(HttpServletRequest request,HttpServletResponse response,
 			@RequestParam("files") MultipartFile[] files){
 //		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;             // 获得文件：         
 		Map<String,Object> resMap = new HashMap<String, Object>();
@@ -66,16 +65,17 @@ public class eduCounseController {
 		String eduCounseId = request.getParameter("id");
 //		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
 //		List<MultipartFile> list = multipartRequest.getFiles("images[]");
-		try {
-			eduCounseTitle = new String(eduCounseTitle.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		try {
-			eduCounseContent = new String(eduCounseContent.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}		StringBuffer sb = new StringBuffer();
+//		try {
+//			eduCounseTitle = new String(eduCounseTitle.getBytes("iso-8859-1"),"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		try {
+//			eduCounseContent = new String(eduCounseContent.getBytes("iso-8859-1"),"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+		StringBuffer sb = new StringBuffer();
 		if(files!=null && files.length>0){  
 			 for(int i = 0;i<files.length;i++){  
 	                MultipartFile file = files[i];  
@@ -113,12 +113,12 @@ public class eduCounseController {
 				if(eduCounseTitle==null || "".equals(eduCounseTitle)){
 					resMap.put("code", "3");
 					resMap.put("message", "请填写标题!");
-					return resMap;
+					return "redirect:eduCounse";
 				}
 			if(sb.toString()==null || "".equals(sb.toString())){//判断上传图片是否为空
 				resMap.put("code", "3");
 				resMap.put("message", "请填加图片");
-				return resMap;
+				return "redirect:eduCounse";
 			}else{
 				EduCounse  eduCounse = new EduCounse();
 				eduCounse.setEduCounseTitle(eduCounseTitle);
@@ -130,23 +130,23 @@ public class eduCounseController {
 							if(count>0){
 								resMap.put("code", "0");
 								resMap.put("message", "增加成功");
-								return resMap;
+								return "redirect:eduCounse";
 							}else{
 								resMap.put("code", "1");
 								resMap.put("message", "操作失败");
-								return resMap;
+								return "redirect:eduCounse";
 							}
 					}else{
 						resMap.put("code", "1");
 						resMap.put("message", "数据已存在");
-						return resMap;
+						return "redirect:eduCounse";
 					}
 			}
 		}else{
 			if(sb.toString()==null || "".equals(sb.toString())){//判断上传图片是否为空
 				resMap.put("code", "3");
 				resMap.put("message", "请填加图片");
-				return resMap;
+				return "redirect:eduCounse";
 			}else{
 				//修改,编辑
 				EduCounse  eduCounse = new EduCounse();
@@ -160,11 +160,11 @@ public class eduCounseController {
 				if(count>0){
 					resMap.put("code", "0");
 					resMap.put("message", "修改成功");
-					return resMap;
+					return "redirect:eduCounse";
 				}else{
 					resMap.put("code", "1");
 					resMap.put("message", "操作失败");
-					return resMap;
+					return "redirect:eduCounse";
 				}
 //			}else{
 //				resMap.put("code", "1");
@@ -206,7 +206,7 @@ public class eduCounseController {
 		String currentPage = request.getParameter("currentPage");
 		String pageSize = request.getParameter("pageSize");
 		if(currentPage == null||"".equals(currentPage)){
-			currentPage = "1";
+			currentPage = "0";
 		}
 		if(pageSize == null||"".equals(pageSize)){
 			pageSize = "20";

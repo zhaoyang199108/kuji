@@ -57,4 +57,10 @@ public class LearnExplainServiceImpl  implements LearnExplainService{
 			return 0;
 		}
 	}
+
+	public LearnExplain findLearnExplainBy(String learnExplainType,
+			String exerciseId, String learnExplainWhichDay) {
+		// TODO Auto-generated method stub
+		return learnExplainDao.findLearnExplainBy(learnExplainType,exerciseId,learnExplainWhichDay);
+	}
 }

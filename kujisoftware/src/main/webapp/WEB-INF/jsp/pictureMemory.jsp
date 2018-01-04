@@ -10,6 +10,8 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>图片记忆训练</title>
@@ -62,8 +64,8 @@
 	   });
 	   });
    
+   
 	function deletePictureMemory(id){
-//			console.log($(this))
 			console.log(id);
 			$.ajax({
 				url:path+'/kujisoftware/pictureMemory/deletePictureMemory',
@@ -77,6 +79,12 @@
 				}
 			}); 
 		}
+	
+	var temp;
+	function showDialog(id){
+		$('#myModal').modal('show');
+		temp=id;
+	}
 	
 	</script>
 <body>
@@ -184,7 +192,12 @@
 									<fmt:formatDate value="${sk.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
 								</td>
 								<td>
-									<a class="btn btn-info"  onclick="deletePictureMemory(${sk.pictureMemoryId })" target="_blank" >删除</a>
+								<button class="btn btn-info"  onclick="showDialog(${sk.pictureMemoryId })" style="display:block;position:relative;top:0px">
+									删除
+								</button>
+					
+					
+<%-- 									<a class="btn btn-info"  onclick="deletePictureMemory(${sk.pictureMemoryId })" target="_blank" >删除</a> --%>
 								</td>
 							</tr>
 						</c:forEach>
@@ -194,5 +207,28 @@
 			</div>
 	</div>
 	</div>
+												<!-- 模态框（Modal） -->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+										&times;
+									</button>
+								
+								</div>
+								<div class="modal-body">
+									确定要删除数据吗?
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+									</button>
+									<button type="button" class="btn btn-primary" onclick="deletePictureMemory(temp)">
+									    确定
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal -->
+					</div>
 </body>
 </html>

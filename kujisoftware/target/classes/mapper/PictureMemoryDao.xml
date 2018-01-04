@@ -4,15 +4,29 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kuji.dao.PictureMemoryDao">
 	<insert id="insertIntoPictureMemory" parameterType="com.kuji.entity.PictureMemory">
-		insert into picturememory(pictureMemory_imgName,pictureMemory_category,exercise_id,pictureMemory_which_day,
-		pictureMemory_type,pictureMemory_number,pictureMemory_error_number,pictureMemory_score)
-		values(#{pictureMemoryImgName},#{pictureMemoryCategory},#{exerciseId},#{pictureMemoryWhichDay},#{pictureMemoryType},#{pictureMemoryNumber},#{pictureMemoryErrorNumber},#{pictureMemoryScore});
+		insert into picturememory(
+		pictureMemory_imgName,
+		exercise_id,
+		pictureMemory_which_day,
+		pictureMemory_type,
+		pictureMemory_number,
+		pictureMemory_error_number,
+		pictureMemory_score)
+		values
+		(#{pictureMemoryImgName},
+		#{exerciseId},
+		#{pictureMemoryWhichDay},
+		#{pictureMemoryType},
+		#{pictureMemoryNumber},
+		#{pictureMemoryErrorNumber},
+		#{pictureMemoryScore}
+		);
 	</insert>
+	
 	<select id="findAll" resultType="com.kuji.entity.PictureMemory">
 	select 
 	t.pictureMemory_id,
 	t.pictureMemory_imgName,
-	t.pictureMemory_category,
 	t.pictureMemory_which_day,
 	t.pictureMemory_score,
 	t.pictureMemory_type,
@@ -26,7 +40,6 @@
 	select 
 	t.pictureMemory_id,
 	t.pictureMemory_imgName,
-	t.pictureMemory_category,
 	t.pictureMemory_which_day,
 	t.pictureMemory_score,
 	t.pictureMemory_type,
@@ -40,4 +53,29 @@
 	and t.pictureMemory_type = #{pictureMemoryType}
 	and t.exercise_id = #{exerciseId}
 	</select>
+	
+	<select id="findPictureMemoryById" resultType="com.kuji.entity.PictureMemory"
+		parameterType="long">
+		select 
+		t.pictureMemory_id,
+		t.pictureMemory_imgName,
+		t.pictureMemory_which_day,
+		t.pictureMemory_score,
+		t.pictureMemory_type,
+		t.pictureMemory_number,
+		t.create_time,
+		t.pictureMemory_error_number,
+		t.exercise_id
+		from picturememory t
+		where t.pictureMemory_id=#{pictureMemoryId};
+	</select>
+	
+	<delete id="deletePictureMemoryById" parameterType="long" >
+		Delete
+		FROM 
+	 	`picturememory` 
+	 	where 
+	 	pictureMemory_id = #{pictureMemoryId};
+	</delete>
+	
 </mapper>

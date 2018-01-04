@@ -10,11 +10,14 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>记忆训练</title>
 </head>
    <script>
+   var temp;
 	    function submitForm(){
 // 	 		var a = $('#a').val();
             var id = $('#id').val();
@@ -22,7 +25,7 @@
 	 		var whichDay = $('#whichDay').val();
 	 		var exerciseId = $('#exerciseId').val();
 	 		var errorNumber = $('#errorNumber').val();
-	 		var words = $('#content').val();
+	 		var words = $('#contents').val();
 	 		var number = $('#number').val();
 	 		var score = $('#score').val();
 	 		$.ajax({
@@ -39,19 +42,17 @@
 	 	}	
 		function saveToTextarea(){
 			var word = $('#word').val();
-		    var content = 	$('#content').val();
+		    var content = 	$('#contents').val();
 		    console.log(content);
 			if(content==null||content==""){
-				$('#content').append(word);
+				$('#contents').append(word);
 			}else{
-				$('#content').val(content+";"+word);
+				$('#contents').val(content+";"+word);
 			}
 				$('#myModal').modal('hide');
 				$('#word').val("");
 			}
-	function showDialog(){
-		$('#myModal').modal('show');
-	}
+
 	
 	function updatamemoryTrain(id){
 			$.ajax({
@@ -68,7 +69,7 @@
 						   $('#whichDay').val(data.data.memoryTrainWhichDay);
 // 						   $("#whichDay  option[value='"+data.data.whichDay+"'] ").attr("selected",true)
 						  $('#id').val(data.data.memoryTrainId);
-						 $('#content').val(data.data.memoryTrainWords);
+						 $('#contents').val(data.data.memoryTrainWords);
 						 $('#number').val(data.data.memoryTrainNumber);
 						 $('#errorNumber').val(data.data.memoryTrainErrorNumber);
 						 $('#score').val(data.data.memoryTrainScore);
@@ -92,6 +93,15 @@
 				}
 			}); 
 		}
+	
+	function showDialog(){
+		$('#myModal').modal('show');
+	}
+	
+	function showDialo(id){
+		$('#myModa').modal('show');
+		temp=id;
+	}
 	</script>
 <body>
 	<div id="container" class="container" style="margin-top: 10px;">
@@ -126,6 +136,7 @@
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">第几天</span> 
 							<select class="form-control" id="whichDay">
+								<option value="c1">测试一</option>
 								<option value="1">第一天</option>
 								<option value="2">第二天</option>
 								<option value="3">第三天</option>
@@ -133,6 +144,7 @@
 								<option value="5">第五天</option>
 								<option value="6">第六天</option>
 								<option value="7">第七天</option>
+								<option value="c2">测试二</option>
 								<option value="8">第八天</option>
 								<option value="9">第九天</option>
 								<option value="10">第十天</option>
@@ -140,6 +152,7 @@
 								<option value="12">第十二天</option>
 								<option value="13">第十三天</option>
 								<option value="14">第十四天</option>
+								<option value="c3">测试三</option>
 								<option value="15">第十五天</option>
 								<option value="16">第十六天</option>
 								<option value="17">第十七天</option>
@@ -152,9 +165,10 @@
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon" id="words">词语</span>
 					
-					<textarea 	 rows="3" style="width:200px;" id="content" name="content"></textarea> <span>(格式为1;2;3;4...分号为英文)</span>
+					<textarea 	 class="form-control"  rows="3"  id="contents" name="contents"></textarea> <span>(格式为1;2;3;4...分号为英文)</span>
 							<!-- 按钮触发模态框 -->
 				</div>
+
 				<div class="input-group" style="margin-top: 10px">
 					<span class="input-group-addon">数量</span> <input type="text"
 						class="form-control" placeholder="number" id="number">
@@ -235,7 +249,33 @@
 								</td>
 								<td>
 									<a class="btn btn-info" target="_blank"   onclick="updatamemoryTrain(${sk.memoryTrainId })" >修改</a>
-									<a class="btn btn-info"  onclick="deleteMemoryTrain(${sk.memoryTrainId })" target="_blank" >删除</a>
+									<button class="btn btn-info"  onclick="showDialo(${sk.memoryTrainId })" style="display:block;position:relative;top:0px">
+									删除
+								</button>	
+									<!-- 模态框（Modal） -->
+					<div class="modal fade" id="myModa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+										&times;
+									</button>
+								
+								</div>
+								<div class="modal-body">
+									确定要删除数据吗?
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+									</button>
+									<button type="button" class="btn btn-primary" onclick="deleteMemoryTrain(temp)">
+									    确定
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal -->
+					</div>
+<%-- 									<a class="btn btn-info"  onclick="deleteMemoryTrain(${sk.memoryTrainId })" target="_blank" >删除</a> --%>
 								</td>
 							</tr>
 						</c:forEach>

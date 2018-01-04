@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 	<%@include file="common/tag.jsp" %>	
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <link
 	href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css"
 	rel="stylesheet">
+	
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
@@ -13,8 +15,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>舒尔特表训练</title>
+<style type="text/css">
+.demo {display: inline-block;*display: inline;*zoom: 1;width: 140px;height: 40px;line-height: 20px;font-size: 12px;overflow: hidden;-ms-text-overflow: ellipsis;text-overflow: ellipsis;white-space: nowrap;} 
+.demo:hover {height: auto;white-space: normal;}
+</style>
 </head>
 <script>
+var temp;
 	function submitForm(){
 		  var id = $('#id').val();
 	 		var a = $('#a').val();
@@ -159,12 +166,21 @@
 			}
 		}); 
 	}
+	function showDialog(id){
+		$('#myModal').modal('show');
+		temp=id;
+	}
+
 	
+
+      
 	</script>
 <body>
 	<div id="container" class="container" style="margin-top: 10px;">
 		<%-- <%@ include file="common/nav.jsp"%> --%>
 		<jsp:include page="common/nav.jsp" />
+		             
+					
 		<div class="col-md-9">
 			<ul id="myTab" class="nav nav-tabs">
 				<li class="active">
@@ -297,11 +313,11 @@
 						</div>
 					</form>
 				</div>
+				
 				<div class="tab-pane fade" id="find">
-					<table class="table table-hover">
+					<table class="table table-hover"  style="table-layout:fixed;">
 					<thead>
-						<tr>
-<!-- 							<th>id</th> -->
+						<tr style="width:10%;">
 							<th>题型</th>
 							<th>所属类别</th>
 							<th>第几天</th>
@@ -314,11 +330,22 @@
 					<tbody>
 						<c:forEach var = "sk" items="${five }">
 							<tr>
-<%-- 								<td>${sk.fiveId }</td> --%>
 								<td>${sk.fiveType }</td>
 								<td>${sk.exerciseId }</td>
 								<td>${sk.fiveWhichDay }</td>
-								<td >${sk.fiveContent }</td>
+								<td>
+								
+<!--                         <a href="#"  class="demo">  -->
+								<c:choose>  
+						         <c:when test="${fn:length(sk.fiveContent) > 18}">  
+						             <c:out value="${fn:substring(sk.fiveContent, 0, 6)}..." />  
+						         </c:when>  
+						        <c:otherwise>  
+						           <c:out value="${sk.fiveContent}" />  
+						         </c:otherwise>  
+						     </c:choose>  
+<!--                         </a> -->
+								 </td>
 								<td>${sk.errorNumber }</td>
 								<td>${sk.fiveScore }</td>
 								<td>
@@ -326,15 +353,50 @@
 								</td>
 								<td>
 									<a class="btn btn-info" target="_blank"   onclick="updataFive(${sk.fiveId })" >修改</a>
-									<a class="btn btn-info"  onclick="deleteFive(${sk.fiveId })" target="_blank" >删除</a>
+<!-- 									<a class="btn btn-info" data-toggle="modal" data-target="#myModal">删除
+                                     </a> -->
+                				 <button class="btn btn-info"  onclick="showDialog(${sk.fiveId })" style="display:block;position:relative;top:0px">
+									删除
+								</button>	
+<!-- 									<a class="btn btn-info"   target="_blank"  data-target="#myModal">删除</a> -->
 								</td>
 							</tr>
 						</c:forEach>
 					</tbody>	
 				</table>
 			</div>
+			
+			
+			
 		</div>
 	</div>
+	
+       	
+
 	</div>
+	
+										<!-- 模态框（Modal） -->
+									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+														&times;
+													</button>
+												</div>
+												<div class="modal-body">
+													确定要删除数据吗?
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+													</button>
+													<button type="button" class="btn btn-primary" onclick="deleteFive(temp)">
+													    确定
+													</button>
+												</div>
+											</div><!-- /.modal-content -->
+										</div><!-- /.modal -->
+									</div>
+	 
   </body>
 </html>

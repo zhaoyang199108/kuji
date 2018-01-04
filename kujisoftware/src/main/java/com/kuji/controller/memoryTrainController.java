@@ -1,6 +1,7 @@
 package com.kuji.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +48,10 @@ public class memoryTrainController {
 		String  memoryTrainNumber = request.getParameter("number");//答题数量
 		String  memoryTrainScore = request.getParameter("score");//分数
 		try {
+			memoryTrainWords = new String(memoryTrainWords.getBytes("ios-8859-1"),"utf-8");
 			memoryTrainType = new String(memoryTrainType.getBytes("iso-8859-1"),"utf-8");
+			memoryTrainWords = URLDecoder.decode(memoryTrainWords);
+			memoryTrainType = URLDecoder.decode(memoryTrainType);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

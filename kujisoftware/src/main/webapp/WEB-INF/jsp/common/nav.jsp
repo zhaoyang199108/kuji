@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			window.location.href = path+'/kujisoftware/speed/speed';
 		}
 		function mandaraOnclick(){
-// 			window.location.href = 'http://192.168.0.103:8080/kujisoftware/mandara/mandara';
+			window.location.href = path+'/kujisoftware/mandara/mandara';
 		}
 		function musicUploadOnclick(){
 			window.location.href = path+'/kujisoftware/musicUpload/musicUpload';

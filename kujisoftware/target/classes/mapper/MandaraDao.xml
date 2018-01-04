@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.kuji.dao.MandaraDao">
+		<insert id="insertIntoMandara"  parameterType="com.kuji.entity.Mandara" >
+			insert into 
+			mandara
+			(error_number,
+			exercise_id,
+			which_day,
+			type,
+			score)
+			values(
+			#{errorNumber},
+			#{exerciseId},
+			#{whichDay},
+			#{type},
+			#{score}
+			);
+		</insert>
+		<select id="findMandaraByDayAndTypeAndExerciseId" parameterType="com.kuji.entity.Mandara" resultType="Mandara"> 
+			SELECT
+			t.id,
+			t.which_day,
+			t.type,
+			t.score,
+			t.error_number,
+			t.exercise_id,
+			t.create_time
+			FROM mandara t
+			where 
+			t.which_day=#{whichDay}
+		    and t.type=#{type}
+			and t.exercise_id=#{exerciseId}
+		</select>
+		
+	     <select id="findAll" resultType="com.kuji.entity.Mandara">
+			SELECT
+			t.id,
+			t.which_day,
+			t.type,
+			t.score,
+			t.error_number,
+			t.exercise_id,
+			t.create_time
+			FROM `mandara` t;
+		</select>
+	
+	  <select id="findMandaraById"  resultType="com.kuji.entity.Mandara"  
+	     parameterType="long">
+			SELECT
+			t.id,
+			t.which_day,
+			t.type,
+			t.score,
+			t.error_number,
+			t.exercise_id,
+			t.create_time
+			FROM `mandara` t
+			where t.id=#{id};
+		</select>
+	
+		<update id="updateMandara"  parameterType="com.kuji.entity.Mandara">
+			Update 
+			mandara t 
+			set 
+		    t.which_day=#{whichDay},
+			t.type=#{type},
+			t.score=#{score},
+			t.error_number=#{errorNumber},
+			t.exercise_id = #{exerciseId}
+			where 
+			t.id = #{id};
+		</update>
+	
+ </mapper>

@@ -37,7 +37,6 @@ $(document).ready(function() {
 		})
 		
 function deleteLearnExplain(id){
-//	console.log($(this))
 	console.log(id);
 	$.ajax({
 		url:path+'/kujisoftware/learnExplain/deleteLearnExplain',
@@ -51,6 +50,8 @@ function deleteLearnExplain(id){
 		}
 	}); 
 }
+
+
 function updataLearnExplain(id){
 	$.ajax({
 		url:path+'/kujisoftware/learnExplain/findLearnExplainById',
@@ -73,6 +74,13 @@ function updataLearnExplain(id){
 		}
 	}); 
 }
+
+var temp;
+ function showDialog(id){
+	$('#myModal').modal('show');
+	temp = id;
+	}
+ 
 </script>
 <body>
 	<div id="container" class="container" style="margin-top: 10px;">
@@ -174,8 +182,11 @@ function updataLearnExplain(id){
 									<fmt:formatDate value="${sk.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
 								</td>
 								<td>
-									<a class="btn btn-info" target="_blank"   onclick="updataLearnExplain(${sk.learnExplainId })" >修改</a>
-<%-- 									<a class="btn btn-info"  onclick="deleteLearnExplain(${sk.learnExplainId })" target="_blank" >删除</a> --%>
+<%-- 									<a class="btn btn-info" target="_blank"   onclick="updataLearnExplain(${sk.learnExplainId })" >修改</a> --%>
+<!-- 									<a class="btn btn-info"  onclick="deleteLearnExplain()" target="_blank" >删除</a> -->
+								<button class="btn btn-info"  onclick="showDialog(${sk.learnExplainId })" style="display:block;position:relative;top:0px">
+									删除	
+								</button>
 								</td>
 							</tr>
 						</c:forEach>
@@ -185,5 +196,27 @@ function updataLearnExplain(id){
 		  </div>
 		</div>
 	</div>
+		<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+			</div>
+			<div class="modal-body">
+				确定要删除数据吗?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary" onclick="deleteLearnExplain(temp)">
+				    确定
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
 </body>
 </html>

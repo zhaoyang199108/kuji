@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +43,7 @@ import com.kuji.service.MusicUploadService;
 public class musicUploadController {
 	
 //	private final String path = "D:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\";
-//	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload";
+	private final String path = "/usr/software/apache-tomcat-7.0.65/webapps/kujisoftware/upload/";
 //	/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload
 	@Autowired
 	private  MusicUploadService musicUploadService;
@@ -55,28 +56,29 @@ public class musicUploadController {
 	}
 	
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-	public String saveOrUpdate(HttpServletRequest request,HttpServletResponse response){
+	public String saveOrUpdate(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
 		MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
 		Map<String,Object> resMap = new HashMap<String, Object>();
 		//  获得第1张图片（根据前台的name名称得到上传的文件）   
         MultipartFile imgFile1  =  multipartRequest.getFile("music_file");//音乐
        String musicName =  imgFile1.getOriginalFilename();
        String  id = request.getParameter("id");
-       try {
-    	   musicName = new String(musicName.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+//       try {
+//    	   musicName = new String(musicName.getBytes("iso-8859-1"),"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
 		byte[] b = new byte[1024*1024];
         try {
 			InputStream is = imgFile1.getInputStream();
 //			byteContent = readStream(is);
-			 File fileDir = new File(request.getSession().getServletContext().getRealPath("\\") + "upload\\" + imgFile1.getOriginalFilename());
+			 File fileDir = new File(path);
 			  //判断文件夹是否存在,如果不存在则创建文件夹
 			  if (!fileDir.exists()) {
 				  fileDir.mkdir();
 			  }
-			FileOutputStream fos = new FileOutputStream(request.getSession().getServletContext().getRealPath("\\") + "upload\\" + imgFile1.getOriginalFilename());
+			FileOutputStream fos = new FileOutputStream(path + imgFile1.getOriginalFilename());
 
 			while((is.read(b)) != -1){
 			fos.write(b);
@@ -90,17 +92,18 @@ public class musicUploadController {
 		}
 		String  type = request.getParameter("type");//类型
 		String  playOrder = request.getParameter("playOrder");//播放顺序
-		String  musicPath = request.getSession().getServletContext().getRealPath("\\") + "upload\\" + imgFile1.getOriginalFilename();//音乐
-		try {
-			type = new String(type.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		try {
-			musicPath = new String(musicPath.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		String  musicPath = path + imgFile1.getOriginalFilename();//音乐
+//		try {
+//			type = new String(type.getBytes("iso-8859-1"),"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		try {
+//			musicPath = new String(musicPath.getBytes("iso-8859-1"),"utf-8");
+//		//	musicPath = URLDecoder.decode(musicPath);
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
 		if(id==null || "".equals(id)){
 			if(playOrder == null || "".equals(playOrder)){
 				resMap.put("code", "1");
@@ -188,9 +191,9 @@ public class musicUploadController {
 		for(MusicUpload i : list){
 			MusicView mv = new MusicView();
 			mv.name = i.getMusicUploadName();
-			mv.url = "http://123.56.190.160:8999/kujisoftware/musicUpload/downloadMusic?id="+i.getMusicUploadId();
+			mv.url = "http://42.123.126.78:8999/kujisoftware/musicUpload/downloadMusic?id="+i.getMusicUploadId();
 			mv.id =i.getMusicUploadId();
-			File f= new File(request.getSession().getServletContext().getRealPath("/") + "upload/" + i.getMusicUploadName());  
+			File f= new File(path+ i.getMusicUploadName());  
 			mv.fileLength = f.length();
 			mv.version = i.getVersion();
 			 listRes.add(mv);
@@ -212,7 +215,7 @@ public class musicUploadController {
 		}
 		MusicUpload mu = musicUploadService.finMusicById(Long.parseLong(id));
 		 try {
-			InputStream fis = new BufferedInputStream(new FileInputStream(request.getSession().getServletContext().getRealPath("/") + "upload//"+mu.getMusicUploadName()));
+			InputStream fis = new BufferedInputStream(new FileInputStream(path+mu.getMusicUploadName()));
 			byte[] buffer = new byte[fis.available()];
 	        fis.read(buffer);
 	        fis.close();

@@ -42,7 +42,7 @@ import com.kuji.service.LearnExplainService;
 public class learnExplainController {
 
 //	private final String path = "E:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\explain\\";
-	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload/explain/";
+	private final String path = "/usr/software/apache-tomcat-7.0.65/webapps/kujisoftware/upload/explain/";
 	@Autowired
 	private  LearnExplainService learnExplainService;
 	@RequestMapping(value = "/learnExplain", method = RequestMethod.GET)
@@ -89,8 +89,8 @@ public class learnExplainController {
 		String  learnExplainType = request.getParameter("learnExplainType");//类型
 		String  exerciseId = request.getParameter("exerciseId");//所属类别
 		String  learnExplainWhichDay = request.getParameter("learnExplainWhichDay");//第几天
-		String  learnExplainImgPath = request.getSession().getServletContext().getRealPath("/") + "upload/explain/"+imgFile1.getOriginalFilename();//图片路径
-		String  learnExplainVoicePath = request.getSession().getServletContext().getRealPath("/") + "upload/explain/"+imgFile2.getOriginalFilename();//语音路径
+		String  learnExplainImgPath = path+imgFile1.getOriginalFilename();//图片路径
+		String  learnExplainVoicePath = path+imgFile2.getOriginalFilename();//语音路径
 		String  learnExplainScore = request.getParameter("learnExplainScore");//分数
 		try {
 			learnExplainType = new String(learnExplainType.getBytes("iso-8859-1"),"utf-8");
@@ -115,7 +115,7 @@ public class learnExplainController {
 			learnExplain.setLearnExplainVoicePath(learnExplainVoicePath);//语音路径
 			learnExplain.setLearnExplainImgPath(learnExplainImgPath);//图片路径
 			learnExplain.setLearnExplainScore(learnExplainScore);//分数
-			learnExplain.setVersion(1);
+//			learnExplain.setVersion(1);
 			learnExplain.setLearnExplainVoiceName(imgFile2.getOriginalFilename());
 			if(imgFile1.getOriginalFilename()==null || "".equals(imgFile1.getOriginalFilename())||
 					imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
@@ -130,7 +130,11 @@ public class learnExplainController {
 					return "redirect:learnExplain";
 				}else{
 					int count = learnExplainService.insertIntoLearnExplain(learnExplain);//添加
-					if(count>0){
+					//learnExplainService.update(version);
+					LearnExplain lep = learnExplainService.findLearnExplainBy(learnExplainType,exerciseId,learnExplainWhichDay);
+					lep.setVersion(lep.getLearnExplainId());
+					int c = learnExplainService.updateLearnExplain(lep);
+					if(count>0&&c>0){
 						resMap.put("learnExplain", learnExplain);
 						resMap.put("code", "0");
 						resMap.put("message", "添加成功!");
@@ -147,20 +151,28 @@ public class learnExplainController {
 			learnExplain.setLearnExplainType(learnExplainType);//类型
 			learnExplain.setLearnExplainWhichDay(learnExplainWhichDay);//第几天
 			learnExplain.setExerciseId(Long.parseLong(exerciseId));//所属类别
-			learnExplain.setLearnExplainVoicePath(learnExplainVoicePath);//语音路径
-			learnExplain.setLearnExplainImgPath(learnExplainImgPath);//图片路径
+			if("".equals(imgFile2.getOriginalFilename())){
+			learnExplain.setLearnExplainVoicePath(null);//语音路径
+			learnExplain.setLearnExplainImgPath(null);//图片路径
+			learnExplain.setLearnExplainVoiceName(null);
+			}else{
+				learnExplain.setLearnExplainVoicePath(learnExplainVoicePath);//语音路径
+				learnExplain.setLearnExplainImgPath(learnExplainImgPath);//图片路径
+				learnExplain.setLearnExplainVoiceName(imgFile2.getOriginalFilename());
+			}
+			
 			learnExplain.setLearnExplainScore(learnExplainScore);//分数
-			learnExplain.setLearnExplainVoiceName(imgFile2.getOriginalFilename());
+			
 			learnExplain.setLearnExplainId(Long.parseLong(id));
 			LearnExplain learnExp = learnExplainService.findLearnExplainById(Long.parseLong(id));
 			long version=learnExp.getVersion()+1;//获取原来版本+1
 			learnExplain.setVersion(version);
-			if(imgFile1.getOriginalFilename()==null || "".equals(imgFile1.getOriginalFilename())||
-					imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
-				resMap.put("code", "3");
-				resMap.put("message", "请上传图片或语音！");
-				return "redirect:learnExplain";
-			}else{
+//			if(imgFile1.getOriginalFilename()==null || "".equals(imgFile1.getOriginalFilename())||
+//					imgFile2.getOriginalFilename()==null || "".equals(imgFile2.getOriginalFilename())){
+//				resMap.put("code", "3");
+//				resMap.put("message", "请上传图片或语音！");
+//				return "redirect:learnExplain";
+//			}else{
 //			int count1 = learnExplainService.query(learnExplainType,exerciseId,learnExplainWhichDay);
 //			if(count1==0){ 
 //				resMap.put("code", "2");
@@ -177,7 +189,7 @@ public class learnExplainController {
 					resMap.put("message", "操作失败!");
 					return "redirect:learnExplain";
 				}
-		    }
+//		    }
 		}
 //  	}
 }
@@ -222,8 +234,8 @@ public class learnExplainController {
 		for(LearnExplain i : list_explain){
 			LearnExplainView lev = new LearnExplainView();
 			lev.id = i.getLearnExplainId();
-			lev.url = "http://123.56.190.160:8999/kujisoftware/learnExplain/downloadLearnExplainVoice?id="+i.getLearnExplainId();
-			lev.imgUrl = "http://123.56.190.160:8999/kujisoftware/upload/explain/"+i.getLearnExplainImgPath().substring(78);
+			lev.url = "http://42.123.126.78:8999/kujisoftware/learnExplain/downloadLearnExplainVoice?id="+i.getLearnExplainId();
+			lev.imgUrl = "http://42.123.126.78:8999/kujisoftware/upload/explain/"+i.getLearnExplainImgPath().substring(78);
 			lev.name = i.getLearnExplainVoiceName();
 			//File f= new File(request.getSession().getServletContext().getRealPath("/") + "upload/" + i.getLearnExplainVoicePath().substring(63));  
 			File f = new File(path+i.getLearnExplainVoiceName());

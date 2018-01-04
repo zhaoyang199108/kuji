@@ -44,11 +44,11 @@ public class typeRulesController {
 		String  typeRulesName = request.getParameter("typeRulesName");//规则名称
 		String  typeRulesContent = request.getParameter("typeRulesContent");//规则内容
 		String typeRulesId = request.getParameter("id");
-		try {
-			typeRulesContent = new String(typeRulesContent.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			typeRulesContent = new String(typeRulesContent.getBytes("iso-8859-1"),"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
 		if(typeRulesContent==null || "".equals(typeRulesContent)){
 			resMap.put("code", "1");
 			resMap.put("message", "请填写规则说明!");

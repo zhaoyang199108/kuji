@@ -67,7 +67,7 @@
 	learnExplain_id=#{id};
 	</delete>
 	
-	<update id="updateLearnExplain"  parameterType="com.kuji.entity.LearnExplain">
+<!-- 	<update id="updateLearnExplain"  parameterType="com.kuji.entity.LearnExplain">
 	Update 
 	learnexplain t 
 	set 
@@ -81,6 +81,31 @@
 	t.exercise_id = #{exerciseId}
 	where 
 	t.learnExplain_id = #{learnExplainId};
+	</update> -->
+	<update id="updateLearnExplain"  parameterType="com.kuji.entity.LearnExplain">
+		Update 
+		learnexplain t 
+		 <trim prefix="set" suffixOverrides=",">
+		  <if test="_parameter!=null ">t.learnExplain_which_day=#{learnExplainWhichDay,jdbcType=VARCHAR},</if>
+		   <if test="_parameter!=null">t.learnExplain_type=#{learnExplainType,jdbcType=VARCHAR},</if>
+		    <if test="_parameter!=null">t.learnExplain_score=#{learnExplainScore,jdbcType=VARCHAR},</if>
+		     <if test="_parameter!=null">t.learnExplain_imgPath=#{learnExplainImgPath,jdbcType=VARCHAR},</if>
+		     <if test="_parameter!=null">t.learnExplain_voicePath=#{learnExplainVoicePath,jdbcType=VARCHAR},</if>
+		      <if test="_parameter!=null">t.learnExplain_voiceName=#{learnExplainVoiceName,jdbcType=VARCHAR},</if>
+		      <if test="_parameter!=null">t.version=#{version,jdbcType=INTEGER},</if>
+		      <if test="_parameter!=null">t.exercise_id=#{exerciseId,jdbcType=INTEGER},</if>
+		  </trim>
+		where 
+		t.learnExplain_id = #{learnExplainId};
 	</update>
-	
+		<select id="findLearnExplainBy" resultType="com.kuji.entity.LearnExplain">
+        select 
+		* 
+        from 
+        learnexplain 
+        where  exercise_id=#{exerciseId} 
+        and learnExplain_type=#{learnExplainType} 
+        and learnExplain_which_day=#{learnExplainWhichDay};
+    </select>
+
 </mapper>

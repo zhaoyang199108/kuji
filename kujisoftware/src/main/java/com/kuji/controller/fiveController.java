@@ -1,6 +1,7 @@
 package com.kuji.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,35 +71,36 @@ public class fiveController {
 		String  w = request.getParameter("w");
 		String  x = request.getParameter("x");
 		String  y = request.getParameter("y");
-		try {
-			a = new String(a.getBytes("iso-8859-1"),"utf-8");
-			b = new String(b.getBytes("iso-8859-1"),"utf-8");
-			c = new String(c.getBytes("iso-8859-1"),"utf-8");
-			d = new String(d.getBytes("iso-8859-1"),"utf-8");
-			e = new String(e.getBytes("iso-8859-1"),"utf-8");
-			f = new String(f.getBytes("iso-8859-1"),"utf-8");
-			g = new String(g.getBytes("iso-8859-1"),"utf-8");
-			h = new String(h.getBytes("iso-8859-1"),"utf-8");
-			i = new String(i.getBytes("iso-8859-1"),"utf-8");
-			j = new String(j.getBytes("iso-8859-1"),"utf-8");
-			k = new String(k.getBytes("iso-8859-1"),"utf-8");
-			l = new String(l.getBytes("iso-8859-1"),"utf-8");
-			m = new String(m.getBytes("iso-8859-1"),"utf-8");
-			n = new String(n.getBytes("iso-8859-1"),"utf-8");
-			o = new String(o.getBytes("iso-8859-1"),"utf-8");
-			p = new String(p.getBytes("iso-8859-1"),"utf-8");
-			q = new String(q.getBytes("iso-8859-1"),"utf-8");
-			r = new String(r.getBytes("iso-8859-1"),"utf-8");
-			s = new String(s.getBytes("iso-8859-1"),"utf-8");
-			t = new String(t.getBytes("iso-8859-1"),"utf-8");
-			u = new String(u.getBytes("iso-8859-1"),"utf-8");
-			v = new String(v.getBytes("iso-8859-1"),"utf-8");
-			w = new String(w.getBytes("iso-8859-1"),"utf-8");
-			x = new String(x.getBytes("iso-8859-1"),"utf-8");
-			y = new String(y.getBytes("iso-8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			a = new String(a.getBytes("iso-8859-1"),"utf-8");
+//			//a = URLDecoder.decode(a);
+//			b = new String(b.getBytes("iso-8859-1"),"utf-8");
+//			c = new String(c.getBytes("iso-8859-1"),"utf-8");
+//			d = new String(d.getBytes("iso-8859-1"),"utf-8");
+//			e = new String(e.getBytes("iso-8859-1"),"utf-8");
+//			f = new String(f.getBytes("iso-8859-1"),"utf-8");
+//			g = new String(g.getBytes("iso-8859-1"),"utf-8");
+//			h = new String(h.getBytes("iso-8859-1"),"utf-8");
+//			i = new String(i.getBytes("iso-8859-1"),"utf-8");
+//			j = new String(j.getBytes("iso-8859-1"),"utf-8");
+//			k = new String(k.getBytes("iso-8859-1"),"utf-8");
+//			l = new String(l.getBytes("iso-8859-1"),"utf-8");
+//			m = new String(m.getBytes("iso-8859-1"),"utf-8");
+//			n = new String(n.getBytes("iso-8859-1"),"utf-8");
+//			o = new String(o.getBytes("iso-8859-1"),"utf-8");
+//			p = new String(p.getBytes("iso-8859-1"),"utf-8");
+//			q = new String(q.getBytes("iso-8859-1"),"utf-8");
+//			r = new String(r.getBytes("iso-8859-1"),"utf-8");
+//			s = new String(s.getBytes("iso-8859-1"),"utf-8");
+//			t = new String(t.getBytes("iso-8859-1"),"utf-8");
+//			u = new String(u.getBytes("iso-8859-1"),"utf-8");
+//			v = new String(v.getBytes("iso-8859-1"),"utf-8");
+//			w = new String(w.getBytes("iso-8859-1"),"utf-8");
+//			x = new String(x.getBytes("iso-8859-1"),"utf-8");
+//			y = new String(y.getBytes("iso-8859-1"),"utf-8");
+//		} catch (UnsupportedEncodingException e1) {
+//			e1.printStackTrace();
+//		}
 		if((a == null || "".equals(a))
 				||(b == null || "".equals(b))
 				||(c == null || "".equals(c))
@@ -131,6 +133,7 @@ public class fiveController {
 			return map;
 		}
 		String content=a+";"+b+";"+c+";"+d+";"+e+";"+f+";"+g+";"+h+";"+i+";"+j+";"+k+";"+l+";"+m+";"+n+";"+o+";"+p+";"+q+";"+r+";"+s+";"+t+";"+u+";"+v+";"+w+";"+x+";"+y;
+		content = URLDecoder.decode(content);
 		System.out.println(content);
 		String  type = request.getParameter("type");//类型
 		String  exerciseId = request.getParameter("exerciseId");//所属类别

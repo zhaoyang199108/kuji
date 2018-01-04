@@ -36,8 +36,8 @@ import com.kuji.service.PictureMemoryService;
 @Controller
 @RequestMapping("/pictureMemory")
 public class pictureMemory {
-	private final String path = "D:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\picture\\";
-//	private final String path = "/usr/software/tomcat/apache-tomcat-7.0.65/webapps/kujisoftware/upload/picture/";
+	//private final String path = "D:\\apache-tomcat-7.0.57\\wtpwebapps\\kujisoftware\\upload\\picture\\";
+	private final String path = "/usr/software/apache-tomcat-7.0.65/webapps/kujisoftware/upload/picture/";
 	@Autowired
 	private  PictureMemoryService pictureMemoryService;
 	@RequestMapping(value = "/pictureMemory", method = RequestMethod.GET)
@@ -187,7 +187,7 @@ public class pictureMemory {
 		for(int i = 0 ; i < str.length ; i++){
 			PictureMemoryImgView piv = new PictureMemoryImgView();
 			piv.key = (i+1)+"";
-			piv.url = "http://123.56.190.160:8999/kujisoftware/upload/picture/"+str[i].substring(78);//win 63
+			piv.url = "http://42.123.126.78:8999/kujisoftware/upload/picture/"+str[i].substring(78);//win 63
 			listContentView.add(piv);
 		}
 		PictureMemoryView pmv = new PictureMemoryView();
